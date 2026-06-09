@@ -1,0 +1,2243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Intellecta — Professional IQ Assessment</title>
+
+<!-- PWA Meta Tags -->
+<meta name="application-name" content="Intellecta"/>
+<meta name="description" content="Professional IQ Assessment for all age groups. Get your IQ score, sub-scores and downloadable certificate."/>
+<meta name="theme-color" content="#1a7a4a"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Intellecta"/>
+
+<!-- Open Graph (for WhatsApp / social previews) -->
+<meta property="og:title" content="Intellecta — Professional IQ Assessment"/>
+<meta property="og:description" content="Discover your true intelligence. Age-calibrated IQ test with certificate."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://intellecta.app"/>
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json"/>
+
+<!-- Apple Touch Icons (inline SVG converted) -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%231a7a4a'/%3E%3Ctext x='96' y='135' text-anchor='middle' font-family='Georgia,serif' font-size='110' font-weight='900' fill='white'%3EI%3C/text%3E%3C/svg%3E"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a7a4a'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='900' fill='white'%3EI%3C/text%3E%3C/svg%3E"/>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f0faf4;color:#1a1a1a;min-height:100vh}
+:root{--green:#1a7a4a;--green2:#145f39;--green3:#0e4428;--light:#e8f5ee;--light2:#c8e6d4;--accent:#f0faf4}
+button{font-family:'DM Sans',sans-serif;cursor:pointer}
+input{font-family:'DM Sans',sans-serif}
+
+/* PWA SAFE AREA (iPhone notch/home bar) */
+body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+.header{padding-top:env(safe-area-inset-top);height:calc(60px + env(safe-area-inset-top))}
+
+/* PWA INSTALL BANNER */
+.pwa-banner{position:fixed;bottom:0;left:0;right:0;background:#0e4428;color:#fff;padding:14px 20px calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;z-index:500;transform:translateY(100%);transition:transform 0.4s cubic-bezier(.32,.72,0,1);box-shadow:0 -4px 24px rgba(0,0,0,0.2)}
+.pwa-banner.show{transform:translateY(0)}
+.pwa-banner-icon{width:44px;height:44px;background:#1a7a4a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0}
+.pwa-banner-text{flex:1}
+.pwa-banner-title{font-size:14px;font-weight:700;margin-bottom:2px}
+.pwa-banner-sub{font-size:12px;opacity:0.8}
+.pwa-banner-btn{background:#fff;color:#0e4428;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.pwa-banner-close{background:none;border:none;color:rgba(255,255,255,0.6);font-size:20px;cursor:pointer;padding:0 4px;flex-shrink:0}
+
+/* PWA SPLASH (shown while loading) */
+.pwa-splash{position:fixed;inset:0;background:#1a7a4a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s ease}
+.pwa-splash.hide{opacity:0;pointer-events:none}
+.pwa-splash-icon{width:88px;height:88px;background:rgba(255,255,255,0.15);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:#fff;margin-bottom:20px;animation:splashPulse 1.5s ease-in-out infinite}
+.pwa-splash-title{font-family:'DM Serif Display',serif;font-size:32px;color:#fff;margin-bottom:8px}
+.pwa-splash-sub{font-size:14px;color:rgba(255,255,255,0.7)}
+@keyframes splashPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.header{background:#fff;border-bottom:1px solid #c8e6d4;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:36px;height:36px;background:var(--green);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px}
+.logo-text{font-weight:700;font-size:20px;color:var(--green);letter-spacing:-0.5px}
+.logo-beta{font-size:10px;background:#c8e6d4;color:var(--green2);padding:2px 8px;border-radius:20px;font-weight:700;margin-left:4px}
+.header-right{font-size:12px;color:#666}
+
+/* PAGE */
+.page{max-width:700px;margin:0 auto;padding:32px 16px 80px}
+.screen{display:none}
+.screen.active{display:block}
+
+/* HOME */
+.hero{text-align:center;margin-bottom:36px}
+.hero-badge{display:inline-block;background:#e8f5ee;border:1px solid #c8e6d4;border-radius:24px;padding:6px 18px;font-size:13px;color:var(--green);font-weight:600;margin-bottom:18px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:40px;font-weight:400;margin-bottom:14px;line-height:1.15;color:#0e2818}
+.hero h1 span{color:var(--green)}
+.hero p{font-size:16px;color:#4a6b56;max-width:480px;margin:0 auto;line-height:1.7}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:36px}
+.feature-card{background:#fff;border:1px solid #d4ead9;border-radius:14px;padding:16px 14px;text-align:center}
+.feature-icon{font-size:26px;margin-bottom:8px}
+.feature-title{font-weight:600;font-size:13px;color:#1a2e22;margin-bottom:4px}
+.feature-desc{font-size:12px;color:#6b8a74}
+.section-title{font-size:18px;font-weight:700;color:#0e2818;margin-bottom:16px;text-align:center}
+.age-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:32px}
+.age-card{background:#fff;border:2px solid #d4ead9;border-radius:14px;padding:18px 16px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:14px}
+.age-card:hover{border-color:var(--green);background:#f5fbf7}
+.age-card.selected{background:#e8f5ee;border-color:var(--green)}
+.age-icon{font-size:32px}
+.age-label{font-weight:700;font-size:15px;color:#0e2818}
+.age-range{font-size:12px;color:#6b8a74;margin-top:2px}
+.age-check{margin-left:auto;color:var(--green);font-weight:700;font-size:20px;display:none}
+.age-card.selected .age-check{display:block}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;display:none}
+.plans.show{display:grid}
+.plan-card{background:#fff;border:2px solid #d4ead9;border-radius:16px;padding:20px}
+.plan-free-label{font-size:12px;font-weight:700;color:#6b8a74;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px}
+.plan-price{font-size:28px;font-weight:700;color:#0e2818;margin-bottom:4px}
+.plan-price span{font-size:13px;font-weight:400;opacity:0.6}
+.plan-list{font-size:13px;color:#4a6b56;margin:0 0 16px;padding-left:18px;line-height:2.1}
+.btn-free{width:100%;padding:12px 0;background:#e8f5ee;border:1.5px solid #c8e6d4;border-radius:10px;color:var(--green2);font-weight:700;font-size:14px}
+.btn-free:hover{background:#d4ead9}
+.plan-paid{background:var(--green);border-color:var(--green2);position:relative;overflow:hidden}
+.plan-paid::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:rgba(255,255,255,0.08);border-radius:50%}
+.plan-paid .plan-free-label{color:rgba(255,255,255,0.7)}
+.plan-paid .plan-price{color:#fff}
+.plan-paid .plan-list{color:rgba(255,255,255,0.85)}
+.btn-paid{width:100%;padding:12px 0;background:#fff;border:none;border-radius:10px;color:var(--green);font-weight:700;font-size:14px}
+.btn-paid:hover{background:#f0f9f4}
+
+/* PROGRESS BAR */
+.progress-bar{background:#e8f5ee;height:5px}
+.progress-fill{height:100%;background:var(--green);transition:width 0.3s ease}
+
+/* TEST */
+.test-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.q-type{font-size:12px;font-weight:700;color:#6b8a74;text-transform:uppercase;letter-spacing:0.06em}
+.q-counter{font-size:13px;font-weight:600;color:var(--green)}
+.timer-display{text-align:right}
+.timer-label{font-size:11px;color:#6b8a74;font-weight:600}
+.timer-value{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;transition:color 0.3s}
+.question-box{background:#fff;border:1.5px solid #d4ead9;border-radius:18px;padding:28px 24px;margin-bottom:20px}
+.question-text{font-size:20px;font-weight:600;color:#0e2818;line-height:1.55}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt-btn{background:#fff;border:1.5px solid #d4ead9;border-radius:12px;padding:14px 16px;text-align:left;color:#1a2e22;font-weight:500;font-size:15px;transition:all 0.15s;display:flex;align-items:center;gap:8px}
+.opt-btn:hover:not(:disabled){background:#f5fbf7;border-color:var(--green)}
+.opt-btn:disabled{cursor:default}
+.opt-letter{font-weight:700;font-size:13px;color:var(--green);min-width:18px}
+.opt-btn.correct{background:#e8f5ee;border-color:var(--green);color:var(--green2)}
+.opt-btn.correct .opt-letter{color:var(--green)}
+.opt-btn.wrong{background:#fef2f2;border-color:#e24b4a;color:#991b1b}
+.opt-btn.wrong .opt-letter{color:#e24b4a}
+
+/* RESULT */
+.result-hero{text-align:center;margin-bottom:24px}
+.result-title{font-family:'DM Serif Display',serif;font-size:28px;color:#0e2818;margin-bottom:6px}
+.result-sub{font-size:14px;color:#6b8a74}
+.iq-card{background:#fff;border-radius:20px;padding:28px 24px;margin-bottom:14px;text-align:center}
+.iq-label{font-size:12px;font-weight:700;color:#9aaf9e;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px}
+.iq-score{font-size:72px;font-weight:800;line-height:1;margin-bottom:8px}
+.iq-badge{display:inline-block;font-size:13px;font-weight:700;padding:5px 16px;border-radius:20px;margin-bottom:16px}
+.iq-stats{display:flex;justify-content:center;gap:24px;font-size:13px;color:#6b8a74}
+.iq-stats strong{color:#0e2818}
+.subscore-card{background:#fff;border:1.5px solid #d4ead9;border-radius:16px;padding:20px;margin-bottom:14px}
+.sub-label-row{font-size:13px;font-weight:700;color:#6b8a74;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px}
+.sub-item{margin-bottom:14px}
+.sub-row{display:flex;justify-content:space-between;margin-bottom:5px}
+.sub-name{font-size:13px;color:#1a2e22;font-weight:500}
+.sub-score{font-size:13px;font-weight:700;color:var(--green)}
+.sub-bar-bg{height:7px;background:#e8f5ee;border-radius:4px;overflow:hidden}
+.sub-bar-fill{height:100%;background:var(--green);border-radius:4px;transition:width 1s ease}
+.scale-card{background:#fff;border:1.5px solid #d4ead9;border-radius:16px;padding:20px;margin-bottom:14px}
+.scale-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #f0faf4}
+.scale-row:last-child{border-bottom:none}
+.scale-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.scale-range{font-size:13px;font-weight:600;color:#1a2e22;min-width:70px}
+.scale-name{font-size:13px;color:#6b8a74}
+.you-badge{margin-left:auto;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px}
+.cert-cta{background:var(--green);border-radius:16px;padding:20px;color:#fff;margin-bottom:14px}
+.cert-cta h3{font-weight:700;font-size:16px;margin-bottom:8px}
+.cert-cta p{font-size:13px;opacity:0.85;margin-bottom:14px;line-height:1.5}
+.cert-input{width:100%;padding:12px 14px;border-radius:10px;border:none;font-size:14px;margin-bottom:12px;outline:none}
+.btn-cert{width:100%;padding:13px 0;background:#fff;border:none;border-radius:10px;color:var(--green);font-weight:700;font-size:14px}
+.btn-cert:hover{background:#f0f9f4}
+.upgrade-box{background:#e8f5ee;border:2px solid #c8e6d4;border-radius:16px;padding:20px;text-align:center;margin-bottom:14px}
+.upgrade-box h3{font-weight:700;font-size:15px;color:var(--green2);margin-bottom:6px}
+.upgrade-box p{font-size:13px;color:#4a6b56;margin-bottom:14px}
+.btn-upgrade{padding:12px 28px;background:var(--green);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:14px}
+.btn-upgrade:hover{background:var(--green2)}
+.btn-back{font-size:13px;color:var(--green);background:none;border:none;font-weight:600}
+.btn-back:hover{opacity:0.75}
+
+/* CERTIFICATE */
+.cert-page{max-width:700px;margin:0 auto;padding:32px 16px 60px}
+.cert-wrapper{background:#fff;border:3px solid var(--green);border-radius:20px;padding:40px 36px;text-align:center;position:relative;overflow:hidden}
+.cert-top-bar{position:absolute;top:0;left:0;right:0;height:8px;background:linear-gradient(90deg,#0e4428,#1a7a4a,#2ecc71)}
+.cert-watermark{position:absolute;top:60px;left:50%;transform:translateX(-50%);font-size:180px;color:rgba(26,122,74,0.04);font-weight:800;pointer-events:none;white-space:nowrap;font-family:'DM Serif Display',serif}
+.cert-logo{width:64px;height:64px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px;font-weight:800;color:#fff}
+.cert-heading{font-size:13px;font-weight:700;color:#6b8a74;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:6px}
+.cert-sub{font-family:'DM Serif Display',serif;font-size:13px;color:#9aaf9e;margin-bottom:20px}
+.cert-name{font-family:'DM Serif Display',serif;font-size:34px;color:#0e2818;border-bottom:2px solid #c8e6d4;display:inline-block;padding-bottom:8px;margin-bottom:20px;min-width:240px}
+.cert-desc{font-size:15px;color:#4a6b56;margin:0 0 24px;line-height:1.7}
+.cert-score-box{display:inline-block;border-radius:16px;padding:16px 40px;margin-bottom:24px;border-width:2px;border-style:solid}
+.cert-iq-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em}
+.cert-iq-num{font-size:56px;font-weight:800;line-height:1.1}
+.cert-iq-cat{font-size:13px;font-weight:600}
+.cert-percentile{font-size:14px;color:#6b8a74;margin:0 0 8px}
+.cert-id{font-size:13px;color:#9aaf9e;margin-bottom:28px}
+.cert-footer{font-size:11px;color:#b0c4b8;border-top:1px solid #e8f5ee;padding-top:16px}
+.btn-print{padding:12px 28px;background:var(--green);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:14px;margin-top:20px}
+.btn-print:hover{background:var(--green2)}
+
+@media(max-width:500px){
+  .features{grid-template-columns:1fr}
+  .age-grid{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .options-grid{grid-template-columns:1fr}
+  .hero h1{font-size:30px}
+  .iq-score{font-size:56px}
+  .cert-name{font-size:26px}
+  .cert-iq-num{font-size:42px}
+}
+
+/* PAYMENT MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:520px;padding:0 0 32px;transform:translateY(100%);transition:transform 0.3s cubic-bezier(.32,.72,0,1);max-height:92vh;overflow-y:auto}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:#d4ead9;border-radius:4px;margin:14px auto 0}
+.modal-header{padding:20px 24px 0;border-bottom:1px solid #e8f5ee;padding-bottom:16px;margin-bottom:0}
+.modal-title{font-size:18px;font-weight:700;color:#0e2818;margin-bottom:4px}
+.modal-sub{font-size:13px;color:#6b8a74}
+.modal-amount{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:#f5fbf7;border-bottom:1px solid #e8f5ee}
+.modal-amount-label{font-size:13px;color:#4a6b56}
+.modal-amount-value{font-size:20px;font-weight:800;color:var(--green)}
+.pay-tabs{display:flex;gap:0;padding:16px 24px 0;border-bottom:1px solid #e8f5ee;overflow-x:auto}
+.pay-tab{padding:8px 16px;font-size:13px;font-weight:600;color:#6b8a74;border:none;background:none;border-bottom:2.5px solid transparent;white-space:nowrap;transition:all 0.15s;margin-bottom:-1px}
+.pay-tab.active{color:var(--green);border-bottom-color:var(--green)}
+.pay-body{padding:20px 24px}
+.pay-panel{display:none}
+.pay-panel.active{display:block}
+
+/* UPI */
+.upi-input-wrap{position:relative;margin-bottom:14px}
+.upi-input{width:100%;padding:13px 14px;border:1.5px solid #d4ead9;border-radius:12px;font-size:15px;outline:none;transition:border 0.15s}
+.upi-input:focus{border-color:var(--green)}
+.upi-hint{font-size:12px;color:#9aaf9e;margin-bottom:16px}
+.upi-apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.upi-app{background:#f5fbf7;border:1.5px solid #d4ead9;border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.15s}
+.upi-app:hover,.upi-app.sel{background:#e8f5ee;border-color:var(--green)}
+.upi-app-icon{font-size:24px;margin-bottom:4px}
+.upi-app-name{font-size:11px;font-weight:600;color:#1a2e22}
+.or-divider{display:flex;align-items:center;gap:10px;margin:14px 0;color:#9aaf9e;font-size:12px}
+.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:#e8f5ee}
+
+/* CARD */
+.card-field{margin-bottom:14px}
+.card-field label{font-size:12px;font-weight:600;color:#6b8a74;display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em}
+.card-field input{width:100%;padding:13px 14px;border:1.5px solid #d4ead9;border-radius:12px;font-size:15px;outline:none;transition:border 0.15s}
+.card-field input:focus{border-color:var(--green)}
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card-logos{display:flex;gap:6px;margin-bottom:16px}
+.card-logo{background:#f5f5f5;border-radius:6px;padding:4px 8px;font-size:11px;font-weight:700;color:#444}
+.card-logo.visa{color:#1a1f71}
+.card-logo.mc{color:#eb001b}
+.card-logo.rupay{color:#138808}
+
+/* NET BANKING */
+.bank-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.bank-item{background:#f5fbf7;border:1.5px solid #d4ead9;border-radius:12px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.15s}
+.bank-item:hover,.bank-item.sel{background:#e8f5ee;border-color:var(--green)}
+.bank-icon{font-size:20px}
+.bank-name{font-size:13px;font-weight:600;color:#1a2e22}
+.bank-select{width:100%;padding:12px 14px;border:1.5px solid #d4ead9;border-radius:12px;font-size:14px;outline:none;background:#fff;margin-bottom:14px}
+
+/* WALLETS */
+.wallet-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.wallet-item{background:#f5fbf7;border:1.5px solid #d4ead9;border-radius:12px;padding:14px;cursor:pointer;text-align:center;transition:all 0.15s}
+.wallet-item:hover,.wallet-item.sel{background:#e8f5ee;border-color:var(--green)}
+.wallet-icon{font-size:28px;margin-bottom:6px}
+.wallet-name{font-size:13px;font-weight:600;color:#1a2e22}
+
+/* PAY BUTTON */
+.btn-pay{width:100%;padding:15px 0;background:var(--green);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;margin-top:4px;transition:background 0.15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-pay:hover{background:var(--green2)}
+.btn-pay:disabled{opacity:0.6;cursor:not-allowed}
+.secure-note{text-align:center;font-size:11px;color:#9aaf9e;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px}
+
+/* PROCESSING */
+.processing-wrap{text-align:center;padding:40px 24px}
+.spinner{width:52px;height:52px;border:4px solid #e8f5ee;border-top:4px solid var(--green);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.processing-title{font-size:18px;font-weight:700;color:#0e2818;margin-bottom:8px}
+.processing-sub{font-size:14px;color:#6b8a74}
+
+/* SUCCESS */
+.success-wrap{text-align:center;padding:36px 24px}
+.success-icon{width:64px;height:64px;background:#e8f5ee;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px}
+.success-title{font-size:20px;font-weight:700;color:#0e2818;margin-bottom:8px}
+.success-sub{font-size:14px;color:#6b8a74;margin-bottom:24px}
+.success-ref{font-size:12px;color:#9aaf9e;margin-bottom:24px;background:#f5fbf7;padding:10px 16px;border-radius:10px;display:inline-block}
+.btn-success{padding:13px 32px;background:var(--green);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700}
+
+/* ADMIN */
+.admin-overlay{position:fixed;inset:0;background:#f0faf4;z-index:200;overflow-y:auto;display:none}
+.admin-overlay.open{display:block}
+.admin-header{background:#0e4428;color:#fff;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.admin-title{font-size:18px;font-weight:700;letter-spacing:-0.3px}
+.admin-back{background:rgba(255,255,255,0.15);border:none;color:#fff;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+.admin-back:hover{background:rgba(255,255,255,0.25)}
+.admin-login{max-width:380px;margin:80px auto;background:#fff;border-radius:20px;padding:36px 32px;text-align:center;border:1.5px solid #d4ead9}
+.admin-login h2{font-size:22px;font-weight:700;color:#0e2818;margin-bottom:6px}
+.admin-login p{font-size:14px;color:#6b8a74;margin-bottom:24px}
+.admin-input{width:100%;padding:13px 14px;border:1.5px solid #d4ead9;border-radius:12px;font-size:15px;margin-bottom:12px;outline:none;font-family:'DM Sans',sans-serif}
+.admin-input:focus{border-color:var(--green)}
+.btn-admin-login{width:100%;padding:13px;background:#0e4428;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer}
+.btn-admin-login:hover{background:#1a7a4a}
+.admin-page{max-width:960px;margin:0 auto;padding:28px 16px 60px}
+.admin-nav{display:flex;gap:4px;margin-bottom:24px;background:#fff;border-radius:14px;padding:6px;border:1px solid #d4ead9;overflow-x:auto}
+.admin-nav-btn{padding:8px 18px;border:none;background:none;border-radius:10px;font-size:13px;font-weight:600;color:#6b8a74;cursor:pointer;white-space:nowrap;transition:all 0.15s}
+.admin-nav-btn.active{background:#0e4428;color:#fff}
+.admin-panel{display:none}
+.admin-panel.active{display:block}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px}
+.stat-card{background:#fff;border:1.5px solid #d4ead9;border-radius:16px;padding:20px 18px}
+.stat-icon{font-size:24px;margin-bottom:10px}
+.stat-val{font-size:28px;font-weight:800;color:#0e2818;margin-bottom:2px}
+.stat-lbl{font-size:12px;color:#6b8a74;font-weight:600}
+.stat-trend{font-size:11px;margin-top:6px;font-weight:600}
+.trend-up{color:#1a7a4a}
+.trend-dn{color:#e24b4a}
+.admin-card{background:#fff;border:1.5px solid #d4ead9;border-radius:16px;padding:20px;margin-bottom:16px}
+.admin-card-title{font-size:14px;font-weight:700;color:#0e2818;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.chart-bar-wrap{display:flex;align-items:flex-end;gap:8px;height:120px;margin-bottom:8px}
+.chart-bar-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:4px;height:100%}
+.chart-bar{width:100%;background:var(--green);border-radius:6px 6px 0 0;transition:height 0.5s ease;min-height:4px}
+.chart-bar-label{font-size:10px;color:#6b8a74;font-weight:600}
+.chart-bar-val{font-size:10px;color:#0e2818;font-weight:700}
+.revenue-bar{background:#7F77DD}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 12px;color:#6b8a74;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1.5px solid #e8f5ee}
+td{padding:10px 12px;border-bottom:1px solid #f0faf4;color:#1a2e22}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f8fdf9}
+.td-badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-paid{background:#e8f5ee;color:#145f39}
+.badge-free{background:#f0f0f0;color:#666}
+.badge-kids{background:#fdf3d7;color:#8a6000}
+.badge-teens{background:#E6F1FB;color:#0C447C}
+.badge-adults{background:#EEEDFE;color:#3C3489}
+.badge-seniors{background:#FAECE7;color:#712B13}
+.iq-mini-bar{height:6px;border-radius:3px;background:#e8f5ee;overflow:hidden;width:80px;display:inline-block;vertical-align:middle;margin-left:6px}
+.iq-mini-fill{height:100%;background:var(--green);border-radius:3px}
+.donut-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.donut-svg{flex-shrink:0}
+.donut-legend{display:flex;flex-direction:column;gap:10px}
+.donut-leg-row{display:flex;align-items:center;gap:8px;font-size:13px}
+.donut-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.alert-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0faf4}
+.alert-row:last-child{border-bottom:none}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.alert-text{font-size:13px;color:#1a2e22;flex:1}
+.alert-time{font-size:11px;color:#9aaf9e}
+
+/* LEADERBOARD */
+.lb-filter-bar{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px}
+.lb-filter{padding:7px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1.5px solid #d4ead9;background:#fff;color:#6b8a74;cursor:pointer;white-space:nowrap;transition:all 0.15s}
+.lb-filter.active{background:var(--green);color:#fff;border-color:var(--green)}
+.lb-podium{display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-bottom:28px;padding:0 8px}
+.podium-col{display:flex;flex-direction:column;align-items:center;gap:6px}
+.podium-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;position:relative}
+.podium-crown{position:absolute;top:-14px;font-size:16px}
+.podium-name{font-size:12px;font-weight:700;color:#0e2818;text-align:center;max-width:70px;line-height:1.3}
+.podium-iq{font-size:14px;font-weight:800;color:var(--green)}
+.podium-block{border-radius:10px 10px 0 0;width:68px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff}
+.podium-1{background:linear-gradient(135deg,#d4a017,#f0c040);height:90px}
+.podium-2{background:linear-gradient(135deg,#8a9ba8,#b0c0cc);height:65px}
+.podium-3{background:linear-gradient(135deg,#c47c3a,#e0a060);height:50px}
+.lb-row{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border:1.5px solid #e8f5ee;border-radius:14px;margin-bottom:8px;transition:all 0.15s}
+.lb-row:hover{border-color:#c8e6d4;background:#f8fdf9}
+.lb-row.me{border-color:var(--green);background:#f0faf4;box-shadow:0 0 0 2px #c8e6d4}
+.lb-rank{font-size:15px;font-weight:800;color:#9aaf9e;min-width:28px;text-align:center}
+.lb-rank.gold{color:#d4a017}
+.lb-rank.silver{color:#8a9ba8}
+.lb-rank.bronze{color:#c47c3a}
+.lb-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0}
+.lb-info{flex:1}
+.lb-name{font-size:14px;font-weight:700;color:#0e2818}
+.lb-meta{font-size:11px;color:#6b8a74;margin-top:2px}
+.lb-iq{font-size:18px;font-weight:800;color:var(--green)}
+.lb-you-tag{font-size:10px;background:var(--green);color:#fff;padding:2px 8px;border-radius:20px;font-weight:700;margin-left:6px;vertical-align:middle}
+
+/* SOCIAL SHARE MODAL */
+.share-modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s}
+.share-modal.open{opacity:1;pointer-events:all}
+.share-box{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:520px;padding:24px 24px 36px;transform:translateY(100%);transition:transform 0.3s cubic-bezier(.32,.72,0,1)}
+.share-modal.open .share-box{transform:translateY(0)}
+.share-handle{width:40px;height:4px;background:#d4ead9;border-radius:4px;margin:0 auto 20px}
+.share-title{font-size:18px;font-weight:700;color:#0e2818;text-align:center;margin-bottom:4px}
+.share-sub{font-size:13px;color:#6b8a74;text-align:center;margin-bottom:20px}
+.share-card-preview{background:linear-gradient(135deg,#0e4428,#1a7a4a);border-radius:16px;padding:24px 20px;text-align:center;margin-bottom:20px;position:relative;overflow:hidden}
+.share-card-preview::before{content:'IQ';position:absolute;font-size:130px;font-weight:800;color:rgba(255,255,255,0.05);top:-10px;right:-5px;font-family:'DM Serif Display',serif;pointer-events:none}
+.share-card-name{font-size:12px;color:rgba(255,255,255,0.65);margin-bottom:4px}
+.share-iq-big{font-size:56px;font-weight:800;color:#fff;line-height:1}
+.share-iq-label{font-size:13px;color:rgba(255,255,255,0.75);margin:4px 0 12px}
+.share-pct-pill{display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:20px}
+.share-brand{font-size:11px;color:rgba(255,255,255,0.4);margin-top:12px}
+.share-apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.share-app-btn{background:#f5fbf7;border:1.5px solid #d4ead9;border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.15s}
+.share-app-btn:hover{background:#e8f5ee;border-color:var(--green)}
+.share-app-icon{font-size:22px;margin-bottom:4px}
+.share-app-name{font-size:11px;font-weight:600;color:#1a2e22}
+.btn-copy-link{width:100%;padding:12px;background:#e8f5ee;border:1.5px solid #c8e6d4;border-radius:12px;font-size:13px;font-weight:600;color:#145f39;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.btn-copy-link:hover{background:#d4ead9}
+
+@media(max-width:500px){.lb-podium{gap:4px}.podium-block{width:56px}.podium-avatar{width:44px;height:44px;font-size:18px}}
+@media print{
+  .admin-overlay{display:none!important}
+}
+  body{background:#fff}
+  .cert-wrapper{border:3px solid var(--green)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cert-top-bar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .modal-overlay{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- PWA SPLASH SCREEN -->
+<div class="pwa-splash" id="pwa-splash" style="display:none">
+  <div class="pwa-splash-icon">I</div>
+  <div class="pwa-splash-title">Intellecta</div>
+  <div class="pwa-splash-sub">Loading your IQ assessment…</div>
+</div>
+
+<!-- PWA INSTALL BANNER -->
+<div class="pwa-banner" id="pwa-banner">
+  <div class="pwa-banner-icon">I</div>
+  <div class="pwa-banner-text">
+    <div class="pwa-banner-title">Install Intellecta</div>
+    <div class="pwa-banner-sub">Add to home screen — works offline</div>
+  </div>
+  <button class="pwa-banner-btn" id="pwa-install-btn" onclick="installPWA()">Install</button>
+  <button class="pwa-banner-close" onclick="dismissBanner()">✕</button>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-mark">I</div>
+    <span class="logo-text">Intellecta</span>
+    <span class="logo-beta">BETA</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <span class="header-right" style="display:none" id="hdr-subtitle">Professional IQ Assessment</span>
+    <button id="lang-toggle" onclick="toggleLang()" style="background:#fff;color:#1a7a4a;border:1.5px solid #c8e6d4;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;">🇮🇳 हिंदी</button>
+    <button onclick="showScreen('screen-leaderboard')" style="background:#e8f5ee;color:#145f39;border:1.5px solid #c8e6d4;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;">🏆 Leaderboard</button>
+    <button onclick="showAdmin()" style="background:#0e4428;color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;">⚙ Admin</button>
+  </div>
+</div>
+
+<!-- ==================== HOME ==================== -->
+<div id="screen-home" class="screen active">
+<div class="page">
+  <div class="hero">
+    <div class="hero-badge" id="hero-badge-txt">Science-backed cognitive assessment</div>
+    <h1 id="hero-h1">Discover your<br><span>true intelligence</span></h1>
+    <p id="hero-p">Take a certified IQ test calibrated for your age group. Get your IQ score, sub-scores, and a downloadable certificate.</p>
+  </div>
+  <div class="features">
+    <div class="feature-card"><div class="feature-icon">🧠</div><div class="feature-title" id="f1t">Age-calibrated</div><div class="feature-desc" id="f1d">Norms for all age groups</div></div>
+    <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title" id="f2t">Instant results</div><div class="feature-desc" id="f2d">Score + certificate in seconds</div></div>
+    <div class="feature-card"><div class="feature-icon">🏆</div><div class="feature-title" id="f3t">Shareable cert</div><div class="feature-desc" id="f3d">PDF certificate with your score</div></div>
+  </div>
+  <div class="section-title" id="section-age-title">Select your age group</div>
+  <div class="age-grid">
+    <div class="age-card" onclick="selectAge('kids',this)"><div class="age-icon">🧒</div><div><div class="age-label" id="age-kids-lbl">Kids</div><div class="age-range" id="age-kids-range">Ages 6–12</div></div><div class="age-check">✓</div></div>
+    <div class="age-card" onclick="selectAge('teens',this)"><div class="age-icon">🧑</div><div><div class="age-label" id="age-teens-lbl">Teens</div><div class="age-range" id="age-teens-range">Ages 13–17</div></div><div class="age-check">✓</div></div>
+    <div class="age-card" onclick="selectAge('adults',this)"><div class="age-icon">👤</div><div><div class="age-label" id="age-adults-lbl">Adults</div><div class="age-range" id="age-adults-range">Ages 18–40</div></div><div class="age-check">✓</div></div>
+    <div class="age-card" onclick="selectAge('seniors',this)"><div class="age-icon">🧓</div><div><div class="age-label" id="age-seniors-lbl">Seniors</div><div class="age-range" id="age-seniors-range">Ages 40+</div></div><div class="age-check">✓</div></div>
+  </div>
+  <div class="plans" id="plans">
+    <div class="plan-card">
+      <div class="plan-free-label" id="plan-free-label">Free test</div>
+      <div class="plan-price" id="plan-free-price">₹0</div>
+      <ul class="plan-list"><li id="plan-free-q">10 questions</li><li id="plan-free-t">~10 minutes</li><li id="plan-free-sc">Basic IQ score</li><li id="plan-free-cert">No certificate</li></ul>
+      <button class="btn-free" id="plan-free-btn" onclick="startTest(false)">Start free test</button>
+    </div>
+    <div class="plan-card plan-paid">
+      <div class="plan-free-label" id="plan-paid-label">Full test</div>
+      <div class="plan-price" id="plan-paid-price">₹99 <span id="plan-paid-unit">one-time</span></div>
+      <ul class="plan-list"><li id="plan-paid-q">40 questions</li><li id="plan-paid-t">~40 minutes</li><li id="plan-paid-sc">Full IQ + sub-scores</li><li id="plan-paid-cert">PDF Certificate ✨</li></ul>
+      <button class="btn-paid" id="plan-paid-btn" onclick="openPayment()">Start full test</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== TEST ==================== -->
+<div id="screen-test" class="screen">
+<div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+<div class="page" style="padding-top:28px">
+  <div class="test-meta">
+    <div class="q-type" id="q-type"></div>
+    <div style="display:flex;align-items:center;gap:20px">
+      <div class="timer-display">
+        <div class="timer-label" id="timer-label-txt">TIME LEFT</div>
+        <div class="timer-value" id="timer-display">10:00</div>
+      </div>
+      <div class="q-counter" id="q-counter">1 / 10</div>
+    </div>
+  </div>
+  <div class="question-box"><div class="question-text" id="question-text"></div></div>
+  <div class="options-grid" id="options-grid"></div>
+</div>
+</div>
+
+<!-- ==================== RESULT ==================== -->
+<div id="screen-result" class="screen">
+<div class="page">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+    <button class="btn-back no-print" onclick="goHome()">← Take another test</button>
+  </div>
+  <div class="result-hero">
+    <div class="result-title">Your results are ready</div>
+    <div class="result-sub" id="result-sub"></div>
+  </div>
+  <div class="iq-card" id="iq-card">
+    <div class="iq-label">Your IQ score</div>
+    <div class="iq-score" id="iq-score-display"></div>
+    <div class="iq-badge" id="iq-badge"></div>
+    <div class="iq-stats" id="iq-stats"></div>
+  </div>
+  <div class="subscore-card" id="subscore-card" style="display:none">
+    <div class="sub-label-row">Sub-score breakdown</div>
+    <div id="subscores"></div>
+  </div>
+  <div class="scale-card">
+    <div class="sub-label-row">IQ scale reference</div>
+    <div id="scale-rows"></div>
+  </div>
+  <div id="cert-section"></div>
+</div>
+</div>
+
+<!-- ==================== CERTIFICATE ==================== -->
+<div id="screen-cert" class="screen">
+<div class="cert-page">
+  <div class="no-print" style="display:flex;justify-content:flex-end;margin-bottom:16px">
+    <button class="btn-back" onclick="showScreen('screen-result')">← Back to results</button>
+  </div>
+  <div class="cert-wrapper">
+    <div class="cert-top-bar"></div>
+    <div class="cert-watermark">IQ</div>
+    <div class="cert-logo">I</div>
+    <div class="cert-heading">Certificate of Achievement</div>
+    <div class="cert-sub">This certifies that</div>
+    <div class="cert-name" id="cert-name-display"></div>
+    <p class="cert-desc" id="cert-desc"></p>
+    <div class="cert-score-box" id="cert-score-box">
+      <div class="cert-iq-label" id="cert-iq-label"></div>
+      <div class="cert-iq-num" id="cert-iq-num"></div>
+      <div class="cert-iq-cat" id="cert-iq-cat"></div>
+    </div>
+    <p class="cert-percentile" id="cert-percentile"></p>
+    <p class="cert-id" id="cert-id"></p>
+    <div class="cert-footer">This certificate is issued for educational purposes only. It is not a clinical IQ assessment. · intellecta.app</div>
+  </div>
+  <div style="text-align:center" class="no-print">
+    <button class="btn-print" onclick="window.print()">⬇ Download / Print Certificate</button>
+  </div>
+</div>
+</div>
+
+<!-- ==================== KIDS NATURE CERTIFICATE ==================== -->
+<div id="screen-kids-cert" class="screen">
+<div class="page" style="padding-top:20px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px" class="no-print">
+    <button class="btn-back" onclick="showScreen('screen-result')">← Back to results</button>
+    <div style="display:flex;gap:8px">
+      <select id="kids-cert-scene" onchange="drawKidsCertApp()" style="font-size:12px;padding:6px 10px;border:1.5px solid #c8e6d4;border-radius:8px;background:#fff;color:#145f39;font-weight:600">
+        <option value="morning">🌲 Morning forest</option>
+        <option value="golden">🌾 Golden meadow</option>
+        <option value="twilight">🌌 Twilight valley</option>
+      </select>
+    </div>
+  </div>
+  <div style="background:#f0faf4;border-radius:16px;padding:16px;margin-bottom:16px">
+    <canvas id="kids-cert-canvas" width="680" height="480" style="width:100%;border-radius:12px;display:block" role="img" aria-label="Kids nature IQ certificate"></canvas>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" class="no-print">
+    <button onclick="downloadKidsCertApp()" style="padding:13px;background:#1a7a4a;color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer">⬇ Download Certificate</button>
+    <button onclick="openShareModal()" style="padding:13px;background:#e8f5ee;border:1.5px solid #c8e6d4;border-radius:12px;font-size:14px;font-weight:700;color:#145f39;cursor:pointer">📤 Share my score</button>
+  </div>
+  <p style="font-size:11px;color:#9aaf9e;text-align:center;margin-top:10px" class="no-print">This certificate is issued for educational purposes only · intellecta.app</p>
+</div>
+</div>
+
+<!-- ==================== LEADERBOARD ==================== -->
+<div id="screen-leaderboard" class="screen">
+<div class="page">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+    <button class="btn-back" id="lb-back-btn" onclick="showScreen('screen-home')">← Back to Home</button>
+  </div>
+  <div style="text-align:center;margin-bottom:24px">
+    <div style="font-size:36px;margin-bottom:8px">🏆</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#0e2818;margin-bottom:6px" id="lb-title-txt">Global Leaderboard</div>
+    <div style="font-size:14px;color:#6b8a74" id="lb-sub-txt">Top IQ scores from Intellecta users worldwide</div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="lb-filter-bar">
+    <button class="lb-filter active" id="lb-filter-all" onclick="filterLB('all',this)">🌍 All</button>
+    <button class="lb-filter" onclick="filterLB('kids',this)">🧒 Kids</button>
+    <button class="lb-filter" onclick="filterLB('teens',this)">🧑 Teens</button>
+    <button class="lb-filter" onclick="filterLB('adults',this)">👤 Adults</button>
+    <button class="lb-filter" onclick="filterLB('seniors',this)">🧓 Seniors</button>
+    <button class="lb-filter" id="lb-filter-week" onclick="filterLB('week',this)">📅 This Week</button>
+  </div>
+
+  <!-- PODIUM -->
+  <div class="lb-podium" id="lb-podium"></div>
+
+  <!-- LIST -->
+  <div id="lb-list"></div>
+
+  <!-- YOUR RANK -->
+  <div id="lb-your-rank" style="margin-top:16px;padding:16px;background:#e8f5ee;border:2px solid var(--green);border-radius:16px;text-align:center;display:none">
+    <div style="font-size:13px;color:#4a6b56;margin-bottom:4px">Your best score</div>
+    <div style="font-size:24px;font-weight:800;color:var(--green)" id="lb-your-iq">—</div>
+    <div style="font-size:13px;color:#6b8a74;margin-top:4px" id="lb-your-rank-txt">Take a paid test to appear on the leaderboard</div>
+    <button onclick="openPayment()" style="margin-top:12px;padding:10px 24px;background:var(--green);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer">Take full test to rank up →</button>
+  </div>
+</div>
+</div>
+
+<!-- SOCIAL SHARE MODAL -->
+<div class="share-modal" id="share-modal" onclick="handleShareOverlay(event)">
+  <div class="share-box">
+    <div class="share-handle"></div>
+    <div class="share-title" id="share-modal-title">Share your IQ score 🎉</div>
+    <div class="share-sub" id="share-modal-sub">Show the world how smart you are!</div>
+
+    <!-- Score card preview -->
+    <div class="share-card-preview">
+      <div class="share-card-name" id="share-card-name">Your Name</div>
+      <div class="share-iq-big" id="share-iq-big">118</div>
+      <div class="share-iq-label" id="share-iq-label">Above average · Adults</div>
+      <div class="share-pct-pill" id="share-pct-pill">Top 25% worldwide</div>
+      <div class="share-brand">intellecta.app · Professional IQ Assessment</div>
+    </div>
+
+    <!-- Share apps -->
+    <div class="share-apps">
+      <div class="share-app-btn" onclick="shareToApp('whatsapp')">
+        <div class="share-app-icon">💬</div>
+        <div class="share-app-name">WhatsApp</div>
+      </div>
+      <div class="share-app-btn" onclick="shareToApp('instagram')">
+        <div class="share-app-icon">📸</div>
+        <div class="share-app-name">Instagram</div>
+      </div>
+      <div class="share-app-btn" onclick="shareToApp('linkedin')">
+        <div class="share-app-icon">💼</div>
+        <div class="share-app-name">LinkedIn</div>
+      </div>
+      <div class="share-app-btn" onclick="shareToApp('twitter')">
+        <div class="share-app-icon">🐦</div>
+        <div class="share-app-name">Twitter/X</div>
+      </div>
+    </div>
+    <button class="btn-copy-link" id="share-copy-btn" onclick="copyShareLink()"><span id="share-copy-btn-txt">📋 Copy shareable link</span></button>
+  </div>
+</div>
+
+<!-- ==================== ADMIN DASHBOARD ==================== -->
+<div class="admin-overlay" id="admin-overlay">
+  <!-- LOGIN -->
+  <div id="admin-login-view">
+    <div class="admin-header">
+      <div class="admin-title">⚙ Intellecta Admin</div>
+      <button class="admin-back" onclick="closeAdmin()">← Back to App</button>
+    </div>
+    <div class="admin-login">
+      <div style="font-size:40px;margin-bottom:12px">🔐</div>
+      <h2>Admin Login</h2>
+      <p>Enter your admin credentials to access the dashboard</p>
+      <input class="admin-input" id="admin-user" placeholder="Username" type="text"/>
+      <input class="admin-input" id="admin-pass" placeholder="Password" type="password"/>
+      <div id="admin-err" style="color:#e24b4a;font-size:13px;margin-bottom:10px;display:none">Incorrect credentials. Try admin / admin123</div>
+      <button class="btn-admin-login" onclick="adminLogin()">Login to Dashboard</button>
+      <p style="font-size:11px;color:#9aaf9e;margin-top:14px">Demo: username <strong>admin</strong> · password <strong>admin123</strong></p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="admin-dashboard-view" style="display:none">
+    <div class="admin-header">
+      <div class="admin-title">⚙ Intellecta Admin</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:12px;opacity:0.7">Last updated: just now</span>
+        <button class="admin-back" onclick="closeAdmin()">← Exit Dashboard</button>
+      </div>
+    </div>
+    <div class="admin-page">
+
+      <!-- NAV TABS -->
+      <div class="admin-nav">
+        <button class="admin-nav-btn active" onclick="switchAdminTab('overview',this)">📊 Overview</button>
+        <button class="admin-nav-btn" onclick="switchAdminTab('users',this)">👥 Users</button>
+        <button class="admin-nav-btn" onclick="switchAdminTab('revenue',this)">💰 Revenue</button>
+        <button class="admin-nav-btn" onclick="switchAdminTab('tests',this)">🧠 Test Analytics</button>
+        <button class="admin-nav-btn" onclick="switchAdminTab('alerts',this)">🔔 Alerts</button>
+      </div>
+
+      <!-- OVERVIEW -->
+      <div class="admin-panel active" id="admin-panel-overview">
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-val" id="stat-users">2,847</div>
+            <div class="stat-lbl">Total Users</div>
+            <div class="stat-trend trend-up">↑ +134 this week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🧠</div>
+            <div class="stat-val" id="stat-tests">4,391</div>
+            <div class="stat-lbl">Tests Taken</div>
+            <div class="stat-trend trend-up">↑ +287 this week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-val" id="stat-revenue">₹1.24L</div>
+            <div class="stat-lbl">Total Revenue</div>
+            <div class="stat-trend trend-up">↑ +₹18,400 this week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-val" id="stat-certs">1,253</div>
+            <div class="stat-lbl">Certificates Issued</div>
+            <div class="stat-trend trend-up">↑ +89 this week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-val">44%</div>
+            <div class="stat-lbl">Free→Paid Conversion</div>
+            <div class="stat-trend trend-up">↑ +3% vs last month</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-val">4.8</div>
+            <div class="stat-lbl">Avg Rating</div>
+            <div class="stat-trend trend-up">↑ from 4.6 last month</div>
+          </div>
+        </div>
+
+        <!-- WEEKLY TESTS CHART -->
+        <div class="admin-card">
+          <div class="admin-card-title">Tests taken — last 7 days <span style="font-size:12px;color:#6b8a74;font-weight:500">Daily breakdown</span></div>
+          <div class="chart-bar-wrap" id="tests-chart"></div>
+        </div>
+
+        <!-- AGE GROUP DONUT -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="admin-card">
+            <div class="admin-card-title">Users by age group</div>
+            <div class="donut-wrap">
+              <svg class="donut-svg" width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#e8f5ee" stroke-width="18"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#1a7a4a" stroke-width="18" stroke-dasharray="87 133" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#7F77DD" stroke-width="18" stroke-dasharray="55 165" stroke-dashoffset="-87" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#378ADD" stroke-width="18" stroke-dasharray="44 176" stroke-dashoffset="-142" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#EF9F27" stroke-width="18" stroke-dasharray="34 186" stroke-dashoffset="-186" transform="rotate(-90 50 50)"/>
+              </svg>
+              <div class="donut-legend">
+                <div class="donut-leg-row"><div class="donut-dot" style="background:#1a7a4a"></div><span>Adults <strong>39%</strong></span></div>
+                <div class="donut-leg-row"><div class="donut-dot" style="background:#7F77DD"></div><span>Teens <strong>25%</strong></div>
+                <div class="donut-leg-row"><div class="donut-dot" style="background:#378ADD"></div><span>Kids <strong>20%</strong></div>
+                <div class="donut-leg-row"><div class="donut-dot" style="background:#EF9F27"></div><span>Seniors <strong>16%</strong></div>
+              </div>
+            </div>
+          </div>
+          <div class="admin-card">
+            <div class="admin-card-title">Payment methods</div>
+            <div class="donut-wrap">
+              <svg class="donut-svg" width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#e8f5ee" stroke-width="18"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#1D9E75" stroke-width="18" stroke-dasharray="110 110" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#378ADD" stroke-width="18" stroke-dasharray="55 165" stroke-dashoffset="-110" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#EF9F27" stroke-width="18" stroke-dasharray="33 187" stroke-dashoffset="-165" transform="rotate(-90 50 50)"/>
+                <circle cx="50" cy="50" r="35" fill="none" stroke="#7F77DD" stroke-width="18" stroke-dasharray="22 198" stroke-dashoffset="-198" transform="rotate(-90 50 50)"/>
+              </svg>
+              <div class="donut-legend">
+                <div class="donut-leg-row"><div class="donut-dot" style="background:#1D9E75"></div><span>UPI <strong>50%</strong></span></div>
+                <div class="donut-leg-row"><div class="donut-dot" style="background:#378ADD"></div><span>Card <strong>25%</strong></span></div>
+                <div class="donut-leg-row"><div class="donut-dot" style="background:#EF9F27"></div><span>Net Banking <strong>15%</strong></span></div>
+                <div class="donut-leg-row"><div class="donut-dot" style="background:#7F77DD"></div><span>Wallet <strong>10%</strong></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USERS -->
+      <div class="admin-panel" id="admin-panel-users">
+        <div class="admin-card">
+          <div class="admin-card-title">Recent users <span style="font-size:12px;font-weight:500;color:#6b8a74">Last 20 registrations</span></div>
+          <div class="table-wrap">
+            <table id="users-table">
+              <tr><th>#</th><th>Name</th><th>Age Group</th><th>IQ Score</th><th>Test Type</th><th>Date</th></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVENUE -->
+      <div class="admin-panel" id="admin-panel-revenue">
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-val">₹18,400</div><div class="stat-lbl">This Week</div><div class="stat-trend trend-up">↑ +22% vs last week</div></div>
+          <div class="stat-card"><div class="stat-icon">🗓️</div><div class="stat-val">₹54,200</div><div class="stat-lbl">This Month</div><div class="stat-trend trend-up">↑ +18% vs last month</div></div>
+          <div class="stat-card"><div class="stat-icon">💳</div><div class="stat-val">₹99</div><div class="stat-lbl">Avg Order Value</div><div class="stat-trend" style="color:#6b8a74">Flat (single price)</div></div>
+          <div class="stat-card"><div class="stat-icon">🔁</div><div class="stat-val">186</div><div class="stat-lbl">Paid Tests This Month</div><div class="stat-trend trend-up">↑ +41 vs last month</div></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Revenue — last 7 days <span style="font-size:12px;color:#6b8a74;font-weight:500">₹ per day</span></div>
+          <div class="chart-bar-wrap" id="revenue-chart"></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Recent transactions</div>
+          <div class="table-wrap">
+            <table id="txn-table">
+              <tr><th>Txn ID</th><th>User</th><th>Amount</th><th>Method</th><th>Status</th><th>Time</th></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEST ANALYTICS -->
+      <div class="admin-panel" id="admin-panel-tests">
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-val">103.4</div><div class="stat-lbl">Avg IQ Score</div><div class="stat-trend" style="color:#6b8a74">All age groups combined</div></div>
+          <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val">68%</div><div class="stat-lbl">Test Completion Rate</div><div class="stat-trend trend-up">↑ +5% this month</div></div>
+          <div class="stat-card"><div class="stat-icon">⏱️</div><div class="stat-val">18 min</div><div class="stat-lbl">Avg Time Taken</div><div class="stat-trend trend-dn">↓ 2 min faster than last month</div></div>
+          <div class="stat-card"><div class="stat-icon">🔄</div><div class="stat-val">1.54x</div><div class="stat-lbl">Avg Retakes / User</div><div class="stat-trend trend-up">↑ Good engagement</div></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Average IQ by age group</div>
+          <div id="iq-by-age" style="display:grid;gap:14px"></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">Score distribution</div>
+          <div class="chart-bar-wrap" id="score-dist-chart" style="height:140px"></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#6b8a74;padding:0 4px">
+            <span>&lt;80</span><span>80–89</span><span>90–99</span><span>100–109</span><span>110–119</span><span>120–129</span><span>130+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALERTS -->
+      <div class="admin-panel" id="admin-panel-alerts">
+        <div class="admin-card">
+          <div class="admin-card-title">🔔 System alerts & activity</div>
+          <div id="alerts-list"></div>
+        </div>
+        <div class="admin-card" style="margin-top:16px">
+          <div class="admin-card-title">Quick actions</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <button onclick="adminAction('Export user data CSV')" style="padding:12px;background:#e8f5ee;border:1.5px solid #c8e6d4;border-radius:12px;font-size:13px;font-weight:600;color:#145f39;cursor:pointer">📥 Export Users CSV</button>
+            <button onclick="adminAction('Export revenue report')" style="padding:12px;background:#e8f5ee;border:1.5px solid #c8e6d4;border-radius:12px;font-size:13px;font-weight:600;color:#145f39;cursor:pointer">📊 Export Revenue Report</button>
+            <button onclick="adminAction('Send bulk email to all users')" style="padding:12px;background:#E6F1FB;border:1.5px solid #a8c9ec;border-radius:12px;font-size:13px;font-weight:600;color:#0C447C;cursor:pointer">📧 Send Bulk Email</button>
+            <button onclick="adminAction('Reset all test data')" style="padding:12px;background:#FCEBEB;border:1.5px solid #e4a8a8;border-radius:12px;font-size:13px;font-weight:600;color:#791F1F;cursor:pointer">🗑️ Reset Test Data</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAYMENT MODAL ==================== -->
+<div class="modal-overlay" id="payment-modal" onclick="handleModalOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+
+    <!-- NORMAL PAY VIEW -->
+    <div id="pay-view-normal">
+      <div class="modal-header">
+        <div class="modal-title">Complete your purchase</div>
+        <div class="modal-sub">Intellecta Full Test — Certificate included</div>
+      </div>
+      <div class="modal-amount">
+        <span class="modal-amount-label">Amount to pay</span>
+        <span class="modal-amount-value">₹99</span>
+      </div>
+      <div class="pay-tabs">
+        <button class="pay-tab active" onclick="switchPayTab('upi',this)">📱 UPI</button>
+        <button class="pay-tab" onclick="switchPayTab('card',this)">💳 Card</button>
+        <button class="pay-tab" onclick="switchPayTab('netbanking',this)">🏦 Net Banking</button>
+        <button class="pay-tab" onclick="switchPayTab('wallet',this)">👛 Wallets</button>
+      </div>
+
+      <!-- UPI -->
+      <div class="pay-body">
+        <div class="pay-panel active" id="panel-upi">
+          <div style="font-size:13px;font-weight:600;color:#4a6b56;margin-bottom:12px">Pay using any UPI app</div>
+          <div class="upi-apps">
+            <div class="upi-app" onclick="selectUpiApp(this,'GPay')"><div class="upi-app-icon">G</div><div class="upi-app-name">GPay</div></div>
+            <div class="upi-app" onclick="selectUpiApp(this,'PhonePe')"><div class="upi-app-icon">₱</div><div class="upi-app-name">PhonePe</div></div>
+            <div class="upi-app" onclick="selectUpiApp(this,'Paytm')"><div class="upi-app-icon">P</div><div class="upi-app-name">Paytm</div></div>
+            <div class="upi-app" onclick="selectUpiApp(this,'BHIM')"><div class="upi-app-icon">B</div><div class="upi-app-name">BHIM</div></div>
+          </div>
+          <div class="or-divider">or enter UPI ID</div>
+          <input class="upi-input" id="upi-id-input" placeholder="yourname@upi" type="text"/>
+          <div class="upi-hint">e.g. mobilenumber@paytm, name@okaxis, name@ybl</div>
+          <button class="btn-pay" onclick="processPayment('UPI')">🔒 Pay ₹99 via UPI</button>
+          <div class="secure-note">🔒 256-bit SSL secured · Powered by Razorpay</div>
+        </div>
+
+        <!-- CARD -->
+        <div class="pay-panel" id="panel-card">
+          <div class="card-logos">
+            <div class="card-logo visa">VISA</div>
+            <div class="card-logo mc">MC</div>
+            <div class="card-logo rupay">RuPay</div>
+            <div class="card-logo" style="color:#003087">Amex</div>
+          </div>
+          <div class="card-field">
+            <label>Card number</label>
+            <input id="card-num" placeholder="1234  5678  9012  3456" maxlength="19" oninput="formatCard(this)"/>
+          </div>
+          <div class="card-field">
+            <label>Cardholder name</label>
+            <input id="card-name" placeholder="Name as on card"/>
+          </div>
+          <div class="card-row">
+            <div class="card-field">
+              <label>Expiry</label>
+              <input id="card-exp" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)"/>
+            </div>
+            <div class="card-field">
+              <label>CVV</label>
+              <input id="card-cvv" placeholder="•••" maxlength="4" type="password"/>
+            </div>
+          </div>
+          <button class="btn-pay" onclick="processPayment('Card')">🔒 Pay ₹99 via Card</button>
+          <div class="secure-note">🔒 Your card details are encrypted · Never stored</div>
+        </div>
+
+        <!-- NET BANKING -->
+        <div class="pay-panel" id="panel-netbanking">
+          <div style="font-size:13px;font-weight:600;color:#4a6b56;margin-bottom:12px">Popular banks</div>
+          <div class="bank-grid">
+            <div class="bank-item" onclick="selectBank(this,'SBI')"><div class="bank-icon">🏛️</div><div class="bank-name">SBI</div></div>
+            <div class="bank-item" onclick="selectBank(this,'HDFC')"><div class="bank-icon">🏦</div><div class="bank-name">HDFC Bank</div></div>
+            <div class="bank-item" onclick="selectBank(this,'ICICI')"><div class="bank-icon">🏦</div><div class="bank-name">ICICI Bank</div></div>
+            <div class="bank-item" onclick="selectBank(this,'Axis')"><div class="bank-icon">🏦</div><div class="bank-name">Axis Bank</div></div>
+          </div>
+          <div class="or-divider">or choose another bank</div>
+          <select class="bank-select" id="bank-select" onchange="selectBankDropdown(this)">
+            <option value="">-- Select your bank --</option>
+            <option>Bank of Baroda</option><option>Canara Bank</option><option>Central Bank</option>
+            <option>Indian Bank</option><option>Kotak Mahindra</option><option>Punjab National Bank</option>
+            <option>Union Bank</option><option>Yes Bank</option><option>IndusInd Bank</option><option>Federal Bank</option>
+          </select>
+          <button class="btn-pay" onclick="processPayment('Net Banking')">🔒 Pay ₹99 via Net Banking</button>
+          <div class="secure-note">🔒 You will be redirected to your bank's secure page</div>
+        </div>
+
+        <!-- WALLETS -->
+        <div class="pay-panel" id="panel-wallet">
+          <div class="wallet-grid">
+            <div class="wallet-item" onclick="selectWallet(this,'Paytm Wallet')"><div class="wallet-icon">💙</div><div class="wallet-name">Paytm Wallet</div></div>
+            <div class="wallet-item" onclick="selectWallet(this,'Amazon Pay')"><div class="wallet-icon">🟠</div><div class="wallet-name">Amazon Pay</div></div>
+            <div class="wallet-item" onclick="selectWallet(this,'Mobikwik')"><div class="wallet-icon">💜</div><div class="wallet-name">Mobikwik</div></div>
+            <div class="wallet-item" onclick="selectWallet(this,'Freecharge')"><div class="wallet-icon">🟢</div><div class="wallet-name">Freecharge</div></div>
+          </div>
+          <button class="btn-pay" id="btn-wallet-pay" onclick="processPayment('Wallet')">🔒 Pay ₹99 via Wallet</button>
+          <div class="secure-note">🔒 Secure wallet payment · Instant confirmation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESSING VIEW -->
+    <div id="pay-view-processing" style="display:none">
+      <div class="processing-wrap">
+        <div class="spinner"></div>
+        <div class="processing-title">Processing payment…</div>
+        <div class="processing-sub" id="processing-sub">Connecting to payment gateway</div>
+      </div>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div id="pay-view-success" style="display:none">
+      <div class="success-wrap">
+        <div class="success-icon">✅</div>
+        <div class="success-title">Payment successful!</div>
+        <div class="success-sub">Your full test is now unlocked. You're all set!</div>
+        <div class="success-ref" id="success-ref"></div>
+        <br/>
+        <button class="btn-success" onclick="onPaymentSuccess()">Start full test →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const QUESTIONS = {
+  kids:[
+    /* 1-10: FREE TIER */
+    {type:"pattern",q:"Which number comes next? 2, 4, 6, 8, ___",o:["9","10","11","12"],a:1},
+    {type:"verbal",q:"Cat is to kitten as dog is to ___",o:["puppy","cub","foal","lamb"],a:0},
+    {type:"spatial",q:"If you fold a square paper in half twice, how many equal parts do you get?",o:["2","3","4","8"],a:2},
+    {type:"pattern",q:"Which comes next? Red, Blue, Red, Blue, Red, ___",o:["Red","Blue","Yellow","Green"],a:1},
+    {type:"verbal",q:"Which word does NOT belong? Apple, Mango, Carrot, Banana",o:["Apple","Mango","Carrot","Banana"],a:2},
+    {type:"memory",q:"What is 3 × 4?",o:["10","11","12","13"],a:2},
+    {type:"pattern",q:"Complete the series: 1, 4, 9, 16, ___",o:["20","25","30","36"],a:1},
+    {type:"verbal",q:"Big is to small as hot is to ___",o:["warm","cool","cold","ice"],a:2},
+    {type:"spatial",q:"How many sides does a hexagon have?",o:["5","6","7","8"],a:1},
+    {type:"pattern",q:"Which number is missing? 5, 10, ___, 20, 25",o:["12","14","15","16"],a:2},
+    /* 11-40: PAID TIER */
+    {type:"verbal",q:"Fish is to water as bird is to ___",o:["tree","sky","nest","cage"],a:1},
+    {type:"spatial",q:"A cube has how many faces?",o:["4","5","6","8"],a:2},
+    {type:"pattern",q:"Next in series: A, C, E, G, ___",o:["H","I","J","K"],a:1},
+    {type:"verbal",q:"Which is the largest? Mountain, Hill, Valley, Cliff",o:["Hill","Valley","Mountain","Cliff"],a:2},
+    {type:"memory",q:"If today is Wednesday, what day is 3 days later?",o:["Friday","Saturday","Sunday","Thursday"],a:1},
+    {type:"pattern",q:"2, 6, 18, 54, ___",o:["108","162","216","270"],a:1},
+    {type:"verbal",q:"Doctor is to hospital as teacher is to ___",o:["book","school","student","class"],a:1},
+    {type:"spatial",q:"Which shape has no corners?",o:["Triangle","Square","Circle","Rectangle"],a:2},
+    {type:"pattern",q:"100, 90, 80, 70, ___",o:["65","60","55","50"],a:1},
+    {type:"verbal",q:"Which word means the same as 'happy'?",o:["Sad","Angry","Joyful","Tired"],a:2},
+    {type:"pattern",q:"3, 9, 27, 81, ___",o:["162","243","324","405"],a:1},
+    {type:"verbal",q:"Sun is to day as moon is to ___",o:["star","night","sky","cloud"],a:1},
+    {type:"spatial",q:"How many corners does a triangle have?",o:["2","3","4","5"],a:1},
+    {type:"memory",q:"What is 7 × 8?",o:["48","54","56","63"],a:2},
+    {type:"pattern",q:"Z, Y, X, W, ___",o:["U","V","T","S"],a:1},
+    {type:"verbal",q:"Which does NOT fly? Eagle, Penguin, Parrot, Sparrow",o:["Eagle","Penguin","Parrot","Sparrow"],a:1},
+    {type:"spatial",q:"A square has how many lines of symmetry?",o:["1","2","3","4"],a:3},
+    {type:"pattern",q:"50, 45, 40, 35, ___",o:["28","30","32","33"],a:1},
+    {type:"verbal",q:"Pen is to write as scissors is to ___",o:["cut","sew","draw","stitch"],a:0},
+    {type:"memory",q:"How many minutes in 2 hours?",o:["60","90","100","120"],a:3},
+    {type:"pattern",q:"1, 2, 4, 8, 16, ___",o:["24","28","32","36"],a:2},
+    {type:"verbal",q:"Which is a vegetable? Rose, Lily, Carrot, Jasmine",o:["Rose","Lily","Carrot","Jasmine"],a:2},
+    {type:"spatial",q:"If a clock shows 6:00, the hands form what angle?",o:["90°","120°","150°","180°"],a:3},
+    {type:"memory",q:"What comes after 99?",o:["100","101","109","110"],a:0},
+    {type:"pattern",q:"2, 4, 8, 16, 32, ___",o:["48","56","64","72"],a:2},
+    {type:"verbal",q:"Flower is to garden as fish is to ___",o:["plate","pond","bowl","sea"],a:1},
+    {type:"spatial",q:"How many wheels does a tricycle have?",o:["2","3","4","6"],a:1},
+    {type:"memory",q:"January is the ___ month of the year",o:["first","second","third","fourth"],a:0},
+    {type:"pattern",q:"10, 20, 30, ___, 50",o:["35","38","40","42"],a:2},
+    {type:"verbal",q:"Which word is an animal? Table, Lion, Chair, Book",o:["Table","Lion","Chair","Book"],a:1}
+  ],
+  teens:[
+    /* 1-10: FREE TIER */
+    {type:"pattern",q:"What comes next? 1, 1, 2, 3, 5, 8, ___",o:["11","12","13","14"],a:2},
+    {type:"verbal",q:"Architect is to building as composer is to ___",o:["song","music","symphony","notes"],a:2},
+    {type:"spatial",q:"If a rectangle has perimeter 24cm and width 4cm, what is its length?",o:["6cm","7cm","8cm","9cm"],a:2},
+    {type:"pattern",q:"2, 3, 5, 7, 11, ___ (prime numbers)",o:["12","13","14","15"],a:1},
+    {type:"verbal",q:"Which word is the odd one out? Novel, Story, Poem, Chapter",o:["Novel","Story","Poem","Chapter"],a:3},
+    {type:"memory",q:"If x + 7 = 15, what is 2x?",o:["14","15","16","17"],a:2},
+    {type:"pattern",q:"J, F, M, A, M, J, J, ___ (months)",o:["A","S","O","N"],a:0},
+    {type:"verbal",q:"Curious is to inquisitive as brave is to ___",o:["fearful","timid","courageous","reckless"],a:2},
+    {type:"spatial",q:"How many triangles are in a Star of David?",o:["4","6","8","12"],a:2},
+    {type:"pattern",q:"144, 121, 100, 81, ___",o:["64","72","60","49"],a:0},
+    /* 11-40: PAID TIER */
+    {type:"verbal",q:"Which is NOT a type of rock? Igneous, Sedimentary, Vegetative, Metamorphic",o:["Igneous","Sedimentary","Vegetative","Metamorphic"],a:2},
+    {type:"spatial",q:"A cylinder rolled on its side traces what shape on the floor?",o:["Circle","Square","Rectangle","Ellipse"],a:2},
+    {type:"pattern",q:"3, 6, 11, 18, 27, ___",o:["36","38","40","42"],a:1},
+    {type:"verbal",q:"Redundant most nearly means ___",o:["necessary","superfluous","effective","scarce"],a:1},
+    {type:"memory",q:"A train travels 60 km/h. How long to travel 150 km?",o:["2h","2.5h","3h","3.5h"],a:1},
+    {type:"pattern",q:"1, 8, 27, 64, ___ (perfect cubes)",o:["100","125","144","216"],a:1},
+    {type:"verbal",q:"Cryptic is to mysterious as benevolent is to ___",o:["hostile","kind","greedy","passive"],a:1},
+    {type:"spatial",q:"How many edges does a triangular prism have?",o:["6","7","8","9"],a:3},
+    {type:"pattern",q:"2, 5, 10, 17, 26, ___",o:["35","36","37","38"],a:2},
+    {type:"verbal",q:"Ephemeral most nearly means ___",o:["permanent","fleeting","substantial","vivid"],a:1},
+    {type:"pattern",q:"5, 11, 23, 47, ___",o:["89","94","95","96"],a:2},
+    {type:"verbal",q:"Gregarious most nearly means ___",o:["shy","sociable","grumpy","quiet"],a:1},
+    {type:"spatial",q:"How many faces does a triangular pyramid (tetrahedron) have?",o:["3","4","5","6"],a:1},
+    {type:"memory",q:"If 5 pens cost ₹35, how much do 8 pens cost?",o:["₹56","₹60","₹64","₹70"],a:0},
+    {type:"pattern",q:"1, 3, 7, 15, 31, ___",o:["47","55","63","71"],a:2},
+    {type:"verbal",q:"Which does NOT belong? Mercury, Venus, Moon, Mars",o:["Mercury","Venus","Moon","Mars"],a:2},
+    {type:"spatial",q:"A square is rotated 45°. What shape does it most resemble?",o:["Rectangle","Diamond","Pentagon","Circle"],a:1},
+    {type:"memory",q:"What is √169?",o:["11","12","13","14"],a:2},
+    {type:"pattern",q:"2, 6, 12, 20, 30, ___",o:["38","40","42","44"],a:2},
+    {type:"verbal",q:"Ameliorate most nearly means ___",o:["worsen","improve","confuse","delay"],a:1},
+    {type:"pattern",q:"81, 27, 9, 3, ___",o:["0","1","2","3"],a:1},
+    {type:"verbal",q:"Which word pair are antonyms? ",o:["Hot/Warm","Fast/Quick","Love/Hate","Big/Large"],a:2},
+    {type:"spatial",q:"A cone has how many flat faces?",o:["0","1","2","3"],a:1},
+    {type:"memory",q:"If a shirt costs ₹400 and is discounted 25%, what is the sale price?",o:["₹280","₹290","₹300","₹310"],a:2},
+    {type:"pattern",q:"7, 13, 21, 31, 43, ___",o:["55","57","59","61"],a:1},
+    {type:"verbal",q:"Nostalgia is a feeling related to ___",o:["fear","the future","the past","anger"],a:2},
+    {type:"spatial",q:"Two circles of radius 5cm overlap. The overlap region is called ___",o:["Arc","Chord","Vesica piscis","Tangent"],a:2},
+    {type:"memory",q:"How many seconds in 2.5 minutes?",o:["120","140","150","160"],a:2},
+    {type:"pattern",q:"1, 5, 14, 30, 55, ___",o:["81","84","91","95"],a:2},
+    {type:"verbal",q:"Diligent most nearly means ___",o:["lazy","careful","hardworking","clever"],a:2}
+  ],
+  adults:[
+    /* 1-10: FREE TIER */
+    {type:"pattern",q:"Which number replaces ?: 4, 9, 20, 43, ___",o:["86","88","90","92"],a:2},
+    {type:"verbal",q:"Ephemeral most nearly means ___",o:["permanent","fleeting","substantial","vivid"],a:1},
+    {type:"spatial",q:"How many diagonals does a hexagon have?",o:["6","8","9","12"],a:2},
+    {type:"pattern",q:"Complete: 1/2, 1/4, 1/8, 1/16, ___",o:["1/24","1/32","1/36","1/48"],a:1},
+    {type:"verbal",q:"Which word does NOT belong? Lucid, Pellucid, Transparent, Opaque",o:["Lucid","Pellucid","Transparent","Opaque"],a:3},
+    {type:"memory",q:"If all bloops are razzles and all razzles are lazzles, then all bloops are ___",o:["not lazzles","definitely lazzles","maybe lazzles","never lazzles"],a:1},
+    {type:"pattern",q:"6, 24, 60, 120, 210, ___",o:["280","294","336","360"],a:2},
+    {type:"verbal",q:"Sycophant is to flattery as demagogue is to ___",o:["truth","silence","manipulation","wisdom"],a:2},
+    {type:"spatial",q:"A clock shows 3:15. The angle between the hands is ___",o:["0°","7.5°","15°","22.5°"],a:1},
+    {type:"pattern",q:"What is next? 2, 3, 5, 11, 23, ___",o:["41","43","47","53"],a:2},
+    /* 11-40: PAID TIER */
+    {type:"verbal",q:"Laconic most nearly means ___",o:["verbose","eloquent","concise","ambiguous"],a:2},
+    {type:"spatial",q:"A 3×3×3 cube is painted red. How many small cubes have paint on exactly 2 faces?",o:["8","12","16","20"],a:1},
+    {type:"pattern",q:"1, 2, 6, 24, 120, ___",o:["600","720","840","960"],a:1},
+    {type:"verbal",q:"Which pair is most analogous to 'Penury : Wealth'?",o:["Apathy:Care","Joy:Sorrow","War:Peace","Drought:Rain"],a:0},
+    {type:"memory",q:"If FRIEND is coded as GSJFOE, then ENEMY is coded as ___",o:["FOFNZ","FOGMZ","FOFMY","FOGNY"],a:0},
+    {type:"pattern",q:"3, 7, 13, 21, 31, ___",o:["41","43","45","47"],a:1},
+    {type:"verbal",q:"Impecunious most nearly means ___",o:["wealthy","poor","cautious","generous"],a:1},
+    {type:"spatial",q:"Which fraction is the largest? 7/9, 5/7, 11/14, 3/4",o:["7/9","5/7","11/14","3/4"],a:0},
+    {type:"pattern",q:"Complete: 3, 7, 13, 21, 31, 43, ___",o:["55","57","59","61"],a:1},
+    {type:"verbal",q:"Hubris most nearly means ___",o:["humility","arrogance","anxiety","ambition"],a:1},
+    {type:"pattern",q:"2, 9, 28, 65, 126, ___",o:["195","210","217","225"],a:2},
+    {type:"verbal",q:"Perfidious most nearly means ___",o:["loyal","treacherous","cautious","generous"],a:1},
+    {type:"spatial",q:"How many faces does an icosahedron have?",o:["12","16","18","20"],a:3},
+    {type:"memory",q:"A bat and ball cost ₹110. The bat costs ₹100 more than the ball. What does the ball cost?",o:["₹5","₹10","₹15","₹20"],a:0},
+    {type:"pattern",q:"1, 4, 10, 22, 46, ___",o:["90","94","96","98"],a:1},
+    {type:"verbal",q:"Enervate most nearly means ___",o:["energize","weaken","confuse","inspire"],a:1},
+    {type:"spatial",q:"If a triangle has angles 45° and 75°, what is the third angle?",o:["50°","55°","60°","65°"],a:2},
+    {type:"memory",q:"A is the 1st letter, Z is the 26th. What letter is the 13th?",o:["L","M","N","O"],a:1},
+    {type:"pattern",q:"2, 12, 36, 80, 150, ___",o:["240","252","252","258"],a:1},
+    {type:"verbal",q:"Obsequious most nearly means ___",o:["rebellious","servile","proud","distant"],a:1},
+    {type:"spatial",q:"A regular octagon has interior angles of ___",o:["108°","120°","135°","144°"],a:2},
+    {type:"memory",q:"If today is Monday June 2, what date is next Friday?",o:["June 5","June 6","June 7","June 8"],a:1},
+    {type:"pattern",q:"0, 1, 1, 2, 3, 5, 8, 13, 21, ___",o:["29","32","34","36"],a:2},
+    {type:"verbal",q:"Recondite most nearly means ___",o:["common","obscure","loud","simple"],a:1},
+    {type:"spatial",q:"Two angles of a quadrilateral are 90° and 85°. The other two sum to ___",o:["175°","180°","185°","190°"],a:2},
+    {type:"memory",q:"What is 17 × 13?",o:["201","211","221","231"],a:2},
+    {type:"pattern",q:"1, 2, 4, 7, 11, 16, 22, ___",o:["27","28","29","30"],a:2},
+    {type:"verbal",q:"Perspicacious most nearly means ___",o:["dull","shrewd","careless","modest"],a:1},
+    {type:"spatial",q:"How many lines of symmetry does a regular pentagon have?",o:["4","5","6","10"],a:1},
+    {type:"memory",q:"A car travels 240km in 3 hours. At same speed, how far in 5 hours?",o:["350km","380km","400km","420km"],a:2}
+  ],
+  seniors:[
+    /* 1-10: FREE TIER */
+    {type:"pattern",q:"What number comes next? 3, 6, 12, 24, ___",o:["36","42","48","54"],a:2},
+    {type:"verbal",q:"Which word means the opposite of 'melancholy'?",o:["Gloomy","Cheerful","Quiet","Tired"],a:1},
+    {type:"spatial",q:"How many months have exactly 30 days?",o:["3","4","5","6"],a:1},
+    {type:"pattern",q:"Complete: 10, 9, 7, 4, ___",o:["0","1","2","3"],a:0},
+    {type:"verbal",q:"Which does NOT belong? Oak, Pine, Rose, Maple",o:["Oak","Pine","Rose","Maple"],a:2},
+    {type:"memory",q:"A man is 24 years older than his son. In 2 years he'll be twice as old. Son's age now?",o:["20","22","24","26"],a:1},
+    {type:"pattern",q:"1000, 500, 250, 125, ___",o:["60","62.5","65","70"],a:1},
+    {type:"verbal",q:"Prudent most nearly means ___",o:["reckless","wise","proud","slow"],a:1},
+    {type:"spatial",q:"If you face North and turn 270° clockwise, you now face ___",o:["North","South","East","West"],a:3},
+    {type:"pattern",q:"7, 14, 21, 28, ___",o:["32","35","36","40"],a:1},
+    /* 11-40: PAID TIER */
+    {type:"verbal",q:"Which is most precise for a group of stars?",o:["Cluster","Group","Galaxy","Collection"],a:2},
+    {type:"spatial",q:"A rectangle's length is double its width. Area = 50cm². Width = ___",o:["4cm","5cm","6cm","7cm"],a:1},
+    {type:"pattern",q:"2, 5, 9, 14, 20, ___",o:["25","26","27","28"],a:2},
+    {type:"verbal",q:"Frugal most nearly means ___",o:["wasteful","thrifty","generous","careless"],a:1},
+    {type:"memory",q:"What is 15% of 200?",o:["25","30","35","40"],a:1},
+    {type:"pattern",q:"ABCD, BCDE, CDEF, ___",o:["DEFG","EFGH","DEGH","CDFG"],a:0},
+    {type:"verbal",q:"Serene most nearly means ___",o:["anxious","peaceful","energetic","bold"],a:1},
+    {type:"spatial",q:"How many squares (all sizes) are on a standard chessboard?",o:["64","128","204","256"],a:2},
+    {type:"pattern",q:"0.5, 1.5, 4.5, 13.5, ___",o:["27","40.5","54","81"],a:1},
+    {type:"verbal",q:"Which proverb means 'don't judge by appearance'?",o:["A stitch in time","Don't judge a book by its cover","The early bird catches the worm","Actions speak louder"],a:1},
+    {type:"pattern",q:"1, 3, 6, 10, 15, 21, ___",o:["25","27","28","30"],a:2},
+    {type:"verbal",q:"Candid most nearly means ___",o:["deceitful","frank","shy","lazy"],a:1},
+    {type:"spatial",q:"A man walks 3km north then 4km east. Straight-line distance from start?",o:["4km","5km","6km","7km"],a:1},
+    {type:"memory",q:"If you save ₹500 per month for 2.5 years, how much total?",o:["₹12,000","₹14,000","₹15,000","₹16,000"],a:2},
+    {type:"pattern",q:"64, 32, 16, 8, ___",o:["2","3","4","5"],a:2},
+    {type:"verbal",q:"Tenacious most nearly means ___",o:["weak","persistent","generous","calm"],a:1},
+    {type:"spatial",q:"How many times does the minute hand lap the hour hand in 12 hours?",o:["10","11","12","13"],a:1},
+    {type:"memory",q:"A recipe for 4 people needs 300g flour. For 10 people you need ___",o:["600g","650g","700g","750g"],a:3},
+    {type:"pattern",q:"2, 3, 5, 8, 13, 21, 34, ___",o:["47","53","55","57"],a:2},
+    {type:"verbal",q:"Which word means to make something worse?",o:["Mitigate","Alleviate","Exacerbate","Ameliorate"],a:2},
+    {type:"spatial",q:"If a clock is placed facing a mirror, what does 3:00 look like?",o:["3:00","6:00","9:00","12:00"],a:2},
+    {type:"memory",q:"A 20% discount on ₹850 gives a price of ___",o:["₹620","₹650","₹670","₹680"],a:3},
+    {type:"pattern",q:"1, 1, 2, 3, 5, 8, 13, 21, 34, ___",o:["47","53","55","57"],a:2},
+    {type:"verbal",q:"Magnanimous most nearly means ___",o:["petty","generous","boastful","timid"],a:1},
+    {type:"spatial",q:"How many faces, edges, and vertices does a cube have (total)?",o:["24","26","28","30"],a:1},
+    {type:"memory",q:"A pipe fills a tank in 6 hours. Another empties in 8 hours. Both open: tank fills in ___",o:["20h","22h","24h","26h"],a:2},
+    {type:"pattern",q:"3, 8, 15, 24, 35, ___",o:["46","47","48","50"],a:2},
+    {type:"verbal",q:"Equanimity most nearly means ___",o:["anxiety","composure","excitement","sorrow"],a:1},
+    {type:"spatial",q:"A triangle's area is 24cm². Base is 8cm. Height is ___",o:["3cm","4cm","5cm","6cm"],a:3},
+    {type:"memory",q:"Interest on ₹10,000 at 8% per year for 3 years (simple interest)?",o:["₹2,000","₹2,400","₹2,800","₹3,000"],a:1}
+  ]
+};
+
+const TYPES = {pattern:"Pattern recognition",verbal:"Verbal reasoning",spatial:"Spatial reasoning",memory:"Working memory"};
+const AGE_NORMS = {kids:95,teens:100,adults:100,seniors:98};
+const AGE_LABELS = {kids:"Kids",teens:"Teens",adults:"Adults",seniors:"Seniors"};
+const SCALE = [
+  {min:130,max:200,label:"Exceptionally gifted",color:"#7F77DD",bg:"#EEEDFE"},
+  {min:120,max:129,label:"Superior intelligence",color:"#1D9E75",bg:"#E1F5EE"},
+  {min:110,max:119,label:"Above average",color:"#1a7a4a",bg:"#e8f5ee"},
+  {min:90,max:109,label:"Average intelligence",color:"#378ADD",bg:"#E6F1FB"},
+  {min:80,max:89,label:"Below average",color:"#BA7517",bg:"#FAEEDA"},
+  {min:0,max:79,label:"Borderline",color:"#A32D2D",bg:"#FCEBEB"}
+];
+
+let state = {ageGroup:'adults',isPaid:false,questions:[],current:0,answers:[],selected:null,timeLeft:0,totalTime:0,timerInterval:null,result:null};
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='screen-leaderboard') renderLeaderboard();
+}
+
+function selectAge(ag, el){
+  state.ageGroup = ag;
+  document.querySelectorAll('.age-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('plans').classList.add('show');
+}
+
+function startTest(paid){
+  state.isPaid = paid;
+  const all = QUESTIONS[state.ageGroup];
+  state.questions = paid ? all : all.slice(0,10);
+  state.current = 0;
+  state.answers = [];
+  state.selected = null;
+  state.totalTime = paid ? 40*60 : 10*60;
+  state.timeLeft = state.totalTime;
+  state.questions = paid ? all : all.slice(0,10);
+  renderQuestion();
+  showScreen('screen-test');
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(state.timerInterval);
+  state.timerInterval = setInterval(()=>{
+    state.timeLeft--;
+    updateTimerDisplay();
+    if(state.timeLeft <= 0){ clearInterval(state.timerInterval); finishTest(); }
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const m=Math.floor(state.timeLeft/60), s=state.timeLeft%60;
+  const el=document.getElementById('timer-display');
+  el.textContent = m+':'+(s<10?'0':'')+s;
+  const pct = state.timeLeft/state.totalTime;
+  el.style.color = pct>0.4?'#1a7a4a':pct>0.15?'#BA7517':'#A32D2D';
+}
+
+function renderQuestion(){
+  const q = state.questions[state.current];
+  const total = state.questions.length;
+  document.getElementById('q-type').textContent = TYPES[q.type]||q.type;
+  document.getElementById('q-counter').textContent = (state.current+1)+' / '+total;
+  document.getElementById('question-text').textContent = q.q;
+  document.getElementById('progress-fill').style.width = (state.current/total*100)+'%';
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML='';
+  q.o.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn';
+    btn.innerHTML='<span class="opt-letter">'+['A','B','C','D'][i]+'</span>'+opt;
+    btn.onclick=()=>handleAnswer(i);
+    grid.appendChild(btn);
+  });
+  updateTimerDisplay();
+}
+
+function handleAnswer(idx){
+  if(state.selected !== null) return;
+  state.selected = idx;
+  const q = state.questions[state.current];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  btns[q.a].classList.add('correct');
+  if(idx !== q.a) btns[idx].classList.add('wrong');
+  setTimeout(()=>{
+    state.answers.push(idx);
+    state.selected = null;
+    if(state.current+1 >= state.questions.length){ clearInterval(state.timerInterval); finishTest(); }
+    else{ state.current++; renderQuestion(); }
+  },650);
+}
+
+function calcIQ(score,total,ag){
+  const pct=score/total;
+  const norm=AGE_NORMS[ag];
+  return Math.round(Math.max(60,Math.min(145,norm+(pct-0.5)*60)));
+}
+
+function getPercentile(iq){
+  const t=[[60,1],[70,2],[80,9],[85,16],[90,25],[95,37],[100,50],[105,63],[110,75],[115,84],[120,91],[125,95],[130,98],[140,99],[145,100]];
+  for(let i=t.length-1;i>=0;i--) if(iq>=t[i][0]) return t[i][1];
+  return 1;
+}
+
+function getCat(iq){ return SCALE.find(s=>iq>=s.min&&iq<=s.max)||SCALE[SCALE.length-1]; }
+
+function finishTest(){
+  const qs=state.questions, ans=state.answers;
+  let score=0;
+  const sub={pattern:{c:0,t:0},verbal:{c:0,t:0},spatial:{c:0,t:0},memory:{c:0,t:0}};
+  qs.forEach((q,i)=>{ const ok=ans[i]===q.a; if(ok)score++; sub[q.type].c+=ok?1:0; sub[q.type].t++; });
+  const iq=calcIQ(score,qs.length,state.ageGroup);
+  const cat=getCat(iq);
+  const pct=getPercentile(iq);
+  state.result={iq,cat,pct,score,total:qs.length,sub};
+  renderResult();
+  showScreen('screen-result');
+}
+
+function renderResult(){
+  const {iq,cat,pct,score,total,sub}=state.result;
+  const agLabel=(L('ageLabels')||AGE_LABELS)[state.ageGroup]||AGE_LABELS[state.ageGroup];
+  let resultSubText;
+  if(currentLang==='hi') resultSubText='आपने '+score+' में से '+total+' प्रश्नों के सही उत्तर दिए';
+  else if(currentLang==='ta') resultSubText='நீங்கள் '+total+' கேள்விகளில் '+score+' சரியான பதில்கள் அளித்தீர்கள்';
+  else resultSubText='You answered '+score+' out of '+total+' questions correctly';
+  document.getElementById('result-sub').textContent=resultSubText;
+  const card=document.getElementById('iq-card');
+  card.style.border='2px solid '+cat.color+'40';
+  const sc=document.getElementById('iq-score-display');
+  sc.textContent=iq; sc.style.color=cat.color;
+  const badge=document.getElementById('iq-badge');
+  const catTrans=((LANG[currentLang]||{}).cats||{})[cat.label]||cat.label;
+  badge.textContent=catTrans; badge.style.background=cat.bg; badge.style.color=cat.color;
+  const topPct=L('topPct')||'Top'; const ofLbl=L('ofLabel')||'of'; const pctLbl=L('pctLabel')||'th percentile';
+  document.getElementById('iq-stats').innerHTML=`<div><strong>${topPct} ${100-pct}%</strong> ${ofLbl} ${agLabel}</div><div><strong>${pct}${pctLbl}</strong></div>`;
+
+  if(state.isPaid){
+    const sc2=document.getElementById('subscore-card');
+    sc2.style.display='block';
+    const container=document.getElementById('subscores');
+    container.innerHTML='';
+    const subLbl=document.querySelector('#subscore-card .sub-label-row');
+    if(subLbl) subLbl.textContent=L('subBreakdown')||'Sub-score breakdown';
+    ['pattern','verbal','spatial','memory'].forEach(type=>{
+      const s=sub[type];
+      if(!s||s.t===0) return;
+      const p=Math.round(s.c/s.t*100);
+      const subIQ=Math.round(iq*(0.85+(p/100)*0.3));
+      const typeName=((LANG[currentLang]||{}).types||TYPES)[type]||type;
+      container.innerHTML+='<div class="sub-item"><div class="sub-row"><span class="sub-name">'+typeName+'</span><span class="sub-score">'+subIQ+'</span></div><div class="sub-bar-bg"><div class="sub-bar-fill" style="width:'+p+'%"></div></div></div>';
+    });
+  }
+
+  const scaleEl=document.getElementById('scale-rows');
+  scaleEl.innerHTML='';
+  SCALE.forEach(s=>{
+    const isYou=iq>=s.min&&iq<=s.max;
+    const range=s.max>=200?'130+':s.min+'–'+s.max;
+    scaleEl.innerHTML+='<div class="scale-row"><div class="scale-dot" style="background:'+s.color+'"></div><span class="scale-range">'+range+'</span><span class="scale-name">'+s.label+'</span>'+(isYou?'<span class="you-badge" style="color:'+s.color+';background:'+s.bg+'">YOU</span>':'')+'</div>';
+  });
+
+  const certSec=document.getElementById('cert-section');
+  if(state.isPaid){
+    certSec.innerHTML=`<div class="cert-cta"><h3>${L('certCta')}</h3><p>${L('certInstr')}</p><input class="cert-input" id="cert-name-input" placeholder="${L('certPH')}"/><button class="btn-cert" onclick="generateCert()">${L('certBtn')}</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px"><button onclick="openShareModal()" style="padding:12px;background:#e8f5ee;border:1.5px solid #c8e6d4;border-radius:12px;font-size:13px;font-weight:700;color:#145f39;cursor:pointer">${L('shareBtn')}</button><button onclick="showScreen('screen-leaderboard');renderLeaderboard()" style="padding:12px;background:#E6F1FB;border:1.5px solid #a8c9ec;border-radius:12px;font-size:13px;font-weight:700;color:#0C447C;cursor:pointer">${L('lbBtn2')}</button></div>`;
+  } else {
+    certSec.innerHTML=`<div class="upgrade-box"><h3>${L('upgTitle')}</h3><p>${L('upgDesc')}</p><button class="btn-upgrade" onclick="openPayment()">${L('upgBtn')}</button></div><div style="margin-top:10px;text-align:center"><button onclick="openShareModal()" style="padding:10px 24px;background:#e8f5ee;border:1.5px solid #c8e6d4;border-radius:12px;font-size:13px;font-weight:700;color:#145f39;cursor:pointer">${L('shareBtn')}</button></div>`;
+  }
+  // Save to leaderboard
+  addToLeaderboard(iq, state.ageGroup, state.isPaid);
+}
+
+function generateCert(){
+  const name=document.getElementById('cert-name-input').value.trim();
+  if(!name){ alert('Please enter your name'); return; }
+
+  // Kids get the special nature certificate
+  if(state.ageGroup==='kids'){
+    showScreen('screen-kids-cert');
+    setTimeout(()=>drawKidsCertApp(name),100);
+    return;
+  }
+
+  const {iq,cat,pct}=state.result;
+  const agLabel=AGE_LABELS[state.ageGroup];
+  const today=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+  const id='IQ-'+Math.random().toString(36).substring(2,8).toUpperCase();
+  document.getElementById('cert-name-display').textContent=name;
+  document.getElementById('cert-desc').innerHTML='has successfully completed the <strong>Intellecta Cognitive Assessment</strong><br>for the <strong>'+agLabel+'</strong> age group and achieved an';
+  const box=document.getElementById('cert-score-box');
+  box.style.background=cat.bg; box.style.borderColor=cat.color;
+  document.getElementById('cert-iq-label').textContent='IQ Score';
+  document.getElementById('cert-iq-label').style.color=cat.color;
+  document.getElementById('cert-iq-num').textContent=iq;
+  document.getElementById('cert-iq-num').style.color=cat.color;
+  document.getElementById('cert-iq-cat').textContent=cat.label;
+  document.getElementById('cert-iq-cat').style.color=cat.color;
+  document.getElementById('cert-percentile').innerHTML='Scoring in the <strong style="color:#1a7a4a">top '+(100-pct)+'%</strong> of '+agLabel.toLowerCase();
+  document.getElementById('cert-id').textContent='Issued on '+today+' · Intellecta Platform · Certificate ID: '+id;
+  showScreen('screen-cert');
+}
+
+function goHome(){
+  state={...state,questions:[],current:0,answers:[],selected:null,result:null};
+  clearInterval(state.timerInterval);
+  document.querySelectorAll('.age-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('plans').classList.remove('show');
+  showScreen('screen-home');
+}
+
+/* ===== PAYMENT MODAL ===== */
+let selectedUpiApp='', selectedBank='', selectedWallet='';
+
+function openPayment(){
+  // Reset modal to normal view
+  document.getElementById('pay-view-normal').style.display='';
+  document.getElementById('pay-view-processing').style.display='none';
+  document.getElementById('pay-view-success').style.display='none';
+  selectedUpiApp=''; selectedBank=''; selectedWallet='';
+  // Reset tab to UPI
+  document.querySelectorAll('.pay-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.pay-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.pay-tab')[0].classList.add('active');
+  document.getElementById('panel-upi').classList.add('active');
+  document.getElementById('payment-modal').classList.add('open');
+}
+
+function closePayment(){
+  document.getElementById('payment-modal').classList.remove('open');
+}
+
+function handleModalOverlayClick(e){
+  if(e.target===document.getElementById('payment-modal')) closePayment();
+}
+
+function switchPayTab(name, btn){
+  document.querySelectorAll('.pay-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.pay-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
+}
+
+function selectUpiApp(el, name){
+  document.querySelectorAll('.upi-app').forEach(a=>a.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedUpiApp=name;
+  document.getElementById('upi-id-input').value='';
+}
+
+function selectBank(el, name){
+  document.querySelectorAll('.bank-item').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedBank=name;
+  document.getElementById('bank-select').value='';
+}
+
+function selectBankDropdown(sel){
+  document.querySelectorAll('.bank-item').forEach(b=>b.classList.remove('sel'));
+  selectedBank=sel.value;
+}
+
+function selectWallet(el, name){
+  document.querySelectorAll('.wallet-item').forEach(w=>w.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedWallet=name;
+}
+
+function formatCard(inp){
+  let v=inp.value.replace(/\D/g,'').substring(0,16);
+  inp.value=v.replace(/(.{4})/g,'$1  ').trim();
+}
+
+function formatExpiry(inp){
+  let v=inp.value.replace(/\D/g,'').substring(0,4);
+  if(v.length>=3) v=v.substring(0,2)+' / '+v.substring(2);
+  inp.value=v;
+}
+
+function processPayment(method){
+  const msgs={
+    'UPI':['Connecting to UPI gateway…','Sending payment request…','Awaiting confirmation…'],
+    'Card':['Verifying card details…','Processing with bank…','Awaiting authorization…'],
+    'Net Banking':['Connecting to bank portal…','Verifying credentials…','Confirming transaction…'],
+    'Wallet':['Connecting to wallet…','Debiting wallet balance…','Confirming payment…']
+  };
+  document.getElementById('pay-view-normal').style.display='none';
+  document.getElementById('pay-view-processing').style.display='';
+  const steps=msgs[method]||['Processing…'];
+  let i=0;
+  const sub=document.getElementById('processing-sub');
+  sub.textContent=steps[0];
+  const iv=setInterval(()=>{
+    i++;
+    if(i<steps.length){ sub.textContent=steps[i]; }
+    else {
+      clearInterval(iv);
+      // Show success
+      document.getElementById('pay-view-processing').style.display='none';
+      document.getElementById('pay-view-success').style.display='';
+      const ref='TXN'+Date.now().toString().slice(-8);
+      document.getElementById('success-ref').textContent='Transaction ID: '+ref+' · '+method+' · ₹99';
+    }
+  },1200);
+}
+
+function onPaymentSuccess(){
+  closePayment();
+  startTest(true);
+}
+/* ===== LEADERBOARD ===== */
+const AVATAR_COLORS=['#1a7a4a','#7F77DD','#378ADD','#EF9F27','#1D9E75','#e24b4a','#0e4428','#BA7517'];
+const LB_DATA = [
+  {name:'Arjun Mehta',iq:138,ag:'adults',week:true,init:'A'},
+  {name:'Priya Sharma',iq:135,ag:'teens',week:true,init:'P'},
+  {name:'Vikram Nair',iq:133,ag:'adults',week:false,init:'V'},
+  {name:'Ananya Iyer',iq:131,ag:'teens',week:true,init:'A'},
+  {name:'Siddharth Roy',iq:129,ag:'adults',week:true,init:'S'},
+  {name:'Meera Patel',iq:127,ag:'kids',week:false,init:'M'},
+  {name:'Rahul Gupta',iq:125,ag:'seniors',week:true,init:'R'},
+  {name:'Kavya Das',iq:124,ag:'adults',week:false,init:'K'},
+  {name:'Suresh Pillai',iq:122,ag:'seniors',week:true,init:'S'},
+  {name:'Neha Verma',iq:121,ag:'teens',week:false,init:'N'},
+  {name:'Deepak Kumar',iq:119,ag:'adults',week:true,init:'D'},
+  {name:'Sneha Joshi',iq:118,ag:'kids',week:true,init:'S'},
+  {name:'Ravi Reddy',iq:117,ag:'adults',week:false,init:'R'},
+  {name:'Pooja Chauhan',iq:115,ag:'teens',week:true,init:'P'},
+  {name:'Amit Singh',iq:114,ag:'seniors',week:false,init:'A'},
+  {name:'Lakshmi Rao',iq:113,ag:'adults',week:true,init:'L'},
+  {name:'Manish Tiwari',iq:112,ag:'teens',week:false,init:'M'},
+  {name:'Divya Aggarwal',iq:111,ag:'kids',week:true,init:'D'},
+  {name:'Kiran Nair',iq:110,ag:'adults',week:true,init:'K'},
+  {name:'Sunita Bose',iq:109,ag:'seniors',week:false,init:'S'},
+];
+let lbFilter='all';
+let myLBEntry=null;
+
+function addToLeaderboard(iq, ag, isPaid){
+  if(!isPaid) return;
+  myLBEntry={name:'You',iq,ag,week:true,init:'Y',isMe:true};
+}
+
+function filterLB(filter, btn){
+  lbFilter=filter;
+  document.querySelectorAll('.lb-filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLeaderboard();
+}
+
+function renderLeaderboard(){
+  let data=[...LB_DATA];
+  if(myLBEntry) data.push(myLBEntry);
+  data.sort((a,b)=>b.iq-a.iq);
+
+  if(lbFilter==='week') data=data.filter(d=>d.week);
+  else if(lbFilter!=='all') data=data.filter(d=>d.ag===lbFilter);
+
+  // Podium (top 3)
+  const podium=document.getElementById('lb-podium');
+  const top3=data.slice(0,3);
+  const order=[1,0,2]; // 2nd, 1st, 3rd visual order
+  const heights=['podium-2','podium-1','podium-3'];
+  const medals=['🥈','🥇','🥉'];
+  const crowns=['','👑',''];
+  podium.innerHTML='';
+  order.forEach((idx,pos)=>{
+    const p=top3[idx];
+    if(!p) return;
+    const col=AVATAR_COLORS[idx%AVATAR_COLORS.length];
+    podium.innerHTML+=`<div class="podium-col">
+      <div class="podium-avatar" style="background:${col}">${crowns[pos]?`<span class="podium-crown">${crowns[pos]}</span>`:''}${p.init}</div>
+      <div class="podium-name">${p.isMe?'⭐ You':p.name}</div>
+      <div class="podium-iq">IQ ${p.iq}</div>
+      <div class="podium-block ${heights[pos]}">${medals[pos]}</div>
+    </div>`;
+  });
+
+  // List (rank 4+)
+  const list=document.getElementById('lb-list');
+  list.innerHTML='';
+  data.slice(3).forEach((p,i)=>{
+    const rank=i+4;
+    const col=AVATAR_COLORS[(i+3)%AVATAR_COLORS.length];
+    const agLabel=AGE_LABELS[p.ag]||p.ag;
+    list.innerHTML+=`<div class="lb-row${p.isMe?' me':''}">
+      <div class="lb-rank">${rank}</div>
+      <div class="lb-avatar" style="background:${col}">${p.init}</div>
+      <div class="lb-info">
+        <div class="lb-name">${p.isMe?'You ⭐':p.name}${p.isMe?'<span class="lb-you-tag">YOU</span>':''}</div>
+        <div class="lb-meta">${agLabel} · ${p.week?'This week':'All time'}</div>
+      </div>
+      <div class="lb-iq">${p.iq}</div>
+    </div>`;
+  });
+
+  // Your rank card
+  const yr=document.getElementById('lb-your-rank');
+  if(myLBEntry){
+    const myRank=data.findIndex(d=>d.isMe)+1;
+    yr.style.display='block';
+    document.getElementById('lb-your-iq').textContent='IQ '+myLBEntry.iq;
+    document.getElementById('lb-your-rank-txt').textContent=`You are ranked #${myRank} out of ${data.length} on the leaderboard 🎉`;
+    yr.querySelector('button').style.display='none';
+  } else {
+    yr.style.display='block';
+  }
+}
+
+/* ===== SOCIAL SHARE ===== */
+function openShareModal(){
+  if(!state.result){ alert('Complete a test first to share your score!'); return; }
+  const {iq,cat,pct}=state.result;
+  const agLabel=AGE_LABELS[state.ageGroup];
+  document.getElementById('share-iq-big').textContent=iq;
+  document.getElementById('share-iq-label').textContent=cat.label+' · '+agLabel;
+  document.getElementById('share-pct-pill').textContent='Top '+(100-pct)+'% worldwide';
+  document.getElementById('share-modal').classList.add('open');
+}
+
+function handleShareOverlay(e){
+  if(e.target===document.getElementById('share-modal')) closeShareModal();
+}
+
+function closeShareModal(){
+  document.getElementById('share-modal').classList.remove('open');
+}
+
+function shareToApp(app){
+  if(!state.result) return;
+  const {iq,cat,pct}=state.result;
+  const agLabel=AGE_LABELS[state.ageGroup];
+  const text=`🧠 I just scored IQ ${iq} on Intellecta!\n\n${cat.label} — Top ${100-pct}% of ${agLabel.toLowerCase()}\n\nTest your intelligence at intellecta.app`;
+  const urls={
+    whatsapp:`https://wa.me/?text=${encodeURIComponent(text)}`,
+    twitter:`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,
+    linkedin:`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://intellecta.app')}&summary=${encodeURIComponent(text)}`,
+    instagram:'https://www.instagram.com/'
+  };
+  if(app==='instagram'){
+    alert('📸 Instagram tip:\nScreenshot your score card above and share it as a Story or Post!\n\nTag @intellecta.app for a chance to be featured.');
+    return;
+  }
+  window.open(urls[app],'_blank');
+  closeShareModal();
+}
+
+function copyShareLink(){
+  if(!state.result) return;
+  const {iq,cat,pct}=state.result;
+  const agLabel=(L('ageLabels')||AGE_LABELS)[state.ageGroup]||state.ageGroup;
+  const catTrans=((LANG[currentLang]||{}).cats||{})[cat.label]||cat.label;
+  let text;
+  if(currentLang==='hi')
+    text=`🧠 மैंने Intellecta पर IQ ${iq} स्कोर किया! (${catTrans} — शीर्ष ${100-pct}% ${agLabel} में)। खुद टेस्ट करें: intellecta.app`;
+  else if(currentLang==='ta')
+    text=`🧠 நான் Intellecta-வில் IQ ${iq} மதிப்பெண் பெற்றேன்! (${catTrans} — ${agLabel} இல் சிறந்த ${100-pct}%). நீங்களும் சோதியுங்கள்: intellecta.app`;
+  else
+    text=`🧠 I scored IQ ${iq} on Intellecta (${cat.label} — Top ${100-pct}% of ${agLabel}). Test yourself: intellecta.app`;
+  const btn=document.getElementById('share-copy-btn-txt');
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(()=>{
+      if(btn){ btn.textContent=L('copied')||'✅ Copied!'; setTimeout(()=>{ if(btn) btn.textContent=L('copyLinkBtn')||'📋 Copy shareable link'; },2000); }
+    });
+  } else {
+    prompt('Copy this text:',text);
+  }
+}
+</script>
+function showAdmin(){
+  document.getElementById('admin-overlay').classList.add('open');
+  document.getElementById('admin-login-view').style.display='';
+  document.getElementById('admin-dashboard-view').style.display='none';
+  document.getElementById('admin-err').style.display='none';
+  document.getElementById('admin-user').value='';
+  document.getElementById('admin-pass').value='';
+}
+function closeAdmin(){
+  document.getElementById('admin-overlay').classList.remove('open');
+}
+function adminLogin(){
+  const u=document.getElementById('admin-user').value.trim();
+  const p=document.getElementById('admin-pass').value.trim();
+  if(u==='admin'&&p==='admin123'){
+    document.getElementById('admin-login-view').style.display='none';
+    document.getElementById('admin-dashboard-view').style.display='';
+    initAdminCharts();
+  } else {
+    document.getElementById('admin-err').style.display='block';
+  }
+}
+function switchAdminTab(name,btn){
+  document.querySelectorAll('.admin-nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('admin-panel-'+name).classList.add('active');
+}
+function adminAction(msg){
+  alert('✅ Action triggered: '+msg+'\n\nIn the live app this would connect to your backend API.');
+}
+
+function initAdminCharts(){
+  // Weekly tests chart
+  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const testVals=[142,168,203,187,241,318,280];
+  const maxT=Math.max(...testVals);
+  const tc=document.getElementById('tests-chart');
+  tc.innerHTML='';
+  days.forEach((d,i)=>{
+    const pct=Math.round((testVals[i]/maxT)*100);
+    tc.innerHTML+=`<div class="chart-bar-col"><div class="chart-bar-val">${testVals[i]}</div><div style="flex:1;display:flex;align-items:flex-end;width:100%"><div class="chart-bar" style="height:${pct}%;width:100%"></div></div><div class="chart-bar-label">${d}</div></div>`;
+  });
+
+  // Revenue chart
+  const revVals=[2100,2400,1800,3200,2900,4100,3600];
+  const maxR=Math.max(...revVals);
+  const rc=document.getElementById('revenue-chart');
+  rc.innerHTML='';
+  days.forEach((d,i)=>{
+    const pct=Math.round((revVals[i]/maxR)*100);
+    rc.innerHTML+=`<div class="chart-bar-col"><div class="chart-bar-val">₹${(revVals[i]/1000).toFixed(1)}K</div><div style="flex:1;display:flex;align-items:flex-end;width:100%"><div class="chart-bar revenue-bar" style="height:${pct}%;width:100%"></div></div><div class="chart-bar-label">${d}</div></div>`;
+  });
+
+  // Score distribution
+  const scoreDist=[3,8,22,38,19,7,3];
+  const scoreLabels=['<80','80–89','90–99','100–109','110–119','120–129','130+'];
+  const scoreColors=['#e24b4a','#BA7517','#378ADD','#1a7a4a','#1D9E75','#7F77DD','#d4a017'];
+  const maxS=Math.max(...scoreDist);
+  const sc=document.getElementById('score-dist-chart');
+  sc.innerHTML='';
+  scoreDist.forEach((v,i)=>{
+    const pct=Math.round((v/maxS)*100);
+    sc.innerHTML+=`<div class="chart-bar-col"><div class="chart-bar-val">${v}%</div><div style="flex:1;display:flex;align-items:flex-end;width:100%"><div class="chart-bar" style="height:${pct}%;width:100%;background:${scoreColors[i]}"></div></div></div>`;
+  });
+
+  // IQ by age group
+  const iqByAge=[{group:'Kids 🧒',iq:97,color:'#EF9F27'},{group:'Teens 🧑',iq:103,color:'#378ADD'},{group:'Adults 👤',iq:106,color:'#1a7a4a'},{group:'Seniors 🧓',iq:101,color:'#7F77DD'}];
+  const iqEl=document.getElementById('iq-by-age');
+  iqEl.innerHTML='';
+  iqByAge.forEach(r=>{
+    const pct=Math.round(((r.iq-60)/85)*100);
+    iqEl.innerHTML+=`<div><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;font-weight:500;color:#1a2e22">${r.group}</span><span style="font-size:13px;font-weight:700;color:${r.color}">${r.iq}</span></div><div style="height:8px;background:#e8f5ee;border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${r.color};border-radius:4px;transition:width 1s ease"></div></div></div>`;
+  });
+
+  // Users table
+  const names=['Priya Sharma','Arjun Singh','Meera Patel','Rahul Gupta','Ananya Iyer','Siddharth Roy','Kavya Nair','Vikram Joshi','Pooja Mehta','Ravi Kumar','Sneha Das','Amit Tiwari','Neha Verma','Kiran Reddy','Suresh Pillai','Divya Chauhan','Manish Aggarwal','Lakshmi Rao','Deepak Nair','Sunita Singh'];
+  const ageGrps=['kids','teens','adults','seniors'];
+  const testTypes=['Free','Paid'];
+  const tbody=document.getElementById('users-table');
+  names.forEach((n,i)=>{
+    const ag=ageGrps[Math.floor(Math.random()*4)];
+    const paid=Math.random()>0.4;
+    const iq=paid?Math.round(85+Math.random()*45):'-';
+    const daysAgo=i;
+    const date=new Date(Date.now()-daysAgo*86400000).toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+    tbody.innerHTML+=`<tr><td style="color:#9aaf9e">${i+1}</td><td style="font-weight:600">${n}</td><td><span class="td-badge badge-${ag}">${ag}</span></td><td>${paid?`${iq} <span class="iq-mini-bar"><span class="iq-mini-fill" style="width:${paid?Math.round(((iq-60)/85)*100):0}%"></span></span>`:'-'}</td><td><span class="td-badge ${paid?'badge-paid':'badge-free'}">${paid?'Paid':'Free'}</span></td><td style="color:#9aaf9e">${date}</td></tr>`;
+  });
+
+  // Transactions table
+  const txnEl=document.getElementById('txn-table');
+  const methods=['UPI','Card','Net Banking','Wallet'];
+  names.slice(0,12).forEach((n,i)=>{
+    const id='TXN'+Math.floor(Math.random()*90000000+10000000);
+    const method=methods[Math.floor(Math.random()*4)];
+    const minsAgo=i*37+Math.floor(Math.random()*30);
+    txnEl.innerHTML+=`<tr><td style="font-size:11px;color:#9aaf9e;font-family:monospace">${id}</td><td style="font-weight:600">${n}</td><td style="font-weight:700;color:#1a7a4a">₹99</td><td>${method}</td><td><span class="td-badge badge-paid">Success</span></td><td style="color:#9aaf9e">${minsAgo}m ago</td></tr>`;
+  });
+
+  // Alerts
+  const alerts=[
+    {color:'#1a7a4a',text:'<strong>186 paid tests</strong> completed this month — new monthly record 🎉',time:'2 min ago'},
+    {color:'#378ADD',text:'New user spike detected: <strong>318 tests</strong> on Saturday (highest single day)',time:'1 hour ago'},
+    {color:'#EF9F27',text:'Certificate generation rate: <strong>44%</strong> of paid users downloading certificates',time:'3 hours ago'},
+    {color:'#7F77DD',text:'Teens age group growing fastest: <strong>+34% month-on-month</strong>',time:'6 hours ago'},
+    {color:'#1D9E75',text:'UPI payments now <strong>50% of all transactions</strong> — consider GPay promotions',time:'Yesterday'},
+    {color:'#EF9F27',text:'<strong>12 users</strong> abandoned payment at card entry step — consider simplifying flow',time:'Yesterday'},
+    {color:'#e24b4a',text:'<strong>3 test sessions</strong> timed out without completion — review question difficulty',time:'2 days ago'},
+    {color:'#1a7a4a',text:'App received <strong>47 new 5-star reviews</strong> this week on Play Store',time:'2 days ago'},
+  ];
+  const al=document.getElementById('alerts-list');
+  al.innerHTML='';
+  alerts.forEach(a=>{
+    al.innerHTML+=`<div class="alert-row"><div class="alert-dot" style="background:${a.color}"></div><div class="alert-text">${a.text}</div><div class="alert-time">${a.time}</div></div>`;
+  });
+
+  // Live counter simulation
+  setInterval(()=>{
+    const u=document.getElementById('stat-users');
+    const t=document.getElementById('stat-tests');
+    if(u&&t){
+      if(Math.random()>0.7) u.textContent=(parseInt(u.textContent.replace(',',''))+1).toLocaleString('en-IN');
+      if(Math.random()>0.5) t.textContent=(parseInt(t.textContent.replace(',',''))+1).toLocaleString('en-IN');
+    }
+  },4000);
+}
+
+/* ===== HINDI / ENGLISH TOGGLE ===== */
+let currentLang='en';
+
+const LANG={
+  en:{
+    langBtn:'🇮🇳 हिंदी',
+    heroBadge:'Science-backed cognitive assessment',
+    heroTitle:'Discover your <span style="color:var(--green)">true intelligence</span>',
+    heroP:'Take a certified IQ test calibrated for your age group. Get your IQ score, sub-scores, and a downloadable certificate.',
+    f1t:'Age-calibrated',f1d:'Norms for all age groups',
+    f2t:'Instant results',f2d:'Score + certificate in seconds',
+    f3t:'Shareable cert',f3d:'PDF certificate with your score',
+    selectAge:'Select your age group',
+    kids:'Kids',kidsRange:'Ages 6–12',
+    teens:'Teens',teensRange:'Ages 13–17',
+    adults:'Adults',adultsRange:'Ages 18–40',
+    seniors:'Seniors',seniorsRange:'Ages 40+',
+    freeLabel:'Free test',freePrice:'₹0',
+    freeQ:'10 questions',freeT:'~10 minutes',freeSc:'Basic IQ score',freeCert:'No certificate',
+    freeBtn:'Start free test',
+    paidLabel:'Full test',paidPrice:'₹99',paidUnit:'one-time',
+    paidQ:'40 questions',paidT:'~40 minutes',paidSc:'Full IQ + sub-scores',paidCert:'PDF Certificate ✨',
+    paidBtn:'Start full test',
+    timerLbl:'TIME LEFT',
+    resultsReady:'Your results are ready',
+    iqLbl:'Your IQ score',
+    subBreakdown:'Sub-score breakdown',
+    iqRef:'IQ scale reference',
+    certCta:'🏆 Get your certificate',
+    certInstr:'Enter your name exactly as you want it on the certificate.',
+    certPH:'Enter your full name',
+    certBtn:'Generate my certificate →',
+    shareBtn:'📤 Share my score',
+    lbBtn2:'🏆 View Leaderboard',
+    upgTitle:'Want detailed sub-scores + certificate?',
+    upgDesc:'Upgrade to the full test for ₹99 — get sub-score breakdown, detailed report, and downloadable PDF certificate.',
+    upgBtn:'Upgrade to full test — ₹99',
+    backHome:'← Take another test',
+    certPrint:'⬇ Download / Print Certificate',
+    certFooter:'This certificate is issued for educational purposes only. It is not a clinical IQ assessment.',
+    certAchieve:'Certificate of Achievement',
+    certThisCert:'This certifies that',
+    shareModalTitle:'Share your IQ score 🎉',
+    shareModalSub:'Show the world how smart you are!',
+    copyLinkBtn:'📋 Copy shareable link',
+    lbTitle:'Global Leaderboard',
+    lbSub:'Top IQ scores from Intellecta users worldwide',
+    lbBack:'← Back to Home',
+    lbYourBest:'Your best score',
+    lbNoScore:'Take a paid test to appear on the leaderboard',
+    lbRankUpBtn:'Take full test to rank up →',
+    types:{pattern:'Pattern recognition',verbal:'Verbal reasoning',spatial:'Spatial reasoning',memory:'Working memory'},
+    cats:{'Exceptionally gifted':'Exceptionally gifted','Superior intelligence':'Superior intelligence','Above average':'Above average','Average intelligence':'Average intelligence','Below average':'Below average','Borderline':'Borderline'},
+    scale:[['130+','Exceptionally gifted'],['120–129','Superior intelligence'],['110–119','Above average'],['90–109','Average intelligence'],['80–89','Below average'],['<80','Borderline']],
+    ageLabels:{kids:'Kids',teens:'Teens',adults:'Adults',seniors:'Seniors'},
+    topPct:'Top',ofLabel:'of',pctLabel:'th percentile',
+  },
+  hi:{
+    langBtn:'🇬🇧 English',
+    heroBadge:'विज्ञान-आधारित संज्ञानात्मक मूल्यांकन',
+    heroTitle:'अपनी असली <span style="color:var(--green)">बुद्धिमत्ता खोजें</span>',
+    heroP:'अपनी आयु वर्ग के लिए कैलिब्रेटेड IQ टेस्ट लें। IQ स्कोर, उप-स्कोर और डाउनलोड करने योग्य प्रमाणपत्र पाएं।',
+    f1t:'आयु-अनुकूलित',f1d:'सभी आयु वर्गों के मानक',
+    f2t:'तुरंत परिणाम',f2d:'सेकंड में स्कोर + प्रमाणपत्र',
+    f3t:'शेयर करें',f3d:'स्कोर सहित PDF प्रमाणपत्र',
+    selectAge:'अपना आयु वर्ग चुनें',
+    kids:'बच्चे',kidsRange:'उम्र 6–12',
+    teens:'किशोर',teensRange:'उम्र 13–17',
+    adults:'वयस्क',adultsRange:'उम्र 18–40',
+    seniors:'वरिष्ठ',seniorsRange:'उम्र 40+',
+    freeLabel:'निःशुल्क परीक्षण',freePrice:'₹0',
+    freeQ:'10 प्रश्न',freeT:'~10 मिनट',freeSc:'बुनियादी IQ स्कोर',freeCert:'प्रमाणपत्र नहीं',
+    freeBtn:'निःशुल्क परीक्षण शुरू करें',
+    paidLabel:'पूर्ण परीक्षण',paidPrice:'₹99',paidUnit:'एक बार',
+    paidQ:'40 प्रश्न',paidT:'~40 मिनट',paidSc:'पूर्ण IQ + उप-स्कोर',paidCert:'PDF प्रमाणपत्र ✨',
+    paidBtn:'पूर्ण परीक्षण शुरू करें',
+    timerLbl:'शेष समय',
+    resultsReady:'आपके परिणाम तैयार हैं',
+    iqLbl:'आपका IQ स्कोर',
+    subBreakdown:'उप-स्कोर विवरण',
+    iqRef:'IQ स्केल संदर्भ',
+    certCta:'🏆 अपना प्रमाणपत्र लें',
+    certInstr:'प्रमाणपत्र पर जैसा नाम चाहते हैं वैसा लिखें।',
+    certPH:'अपना पूरा नाम लिखें',
+    certBtn:'मेरा प्रमाणपत्र बनाएं →',
+    shareBtn:'📤 स्कोर शेयर करें',
+    lbBtn2:'🏆 लीडरबोर्ड देखें',
+    upgTitle:'विस्तृत उप-स्कोर + प्रमाणपत्र चाहिए?',
+    upgDesc:'₹99 में पूर्ण परीक्षण अपग्रेड करें — उप-स्कोर, विस्तृत रिपोर्ट और PDF प्रमाणपत्र पाएं।',
+    upgBtn:'पूर्ण परीक्षण अपग्रेड करें — ₹99',
+    backHome:'← दूसरा परीक्षण लें',
+    certPrint:'⬇ डाउनलोड / प्रिंट प्रमाणपत्र',
+    certFooter:'यह प्रमाणपत्र केवल शैक्षिक उद्देश्यों के लिए है। यह नैदानिक IQ मूल्यांकन नहीं है।',
+    certAchieve:'उपलब्धि प्रमाणपत्र',
+    certThisCert:'यह प्रमाणित करता है कि',
+    shareModalTitle:'अपना IQ स्कोर शेयर करें 🎉',
+    shareModalSub:'दुनिया को दिखाएं आप कितने होशियार हैं!',
+    copyLinkBtn:'📋 शेयर लिंक कॉपी करें',
+    lbTitle:'वैश्विक लीडरबोर्ड',
+    lbSub:'Intellecta उपयोगकर्ताओं के शीर्ष IQ स्कोर',
+    lbBack:'← होम पर जाएं',
+    lbYourBest:'आपका सर्वश्रेष्ठ स्कोर',
+    lbNoScore:'लीडरबोर्ड पर दिखने के लिए पेड टेस्ट लें',
+    lbRankUpBtn:'रैंक बढ़ाने के लिए पूर्ण परीक्षण लें →',
+    types:{pattern:'पैटर्न पहचान',verbal:'मौखिक तर्क',spatial:'स्थानिक तर्क',memory:'कार्यशील स्मृति'},
+    cats:{'Exceptionally gifted':'असाधारण प्रतिभाशाली','Superior intelligence':'श्रेष्ठ बुद्धिमत्ता','Above average':'औसत से अधिक','Average intelligence':'औसत बुद्धिमत्ता','Below average':'औसत से कम','Borderline':'सीमा रेखा'},
+    scale:[['130+','असाधारण प्रतिभाशाली'],['120–129','श्रेष्ठ बुद्धिमत्ता'],['110–119','औसत से अधिक'],['90–109','औसत बुद्धिमत्ता'],['80–89','औसत से कम'],['<80','सीमा रेखा']],
+    ageLabels:{kids:'बच्चे',teens:'किशोर',adults:'वयस्क',seniors:'वरिष्ठ'},
+    topPct:'शीर्ष',ofLabel:'में से',pctLabel:'वाँ प्रतिशत',
+  },
+  ta:{
+    langBtn:'🇬🇧 English',
+    heroBadge:'அறிவியல் அடிப்படையிலான அறிவாற்றல் மதிப்பீடு',
+    heroTitle:'உங்கள் உண்மையான <span style="color:var(--green)">அறிவுத்திறனை கண்டறியுங்கள்</span>',
+    heroP:'உங்கள் வயது குழுவிற்கு ஏற்ற IQ தேர்வை எடுங்கள். உங்கள் IQ மதிப்பெண், உப-மதிப்பெண்கள் மற்றும் சான்றிதழ் பெறுங்கள்.',
+    f1t:'வயது-அளவீடு',f1d:'அனைத்து வயது குழுக்களுக்கான தரநிலைகள்',
+    f2t:'உடனடி முடிவுகள்',f2d:'நொடியில் மதிப்பெண் + சான்றிதழ்',
+    f3t:'பகிர்வு சான்றிதழ்',f3d:'மதிப்பெண்ணுடன் PDF சான்றிதழ்',
+    selectAge:'உங்கள் வயது குழுவை தேர்ந்தெடுங்கள்',
+    kids:'குழந்தைகள்',kidsRange:'வயது 6–12',
+    teens:'இளைஞர்கள்',teensRange:'வயது 13–17',
+    adults:'பெரியவர்கள்',adultsRange:'வயது 18–40',
+    seniors:'மூத்தோர்',seniorsRange:'வயது 40+',
+    freeLabel:'இலவச தேர்வு',freePrice:'₹0',
+    freeQ:'10 கேள்விகள்',freeT:'~10 நிமிடங்கள்',freeSc:'அடிப்படை IQ மதிப்பெண்',freeCert:'சான்றிதழ் இல்லை',
+    freeBtn:'இலவச தேர்வை தொடங்கு',
+    paidLabel:'முழு தேர்வு',paidPrice:'₹99',paidUnit:'ஒரு முறை',
+    paidQ:'40 கேள்விகள்',paidT:'~40 நிமிடங்கள்',paidSc:'முழு IQ + உப-மதிப்பெண்கள்',paidCert:'PDF சான்றிதழ் ✨',
+    paidBtn:'முழு தேர்வை தொடங்கு',
+    timerLbl:'மீதமுள்ள நேரம்',
+    resultsReady:'உங்கள் முடிவுகள் தயார்',
+    iqLbl:'உங்கள் IQ மதிப்பெண்',
+    subBreakdown:'உப-மதிப்பெண் விவரம்',
+    iqRef:'IQ அளவீடு குறிப்பு',
+    certCta:'🏆 உங்கள் சான்றிதழை பெறுங்கள்',
+    certInstr:'சான்றிதழில் வேண்டும் என்று நினைக்கும் பெயரை சரியாக உள்ளிடுங்கள்.',
+    certPH:'உங்கள் முழு பெயரை உள்ளிடுங்கள்',
+    certBtn:'என் சான்றிதழை உருவாக்கு →',
+    shareBtn:'📤 என் மதிப்பெண்ணை பகிர்',
+    lbBtn2:'🏆 தரவரிசையை பார்',
+    upgTitle:'விரிவான உப-மதிப்பெண்கள் + சான்றிதழ் வேண்டுமா?',
+    upgDesc:'₹99-க்கு முழு தேர்வை மேம்படுத்துங்கள் — உப-மதிப்பெண் விவரம், அறிக்கை மற்றும் PDF சான்றிதழ் பெறுங்கள்.',
+    upgBtn:'முழு தேர்வை மேம்படுத்து — ₹99',
+    backHome:'← மற்றொரு தேர்வை எடு',
+    certPrint:'⬇ சான்றிதழை பதிவிறக்கு / அச்சிடு',
+    certFooter:'இந்த சான்றிதழ் கல்வி நோக்கங்களுக்காக மட்டுமே வழங்கப்படுகிறது. இது மருத்துவ IQ மதிப்பீடு அல்ல.',
+    certAchieve:'சாதனை சான்றிதழ்',
+    certThisCert:'இது சான்றளிக்கிறது',
+    shareModalTitle:'உங்கள் IQ மதிப்பெண்ணை பகிருங்கள் 🎉',
+    shareModalSub:'நீங்கள் எவ்வளவு புத்திசாலி என்று உலகிற்கு காட்டுங்கள்!',
+    copyLinkBtn:'📋 பகிரக்கூடிய இணைப்பை நகலெடு',
+    copied:'✅ நகலெடுக்கப்பட்டது!',
+    lbTitle:'உலகளாவிய தரவரிசை',
+    lbSub:'Intellecta பயனர்களின் சிறந்த IQ மதிப்பெண்கள்',
+    lbBack:'← முகப்புக்கு திரும்பு',
+    lbYourBest:'உங்கள் சிறந்த மதிப்பெண்',
+    lbNoScore:'தரவரிசையில் தோன்ற பணம் செலுத்தும் தேர்வை எடுங்கள்',
+    lbRankUpBtn:'தரவரிசையை உயர்த்த முழு தேர்வை எடுங்கள் →',
+    types:{pattern:'வடிவ அங்கீகாரம்',verbal:'மொழி நடைமுறை',spatial:'இட நடைமுறை',memory:'செயல் நினைவகம்'},
+    cats:{'Exceptionally gifted':'விதிவிலக்கான திறமை','Superior intelligence':'உயர்ந்த நுண்ணறிவு','Above average':'சராசரிக்கு மேல்','Average intelligence':'சராசரி நுண்ணறிவு','Below average':'சராசரிக்கு கீழ்','Borderline':'எல்லைக்கோடு'},
+    scale:[['130+','விதிவிலக்கான திறமை'],['120–129','உயர்ந்த நுண்ணறிவு'],['110–119','சராசரிக்கு மேல்'],['90–109','சராசரி நுண்ணறிவு'],['80–89','சராசரிக்கு கீழ்'],['<80','எல்லைக்கோடு']],
+    ageLabels:{kids:'குழந்தைகள்',teens:'இளைஞர்கள்',adults:'பெரியவர்கள்',seniors:'மூத்தோர்'},
+    topPct:'சிறந்த',ofLabel:'இல்',pctLabel:'வது சதவீதம்',
+  }
+};
+
+function L(key){ return (LANG[currentLang]||LANG.en)[key] || (LANG.en)[key] || key; }
+
+const LANG_CYCLE = ['en','hi','ta'];
+const LANG_BTN_NEXT = { en:'🇮🇳 हिंदी', hi:'🇮🇳 தமிழ்', ta:'🇬🇧 English' };
+
+function toggleLang(){
+  const idx = LANG_CYCLE.indexOf(currentLang);
+  currentLang = LANG_CYCLE[(idx+1) % LANG_CYCLE.length];
+  // Update button to show NEXT language
+  const btn = document.getElementById('lang-toggle');
+  if(btn) btn.textContent = LANG_BTN_NEXT[currentLang];
+  applyLang();
+  if(state.result) renderResult();
+  if(document.getElementById('screen-leaderboard').classList.contains('active')) renderLeaderboard();
+}
+
+function applyLang(){
+  // Hero
+  setTxt('hero-badge-txt', L('heroBadge'));
+  setHTML('hero-h1', L('heroTitle'));
+  setTxt('hero-p', L('heroP'));
+  // Features
+  setTxt('f1t',L('f1t')); setTxt('f1d',L('f1d'));
+  setTxt('f2t',L('f2t')); setTxt('f2d',L('f2d'));
+  setTxt('f3t',L('f3t')); setTxt('f3d',L('f3d'));
+  // Section title
+  setTxt('section-age-title', L('selectAge'));
+  // Age cards
+  setTxt('age-kids-lbl',L('kids')); setTxt('age-kids-range',L('kidsRange'));
+  setTxt('age-teens-lbl',L('teens')); setTxt('age-teens-range',L('teensRange'));
+  setTxt('age-adults-lbl',L('adults')); setTxt('age-adults-range',L('adultsRange'));
+  setTxt('age-seniors-lbl',L('seniors')); setTxt('age-seniors-range',L('seniorsRange'));
+  // Plans
+  setTxt('plan-free-label',L('freeLabel')); setTxt('plan-free-price',L('freePrice'));
+  setTxt('plan-free-q',L('freeQ')); setTxt('plan-free-t',L('freeT'));
+  setTxt('plan-free-sc',L('freeSc')); setTxt('plan-free-cert',L('freeCert'));
+  setTxt('plan-free-btn',L('freeBtn'));
+  setTxt('plan-paid-label',L('paidLabel')); setTxt('plan-paid-price',L('paidPrice'));
+  setTxt('plan-paid-unit',L('paidUnit'));
+  setTxt('plan-paid-q',L('paidQ')); setTxt('plan-paid-t',L('paidT'));
+  setTxt('plan-paid-sc',L('paidSc')); setTxt('plan-paid-cert',L('paidCert'));
+  setTxt('plan-paid-btn',L('paidBtn'));
+  // Timer label
+  setTxt('timer-label-txt',L('timerLbl'));
+  // Leaderboard static text
+  setTxt('lb-title-txt',L('lbTitle'));
+  setTxt('lb-sub-txt',L('lbSub'));
+  setTxt('lb-back-btn',L('lbBack'));
+  setTxt('lb-filter-all',L('lbAll')||'🌍 '+(currentLang==='hi'?'सभी':'All'));
+  setTxt('lb-filter-week',L('lbWeek')||'📅 '+(currentLang==='hi'?'इस सप्ताह':'This Week'));
+  // Share modal
+  setTxt('share-modal-title',L('shareModalTitle'));
+  setTxt('share-modal-sub',L('shareModalSub'));
+  setTxt('share-copy-btn-txt',L('copyLinkBtn'));
+}
+
+function setTxt(id,val){ const el=document.getElementById(id); if(el) el.textContent=val; }
+function setHTML(id,val){ const el=document.getElementById(id); if(el) el.innerHTML=val; }
+
+/* ===== KIDS NATURE CERTIFICATE ===== */
+var KSCENES={
+  morning:{skyTop:'#4a90d9',skyMid:'#87ceeb',skyLow:'#b8e4f7',skyHorizon:'#d4f1ff',sunColor:'#fff9c4',sunGlow:'#fffde7',groundFar:'#7ab648',groundMid:'#5a9e2f',groundNear:'#3d7a1a',groundFront:'#2d5e10',hillFar:'#8bc34a',hillMid:'#6aa329',trunkCol:'#5d4037',trunkLight:'#795548',leaf1:'#2e7d32',leaf2:'#388e3c',leaf3:'#43a047',leaf4:'#66bb6a',bushCol:'#33691e',bushLight:'#558b2f',grassBlade:'#4caf50',waterCol:'#64b5f6',waterShine:'#bbdefb',fogCol:'rgba(200,230,255,0.18)'},
+  golden:{skyTop:'#1565c0',skyMid:'#e65100',skyLow:'#ff8f00',skyHorizon:'#ffcc02',sunColor:'#ff6d00',sunGlow:'#ffab40',groundFar:'#c8b400',groundMid:'#a89000',groundNear:'#8a7400',groundFront:'#6b5a00',hillFar:'#d4aa00',hillMid:'#b89400',trunkCol:'#4e342e',trunkLight:'#6d4c41',leaf1:'#e65100',leaf2:'#ef6c00',leaf3:'#f57c00',leaf4:'#ffa726',bushCol:'#bf360c',bushLight:'#d84315',grassBlade:'#f9a825',waterCol:'#ff8f00',waterShine:'#ffe082',fogCol:'rgba(255,200,100,0.15)'},
+  twilight:{skyTop:'#1a237e',skyMid:'#4527a0',skyLow:'#7b1fa2',skyHorizon:'#f06292',sunColor:'#f48fb1',sunGlow:'#fce4ec',groundFar:'#2e7d32',groundMid:'#1b5e20',groundNear:'#145214',groundFront:'#0d3b0d',hillFar:'#388e3c',hillMid:'#2e7d32',trunkCol:'#3e2723',trunkLight:'#4e342e',leaf1:'#1b5e20',leaf2:'#2e7d32',leaf3:'#388e3c',leaf4:'#558b2f',bushCol:'#1b5e20',bushLight:'#2e7d32',grassBlade:'#2e7d32',waterCol:'#7b1fa2',waterShine:'#ce93d8',fogCol:'rgba(180,100,220,0.15)'}
+};
+var KCATS=[[130,'Genius level',1],[120,'Brilliant mind',5],[110,'Very smart',18],[95,'Smart cookie',45],[85,'Good effort',70],[0,'Keep learning',88]];
+
+function getKCat2(iq){ for(var i=0;i<KCATS.length;i++) if(iq>=KCATS[i][0]) return {label:KCATS[i][1],pct:KCATS[i][2]}; return {label:'Keep learning',pct:88}; }
+
+function kRoundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r);
+  ctx.closePath();
+}
+
+function drawKidsCertApp(nameOverride){
+  var canvas=document.getElementById('kids-cert-canvas');
+  if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  var CW=680,CH=480;
+  var name=nameOverride||(document.getElementById('cert-name-input')?document.getElementById('cert-name-input').value.trim():'Super Kid')||'Super Kid';
+  var iq=state.result?state.result.iq:110;
+  var sk=document.getElementById('kids-cert-scene')?document.getElementById('kids-cert-scene').value:'morning';
+  var S=KSCENES[sk];
+  var cat=getKCat2(iq);
+  ctx.clearRect(0,0,CW,CH);
+
+  // SKY
+  var sg=ctx.createLinearGradient(0,0,0,CH*0.52);
+  sg.addColorStop(0,S.skyTop); sg.addColorStop(0.4,S.skyMid); sg.addColorStop(0.75,S.skyLow); sg.addColorStop(1,S.skyHorizon);
+  ctx.fillStyle=sg; ctx.fillRect(0,0,CW,CH*0.52);
+
+  // SUN
+  var sx=sk==='morning'?120:(sk==='golden'?560:340), sy=60;
+  var gg=ctx.createRadialGradient(sx,sy,0,sx,sy,sk==='golden'?55:45);
+  gg.addColorStop(0,S.sunGlow); gg.addColorStop(0.45,S.sunColor); gg.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=gg; ctx.beginPath(); ctx.arc(sx,sy,sk==='golden'?55:45,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle=S.sunColor; ctx.globalAlpha=0.92;
+  ctx.beginPath(); ctx.arc(sx,sy,sk==='golden'?26:20,0,Math.PI*2); ctx.fill();
+  ctx.globalAlpha=1;
+
+  // STARS twilight
+  if(sk==='twilight'){
+    ctx.fillStyle='rgba(255,255,255,0.9)';
+    [[80,25],[150,15],[220,35],[300,12],[400,28],[500,18],[580,32],[630,20],[50,45],[340,40],[460,10],[610,42]].forEach(function(s){ ctx.beginPath(); ctx.arc(s[0],s[1],s[0]%3===0?1.5:1,0,Math.PI*2); ctx.fill(); });
+  }
+
+  // CLOUDS
+  function kCloud(cx,cy,sc,al){ ctx.globalAlpha=al; ctx.fillStyle='#fff'; [[0,0,28],[22,-8,22],[44,0,26],[66,-5,20],[-18,-4,18]].forEach(function(p){ ctx.beginPath(); ctx.arc(cx+p[0]*sc,cy+p[1]*sc,p[2]*sc,0,Math.PI*2); ctx.fill(); }); ctx.globalAlpha=1; }
+  if(sk!=='twilight'){ kCloud(80,55,0.8,0.88); kCloud(210,40,0.9,0.75); kCloud(420,30,0.75,0.82); kCloud(570,50,0.85,0.7); }
+  else { kCloud(80,55,0.6,0.2); kCloud(500,35,0.7,0.18); }
+
+  // HILLS
+  ctx.fillStyle=S.hillFar;
+  ctx.beginPath(); ctx.moveTo(0,CH*0.52); ctx.bezierCurveTo(80,CH*0.32,160,CH*0.28,240,CH*0.35); ctx.bezierCurveTo(320,CH*0.42,380,CH*0.3,460,CH*0.33); ctx.bezierCurveTo(540,CH*0.36,610,CH*0.25,680,CH*0.34); ctx.lineTo(CW,CH*0.52); ctx.closePath(); ctx.fill();
+  ctx.fillStyle=S.hillMid;
+  ctx.beginPath(); ctx.moveTo(0,CH*0.52); ctx.bezierCurveTo(60,CH*0.38,140,CH*0.42,200,CH*0.44); ctx.bezierCurveTo(280,CH*0.46,340,CH*0.36,420,CH*0.42); ctx.bezierCurveTo(500,CH*0.48,580,CH*0.38,680,CH*0.45); ctx.lineTo(CW,CH*0.52); ctx.closePath(); ctx.fill();
+
+  // GROUND
+  ctx.fillStyle=S.groundFar; ctx.fillRect(0,CH*0.52,CW,CH*0.14);
+  ctx.fillStyle=S.groundMid; ctx.fillRect(0,CH*0.6,CW,CH*0.12);
+  ctx.fillStyle=S.groundNear; ctx.fillRect(0,CH*0.68,CW,CH*0.14);
+  ctx.fillStyle=S.groundFront; ctx.fillRect(0,CH*0.78,CW,CH*0.22);
+
+  // WATER (morning)
+  if(sk==='morning'){
+    var wg2=ctx.createLinearGradient(0,CH*0.58,0,CH*0.65);
+    wg2.addColorStop(0,S.waterShine); wg2.addColorStop(1,S.waterCol);
+    ctx.fillStyle=wg2; ctx.beginPath(); ctx.ellipse(340,CH*0.62,120,18,0,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle=S.waterShine; ctx.lineWidth=1.5; ctx.globalAlpha=0.5;
+    for(var wi=0;wi<5;wi++){ ctx.beginPath(); ctx.moveTo(240+wi*24,CH*0.62+wi%2*3); ctx.lineTo(280+wi*20,CH*0.62+wi%2*3); ctx.stroke(); }
+    ctx.globalAlpha=1;
+  }
+
+  // REALISTIC TREE
+  function kTree(tx,ty,height,spread,c1,c2,c3,tc,tl){
+    var tg2=ctx.createLinearGradient(tx-8,0,tx+8,0);
+    tg2.addColorStop(0,tc); tg2.addColorStop(0.4,tl); tg2.addColorStop(1,tc);
+    ctx.fillStyle=tg2;
+    var tw=Math.max(6,height*0.09);
+    ctx.beginPath(); ctx.moveTo(tx-tw,ty); ctx.bezierCurveTo(tx-tw*0.8,ty-height*0.4,tx-tw*0.5,ty-height*0.7,tx,ty-height); ctx.bezierCurveTo(tx+tw*0.5,ty-height*0.7,tx+tw*0.8,ty-height*0.4,tx+tw,ty); ctx.closePath(); ctx.fill();
+    ctx.fillStyle=tc; ctx.beginPath(); ctx.moveTo(tx-tw*2,ty); ctx.lineTo(tx-tw,ty-height*0.15); ctx.lineTo(tx+tw,ty-height*0.15); ctx.lineTo(tx+tw*2,ty); ctx.closePath(); ctx.fill();
+    [[ty-height*0.95,spread*0.45,c1],[ty-height*0.82,spread*0.6,c2],[ty-height*0.68,spread*0.72,c1],[ty-height*0.55,spread*0.78,c3],[ty-height*0.42,spread*0.68,c2]].forEach(function(l){
+      ctx.fillStyle=l[2];
+      for(var ai=0;ai<7;ai++){ var ang=ai*(Math.PI/3.5)-Math.PI/6; var fr=l[1]*(0.7+Math.sin(ai*1.3)*0.3); ctx.beginPath(); ctx.arc(tx+Math.cos(ang)*fr*0.35,l[0]+Math.sin(ang)*fr*0.2,fr*0.55,0,Math.PI*2); ctx.fill(); }
+      ctx.beginPath(); ctx.arc(tx,l[0],l[1]*0.6,0,Math.PI*2); ctx.fill();
+    });
+    ctx.fillStyle='rgba(255,255,255,0.1)'; ctx.beginPath(); ctx.arc(tx-spread*0.2,ty-height*0.78,spread*0.25,0,Math.PI*2); ctx.fill();
+  }
+
+  ctx.globalAlpha=0.55;
+  [[100,CH*0.58,55,22],[200,CH*0.57,62,25],[480,CH*0.57,58,23],[570,CH*0.58,52,21]].forEach(function(t){ kTree(t[0],t[1],t[2],t[3],S.leaf1,S.leaf2,S.leaf3,S.trunkCol,S.trunkLight); });
+  ctx.globalAlpha=0.8;
+  [[55,CH*0.68,90,34],[620,CH*0.68,88,33]].forEach(function(t){ kTree(t[0],t[1],t[2],t[3],S.leaf1,S.leaf2,S.leaf4,S.trunkCol,S.trunkLight); });
+  ctx.globalAlpha=1;
+  kTree(30,CH*0.82,130,48,S.leaf2,S.leaf1,S.leaf3,S.trunkCol,S.trunkLight);
+  kTree(650,CH*0.82,125,46,S.leaf1,S.leaf3,S.leaf2,S.trunkCol,S.trunkLight);
+  kTree(110,CH*0.85,105,40,S.leaf3,S.leaf2,S.leaf4,S.trunkCol,S.trunkLight);
+  kTree(570,CH*0.85,108,41,S.leaf2,S.leaf1,S.leaf3,S.trunkCol,S.trunkLight);
+
+  // BUSHES
+  function kBush(bx,by,sz){ ctx.fillStyle=S.bushCol; [[0,0,sz],[sz*0.7,-sz*0.3,sz*0.8],[sz*1.3,0,sz*0.75],[-sz*0.6,-sz*0.2,sz*0.7]].forEach(function(b){ ctx.beginPath(); ctx.arc(bx+b[0],by+b[1],b[2],0,Math.PI*2); ctx.fill(); }); ctx.fillStyle=S.bushLight; ctx.beginPath(); ctx.arc(bx-sz*0.1,by-sz*0.2,sz*0.5,0,Math.PI*2); ctx.fill(); }
+  [[160,CH*0.8,16],[240,CH*0.82,13],[430,CH*0.81,15],[500,CH*0.8,14],[320,CH*0.79,12]].forEach(function(b){ kBush(b[0],b[1],b[2]); });
+
+  // GRASS
+  ctx.strokeStyle=S.grassBlade;
+  for(var gi=0;gi<80;gi++){ var gx=gi*(CW/80)+Math.random()*6,gy=CH*0.82+Math.random()*CH*0.18,gh=8+Math.random()*18,gc=Math.random()>0.5?-1:1; ctx.lineWidth=1.2; ctx.globalAlpha=0.7; ctx.beginPath(); ctx.moveTo(gx,gy); ctx.quadraticCurveTo(gx+gc*4,gy-gh*0.6,gx+gc*7,gy-gh); ctx.stroke(); }
+  ctx.globalAlpha=1;
+
+  // FLOWERS
+  var flCols2=['#FF4081','#FF6D00','#FFD600','#7C4DFF','#00BCD4','#E91E63'];
+  for(var fi=0;fi<18;fi++){ var fx=30+fi*(CW/18.5)+Math.random()*20,fy=CH*0.78+Math.random()*CH*0.18,fc2=flCols2[fi%6]; ctx.strokeStyle=S.grassBlade; ctx.lineWidth=1.5; ctx.globalAlpha=0.8; ctx.beginPath(); ctx.moveTo(fx,fy); ctx.lineTo(fx+Math.random()*4-2,fy-16); ctx.stroke(); ctx.globalAlpha=0.9; ctx.fillStyle=fc2; for(var pi=0;pi<5;pi++){ var pa=pi*(Math.PI*2/5); ctx.beginPath(); ctx.ellipse(fx+Math.cos(pa)*5,fy-16+Math.sin(pa)*5,3.5,2,pa,0,Math.PI*2); ctx.fill(); } ctx.fillStyle='#FFF176'; ctx.beginPath(); ctx.arc(fx,fy-16,2.5,0,Math.PI*2); ctx.fill(); }
+  ctx.globalAlpha=1;
+
+  // BIRDS
+  function kBirds(startX,startY,count,col){ ctx.strokeStyle=col; ctx.lineWidth=1.8; ctx.globalAlpha=0.85; for(var bi=0;bi<count;bi++){ var bx=startX+bi*22+Math.random()*8,by=startY+Math.sin(bi*0.9)*12+Math.random()*6,bs=6+Math.random()*3; ctx.beginPath(); ctx.moveTo(bx-bs,by+bs*0.4); ctx.quadraticCurveTo(bx,by-bs*0.3,bx+bs,by+bs*0.4); ctx.stroke(); } ctx.globalAlpha=1; }
+  kBirds(180,CH*0.18,5,'rgba(30,30,50,0.65)');
+  kBirds(400,CH*0.12,4,'rgba(30,30,50,0.55)');
+  kBirds(90,CH*0.22,3,'rgba(30,30,50,0.5)');
+
+  // ATMOSPHERIC FOG
+  var fog2=ctx.createLinearGradient(0,CH*0.5,0,CH*0.62);
+  fog2.addColorStop(0,S.fogCol); fog2.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=fog2; ctx.fillRect(0,CH*0.5,CW,CH*0.12);
+
+  // PARCHMENT
+  var px=60,py=108,pw=560,ph=264,pr=18;
+  ctx.fillStyle='rgba(0,0,0,0.18)'; kRoundRect(ctx,px+4,py+5,pw,ph,pr); ctx.fill();
+  var parch2=ctx.createLinearGradient(px,py,px,py+ph);
+  parch2.addColorStop(0,'rgba(255,252,240,0.97)'); parch2.addColorStop(0.5,'rgba(255,250,235,0.95)'); parch2.addColorStop(1,'rgba(250,245,225,0.97)');
+  ctx.fillStyle=parch2; kRoundRect(ctx,px,py,pw,ph,pr); ctx.fill();
+  ctx.strokeStyle='#c8a000'; ctx.lineWidth=3; kRoundRect(ctx,px,py,pw,ph,pr); ctx.stroke();
+  ctx.strokeStyle='#e8c840'; ctx.lineWidth=1; kRoundRect(ctx,px+7,py+7,pw-14,ph-14,pr-4); ctx.stroke();
+  [[px+18,py+18],[px+pw-18,py+18],[px+18,py+ph-18],[px+pw-18,py+ph-18]].forEach(function(co){ ctx.fillStyle='#c8a000'; ctx.beginPath(); ctx.arc(co[0],co[1],5,0,Math.PI*2); ctx.fill(); ctx.strokeStyle='#e8c840'; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(co[0],co[1],9,0,Math.PI*2); ctx.stroke(); });
+
+  // LOGO
+  ctx.fillStyle='#1a7a4a'; ctx.beginPath(); ctx.arc(CW/2,py+38,24,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font='bold 22px serif'; ctx.textAlign='center'; ctx.fillText('I',CW/2,py+46);
+
+  // TITLE
+  ctx.fillStyle='#1a4a0a'; ctx.font='bold 11px sans-serif';
+  ctx.fillText('INTELLECTA',CW/2,py+76);
+  ctx.fillStyle='#8a7400'; ctx.font='italic 10px serif';
+  ctx.fillText('Certificate of Achievement — Kids Edition',CW/2,py+91);
+
+  ctx.strokeStyle='#c8a000'; ctx.lineWidth=0.8;
+  ctx.beginPath(); ctx.moveTo(px+50,py+98); ctx.lineTo(px+pw-50,py+98); ctx.stroke();
+
+  ctx.fillStyle='#5a5a3a'; ctx.font='11px sans-serif';
+  ctx.fillText('This certificate is proudly awarded to',CW/2,py+114);
+
+  ctx.fillStyle='#1a3a0a'; ctx.font='bold 26px serif';
+  ctx.fillText(name,CW/2,py+145);
+  ctx.strokeStyle='#c8a000'; ctx.lineWidth=1;
+  var nw3=ctx.measureText(name).width;
+  ctx.beginPath(); ctx.moveTo(CW/2-nw3/2,py+151); ctx.lineTo(CW/2+nw3/2,py+151); ctx.stroke();
+
+  ctx.fillStyle='#5a5a3a'; ctx.font='10.5px sans-serif';
+  ctx.fillText('for outstanding performance in the Intellecta Kids IQ Assessment',CW/2,py+167);
+
+  // SCORE BOX
+  ctx.fillStyle='rgba(26,122,74,0.12)'; kRoundRect(ctx,CW/2-90,py+175,180,56,10); ctx.fill();
+  ctx.strokeStyle='#1a7a4a'; ctx.lineWidth=1.5; kRoundRect(ctx,CW/2-90,py+175,180,56,10); ctx.stroke();
+  ctx.fillStyle='#1a4a0a'; ctx.font='bold 9px sans-serif';
+  ctx.fillText('IQ SCORE',CW/2,py+191);
+  ctx.fillStyle='#1a7a4a'; ctx.font='bold 28px serif';
+  ctx.fillText(iq,CW/2,py+218);
+  ctx.fillStyle='#2d6e1a'; ctx.font='bold 10px sans-serif';
+  ctx.fillText(cat.label+' · Top '+cat.pct+'% of kids',CW/2,py+232);
+
+  ctx.strokeStyle='#c8a000'; ctx.lineWidth=0.8;
+  ctx.beginPath(); ctx.moveTo(px+50,py+244); ctx.lineTo(px+pw-50,py+244); ctx.stroke();
+
+  var today2=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+  ctx.fillStyle='rgba(80,70,20,0.65)'; ctx.font='9px sans-serif';
+  ctx.fillText(today2+' · intellecta.app · ID: IQ-'+Math.random().toString(36).substring(2,7).toUpperCase(),CW/2,py+257);
+
+  // BOTTOM STRIP
+  var ns=ctx.createLinearGradient(0,CH*0.92,0,CH);
+  ns.addColorStop(0,S.groundFront); ns.addColorStop(1,'rgba(0,0,0,0.4)');
+  ctx.fillStyle=ns; ctx.fillRect(0,CH*0.92,CW,CH*0.08);
+}
+
+function downloadKidsCertApp(){
+  var canvas=document.getElementById('kids-cert-canvas');
+  var a=document.createElement('a');
+  a.download='intellecta-kids-certificate.png';
+  a.href=canvas.toDataURL('image/png');
+  a.click();
+}
+</script>
+// Splash screen hide - fixed
+window.addEventListener('load', () => {
+  const splash = document.getElementById('pwa-splash');
+  if(splash) splash.style.display='none';
+});
+
+// Service worker
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js')
+      .then(r=>console.log('Intellecta SW ready'))
+      .catch(e=>console.log('SW skipped (open file directly):',e.message));
+  });
+}
+
+// Android install prompt
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',(e)=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  setTimeout(()=>{
+    const b=document.getElementById('pwa-banner');
+    if(b&&!sessionStorage.getItem('pwa-dismissed')) b.classList.add('show');
+  },3000);
+});
+
+function installPWA(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(c=>{
+      if(c.outcome==='accepted'){ dismissBanner(); setTimeout(()=>alert('🎉 Intellecta installed! Find it on your home screen.'),500); }
+      deferredPrompt=null;
+    });
+  } else {
+    alert('📱 Install on iPhone:\n\n1. Tap the Share button (□↑) at bottom of Safari\n2. Tap "Add to Home Screen"\n3. Tap "Add"\n\nIntellecta will appear as an app icon on your home screen!');
+  }
+}
+
+function dismissBanner(){
+  const b=document.getElementById('pwa-banner');
+  if(b) b.classList.remove('show');
+  sessionStorage.setItem('pwa-dismissed','1');
+}
+
+// iOS Safari install prompt (one-time)
+if(navigator.standalone===false && /iphone|ipad|ipod/i.test(navigator.userAgent)){
+  if(!localStorage.getItem('ios-tip-shown')){
+    setTimeout(()=>{
+      const b=document.getElementById('pwa-banner');
+      if(b){
+        const sub=b.querySelector('.pwa-banner-sub');
+        if(sub) sub.textContent='Tap Share → Add to Home Screen';
+        b.classList.add('show');
+        localStorage.setItem('ios-tip-shown','1');
+      }
+    },4000);
+  }
+}
+</script>
+</body>
+</html>

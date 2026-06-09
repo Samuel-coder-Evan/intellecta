@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "name": "intellecta",
+  "builds": [
+    { "src": "frontend/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/sw.js", "dest": "/pwa/sw.js" },
+    { "src": "/manifest.json", "dest": "/pwa/manifest.json" },
+    { "src": "/(.*)", "dest": "/frontend/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Service-Worker-Allowed", "value": "/" },
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    }
+  ]
+}
