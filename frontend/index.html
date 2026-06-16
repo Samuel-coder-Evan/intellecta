@@ -23,9 +23,12 @@
 <!-- PWA Manifest -->
 <link rel="manifest" href="manifest.json"/>
 
+<!-- Razorpay Checkout SDK -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <!-- Apple Touch Icons (inline SVG converted) -->
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%231a7a4a'/%3E%3Ctext x='96' y='135' text-anchor='middle' font-family='Georgia,serif' font-size='110' font-weight='900' fill='white'%3EI%3C/text%3E%3C/svg%3E"/>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a7a4a'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='900' fill='white'%3EI%3C/text%3E%3C/svg%3E"/>
+<link rel="apple-touch-icon" href="images/logo.png"/>
+<link rel="icon" type="image/png" href="images/logo.png"/>
 
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
@@ -34,7 +37,9 @@ body{font-family:'DM Sans',sans-serif;background:#f0faf4;color:#1a1a1a;min-heigh
 :root{--green:#1a7a4a;--green2:#145f39;--green3:#0e4428;--light:#e8f5ee;--light2:#c8e6d4;--accent:#f0faf4}
 button{font-family:'DM Sans',sans-serif;cursor:pointer}
 input{font-family:'DM Sans',sans-serif}
-
+.pwa-banner-icon img {
+    width: inherit;
+}
 /* PWA SAFE AREA (iPhone notch/home bar) */
 body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
 .header{padding-top:env(safe-area-inset-top);height:calc(60px + env(safe-area-inset-top))}
@@ -52,13 +57,15 @@ body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bot
 /* PWA SPLASH (shown while loading) */
 .pwa-splash{position:fixed;inset:0;background:#1a7a4a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s ease}
 .pwa-splash.hide{opacity:0;pointer-events:none}
-.pwa-splash-icon{width:88px;height:88px;background:rgba(255,255,255,0.15);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:#fff;margin-bottom:20px;animation:splashPulse 1.5s ease-in-out infinite}
+.pwa-splash-icon{width:120px;height:120px;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;animation:splashPulse 1.5s ease-in-out infinite;overflow:hidden}
+.pwa-splash-icon img{width:100%;height:100%;object-fit:contain;object-position:center}
 .pwa-splash-title{font-family:'DM Serif Display',serif;font-size:32px;color:#fff;margin-bottom:8px}
 .pwa-splash-sub{font-size:14px;color:rgba(255,255,255,0.7)}
 @keyframes splashPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 .header{background:#fff;border-bottom:1px solid #c8e6d4;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:10px}
-.logo-mark{width:36px;height:36px;background:var(--green);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px}
+.logo-mark{width:48px;height:48px;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-mark img{width:100%;height:100%;object-fit:contain;object-position:center}
 .logo-text{font-weight:700;font-size:20px;color:var(--green);letter-spacing:-0.5px}
 .logo-beta{font-size:10px;background:#c8e6d4;color:var(--green2);padding:2px 8px;border-radius:20px;font-weight:700;margin-left:4px}
 .header-right{font-size:12px;color:#666}
@@ -173,7 +180,8 @@ body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bot
 .cert-wrapper{background:#fff;border:3px solid var(--green);border-radius:20px;padding:40px 36px;text-align:center;position:relative;overflow:hidden}
 .cert-top-bar{position:absolute;top:0;left:0;right:0;height:8px;background:linear-gradient(90deg,#0e4428,#1a7a4a,#2ecc71)}
 .cert-watermark{position:absolute;top:60px;left:50%;transform:translateX(-50%);font-size:180px;color:rgba(26,122,74,0.04);font-weight:800;pointer-events:none;white-space:nowrap;font-family:'DM Serif Display',serif}
-.cert-logo{width:64px;height:64px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px;font-weight:800;color:#fff}
+.cert-logo{width:100px;height:100px;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;overflow:hidden}
+.cert-logo img{width:100%;height:100%;object-fit:contain;object-position:center}
 .cert-heading{font-size:13px;font-weight:700;color:#6b8a74;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:6px}
 .cert-sub{font-family:'DM Serif Display',serif;font-size:13px;color:#9aaf9e;margin-bottom:20px}
 .cert-name{font-family:'DM Serif Display',serif;font-size:34px;color:#0e2818;border-bottom:2px solid #c8e6d4;display:inline-block;padding-bottom:8px;margin-bottom:20px;min-width:240px}
@@ -407,14 +415,14 @@ tr:hover td{background:#f8fdf9}
 
 <!-- PWA SPLASH SCREEN -->
 <div class="pwa-splash" id="pwa-splash" style="display:none">
-  <div class="pwa-splash-icon">I</div>
+  <div class="pwa-splash-icon"><img src="images/logo.png" alt="Intellecta"></div>
   <div class="pwa-splash-title">Intellecta</div>
   <div class="pwa-splash-sub">Loading your IQ assessment…</div>
 </div>
 
 <!-- PWA INSTALL BANNER -->
 <div class="pwa-banner" id="pwa-banner">
-  <div class="pwa-banner-icon">I</div>
+  <div class="pwa-banner-icon"><img src="images/logo.png" alt="Intellecta"></div>
   <div class="pwa-banner-text">
     <div class="pwa-banner-title">Install Intellecta</div>
     <div class="pwa-banner-sub">Add to home screen — works offline</div>
@@ -426,7 +434,7 @@ tr:hover td{background:#f8fdf9}
 <!-- HEADER -->
 <div class="header">
   <div class="logo">
-    <div class="logo-mark">I</div>
+    <div class="logo-mark"><img src="images/logo.png" alt="Intellecta"></div>
     <span class="logo-text">Intellecta</span>
     <span class="logo-beta">BETA</span>
   </div>
@@ -531,7 +539,7 @@ tr:hover td{background:#f8fdf9}
   <div class="cert-wrapper">
     <div class="cert-top-bar"></div>
     <div class="cert-watermark">IQ</div>
-    <div class="cert-logo">I</div>
+    <div class="cert-logo"><img src="images/logo.png" alt="Intellecta"></div>
     <div class="cert-heading">Certificate of Achievement</div>
     <div class="cert-sub">This certifies that</div>
     <div class="cert-name" id="cert-name-display"></div>
@@ -1444,31 +1452,76 @@ function formatExpiry(inp){
   inp.value=v;
 }
 
-function processPayment(method){
-  const msgs={
-    'UPI':['Connecting to UPI gateway…','Sending payment request…','Awaiting confirmation…'],
-    'Card':['Verifying card details…','Processing with bank…','Awaiting authorization…'],
-    'Net Banking':['Connecting to bank portal…','Verifying credentials…','Confirming transaction…'],
-    'Wallet':['Connecting to wallet…','Debiting wallet balance…','Confirming payment…']
-  };
-  document.getElementById('pay-view-normal').style.display='none';
-  document.getElementById('pay-view-processing').style.display='';
-  const steps=msgs[method]||['Processing…'];
-  let i=0;
-  const sub=document.getElementById('processing-sub');
-  sub.textContent=steps[0];
-  const iv=setInterval(()=>{
-    i++;
-    if(i<steps.length){ sub.textContent=steps[i]; }
-    else {
-      clearInterval(iv);
-      // Show success
-      document.getElementById('pay-view-processing').style.display='none';
-      document.getElementById('pay-view-success').style.display='';
-      const ref='TXN'+Date.now().toString().slice(-8);
-      document.getElementById('success-ref').textContent='Transaction ID: '+ref+' · '+method+' · ₹99';
-    }
-  },1200);
+async function processPayment(method){
+  const sub = document.getElementById('processing-sub');
+  document.getElementById('pay-view-normal').style.display = 'none';
+  document.getElementById('pay-view-processing').style.display = '';
+  
+  try {
+    sub.textContent = 'Initializing secure payment...';
+    
+    // 1. Create order on backend
+    const orderRes = await fetch('/api/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const orderData = await orderRes.json();
+    
+    if (orderData.error) throw new Error(orderData.error);
+
+    // 2. Open Razorpay Checkout
+    const options = {
+      key: 'rzp_live_SxGWikiANNcBoQ', // Using provided Key ID
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: 'Intellecta',
+      description: 'Full IQ Assessment',
+      order_id: orderData.orderId,
+      handler: async function (response) {
+        sub.textContent = 'Verifying payment...';
+        
+        // 3. Verify payment on backend
+        const verifyRes = await fetch('/api/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature
+          })
+        });
+        
+        const verifyData = await verifyRes.json();
+        
+        if (verifyData.success) {
+          document.getElementById('pay-view-processing').style.display = 'none';
+          document.getElementById('pay-view-success').style.display = '';
+          document.getElementById('success-ref').textContent = 'Transaction ID: ' + response.razorpay_payment_id + ' · ' + method + ' · ₹99';
+        } else {
+          throw new Error('Verification failed');
+        }
+      },
+      prefill: {
+        name: document.getElementById('cert-name-input') ? document.getElementById('cert-name-input').value : '',
+      },
+      theme: { color: '#1a7a4a' },
+      modal: {
+        ondismiss: function() {
+          document.getElementById('pay-view-processing').style.display = 'none';
+          document.getElementById('pay-view-normal').style.display = '';
+        }
+      }
+    };
+    
+    const rzp = new Razorpay(options);
+    rzp.open();
+    
+  } catch (err) {
+    console.error('Payment Error:', err);
+    alert('Payment failed: ' + err.message);
+    document.getElementById('pay-view-processing').style.display = 'none';
+    document.getElementById('pay-view-normal').style.display = '';
+  }
 }
 
 function onPaymentSuccess(){
@@ -1632,7 +1685,7 @@ function copyShareLink(){
     prompt('Copy this text:',text);
   }
 }
-</script>
+
 function showAdmin(){
   document.getElementById('admin-overlay').classList.add('open');
   document.getElementById('admin-login-view').style.display='';
@@ -2179,7 +2232,7 @@ function downloadKidsCertApp(){
   a.href=canvas.toDataURL('image/png');
   a.click();
 }
-</script>
+
 // Splash screen hide - fixed
 window.addEventListener('load', () => {
   const splash = document.getElementById('pwa-splash');
