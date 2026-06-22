@@ -1,9 +1,9 @@
 /* ================================================
-   Intellecta Service Worker v1.0
+   Intellecta Service Worker v1.1
    Caches the app for offline use
    ================================================ */
 
-const CACHE_NAME = 'intellecta-v1';
+const CACHE_NAME = 'intellecta-v2';
 const ASSETS = [
   './intellecta.html',
   './manifest.json',

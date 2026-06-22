@@ -2486,7 +2486,7 @@ window.addEventListener('load', () => {
 // Service worker
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js')
+    navigator.serviceWorker.register('sw.js?v=2')
       .then(r=>console.log('Intellecta SW ready'))
       .catch(e=>console.log('SW skipped (open file directly):',e.message));
   });
