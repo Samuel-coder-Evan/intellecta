@@ -348,6 +348,8 @@ tr:hover td{background:#f8fdf9}
 .alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .alert-text{font-size:13px;color:#1a2e22;flex:1}
 .alert-time{font-size:11px;color:#9aaf9e}
+.empty-state{padding:24px 16px;border:1.5px dashed #d4ead9;border-radius:14px;background:#f8fdf9;text-align:center;color:#6b8a74;font-size:13px}
+.empty-state strong{color:#1a2e22}
 
 /* LEADERBOARD */
 .lb-filter-bar{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px}
@@ -402,9 +404,8 @@ tr:hover td{background:#f8fdf9}
 
 @media(max-width:500px){.lb-podium{gap:4px}.podium-block{width:56px}.podium-avatar{width:44px;height:44px;font-size:18px}}
 @media print{
-  .admin-overlay{display:none!important}
-}
   body{background:#fff}
+  .admin-overlay{display:none!important}
   .cert-wrapper{border:3px solid var(--green)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .cert-top-bar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .modal-overlay{display:none!important}
@@ -676,7 +677,7 @@ tr:hover td{background:#f8fdf9}
       <input class="admin-input" id="admin-pass" placeholder="Password" type="password"/>
       <div id="admin-err" style="color:#e24b4a;font-size:13px;margin-bottom:10px;display:none">Incorrect credentials. Try admin / admin123</div>
       <button class="btn-admin-login" onclick="adminLogin()">Login to Dashboard</button>
-      <p style="font-size:11px;color:#9aaf9e;margin-top:14px">Demo: username <strong>admin</strong> · password <strong>admin123</strong></p>
+      <p style="font-size:11px;color:#9aaf9e;margin-top:14px">Current credentials: username <strong>admin</strong> · password <strong>admin123</strong></p>
     </div>
   </div>
 
@@ -705,39 +706,39 @@ tr:hover td{background:#f8fdf9}
         <div class="stat-grid">
           <div class="stat-card">
             <div class="stat-icon">👥</div>
-            <div class="stat-val" id="stat-users">2,847</div>
+            <div class="stat-val" id="stat-users">0</div>
             <div class="stat-lbl">Total Users</div>
-            <div class="stat-trend trend-up">↑ +134 this week</div>
+            <div class="stat-trend" style="color:#6b8a74">No live data yet</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">🧠</div>
-            <div class="stat-val" id="stat-tests">4,391</div>
+            <div class="stat-val" id="stat-tests">0</div>
             <div class="stat-lbl">Tests Taken</div>
-            <div class="stat-trend trend-up">↑ +287 this week</div>
+            <div class="stat-trend" style="color:#6b8a74">No live data yet</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">💰</div>
-            <div class="stat-val" id="stat-revenue">₹1.24L</div>
+            <div class="stat-val" id="stat-revenue">₹0</div>
             <div class="stat-lbl">Total Revenue</div>
-            <div class="stat-trend trend-up">↑ +₹18,400 this week</div>
+            <div class="stat-trend" style="color:#6b8a74">No live data yet</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">🏆</div>
-            <div class="stat-val" id="stat-certs">1,253</div>
+            <div class="stat-val" id="stat-certs">0</div>
             <div class="stat-lbl">Certificates Issued</div>
-            <div class="stat-trend trend-up">↑ +89 this week</div>
+            <div class="stat-trend" style="color:#6b8a74">No live data yet</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">📈</div>
-            <div class="stat-val">44%</div>
+            <div class="stat-val">--</div>
             <div class="stat-lbl">Free→Paid Conversion</div>
-            <div class="stat-trend trend-up">↑ +3% vs last month</div>
+            <div class="stat-trend" style="color:#6b8a74">No live data yet</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">⭐</div>
-            <div class="stat-val">4.8</div>
+            <div class="stat-val">--</div>
             <div class="stat-lbl">Avg Rating</div>
-            <div class="stat-trend trend-up">↑ from 4.6 last month</div>
+            <div class="stat-trend" style="color:#6b8a74">No live data yet</div>
           </div>
         </div>
 
@@ -751,39 +752,11 @@ tr:hover td{background:#f8fdf9}
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
           <div class="admin-card">
             <div class="admin-card-title">Users by age group</div>
-            <div class="donut-wrap">
-              <svg class="donut-svg" width="100" height="100" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#e8f5ee" stroke-width="18"/>
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#1a7a4a" stroke-width="18" stroke-dasharray="87 133" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#7F77DD" stroke-width="18" stroke-dasharray="55 165" stroke-dashoffset="-87" transform="rotate(-90 50 50)"/>
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#378ADD" stroke-width="18" stroke-dasharray="44 176" stroke-dashoffset="-142" transform="rotate(-90 50 50)"/>
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#EF9F27" stroke-width="18" stroke-dasharray="34 186" stroke-dashoffset="-186" transform="rotate(-90 50 50)"/>
-              </svg>
-              <div class="donut-legend">
-                <div class="donut-leg-row"><div class="donut-dot" style="background:#1a7a4a"></div><span>Adults <strong>39%</strong></span></div>
-                <div class="donut-leg-row"><div class="donut-dot" style="background:#7F77DD"></div><span>Teens <strong>25%</strong></div>
-                <div class="donut-leg-row"><div class="donut-dot" style="background:#378ADD"></div><span>Kids <strong>20%</strong></div>
-                <div class="donut-leg-row"><div class="donut-dot" style="background:#EF9F27"></div><span>Seniors <strong>16%</strong></div>
-              </div>
-            </div>
+            <div id="age-group-breakdown" class="empty-state">No age-group data available yet.</div>
           </div>
           <div class="admin-card">
             <div class="admin-card-title">Payment methods</div>
-            <div class="donut-wrap">
-              <svg class="donut-svg" width="100" height="100" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#e8f5ee" stroke-width="18"/>
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#1D9E75" stroke-width="18" stroke-dasharray="110 110" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#378ADD" stroke-width="18" stroke-dasharray="55 165" stroke-dashoffset="-110" transform="rotate(-90 50 50)"/>
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#EF9F27" stroke-width="18" stroke-dasharray="33 187" stroke-dashoffset="-165" transform="rotate(-90 50 50)"/>
-                <circle cx="50" cy="50" r="35" fill="none" stroke="#7F77DD" stroke-width="18" stroke-dasharray="22 198" stroke-dashoffset="-198" transform="rotate(-90 50 50)"/>
-              </svg>
-              <div class="donut-legend">
-                <div class="donut-leg-row"><div class="donut-dot" style="background:#1D9E75"></div><span>UPI <strong>50%</strong></span></div>
-                <div class="donut-leg-row"><div class="donut-dot" style="background:#378ADD"></div><span>Card <strong>25%</strong></span></div>
-                <div class="donut-leg-row"><div class="donut-dot" style="background:#EF9F27"></div><span>Net Banking <strong>15%</strong></span></div>
-                <div class="donut-leg-row"><div class="donut-dot" style="background:#7F77DD"></div><span>Wallet <strong>10%</strong></span></div>
-              </div>
-            </div>
+            <div id="payment-method-breakdown" class="empty-state">No payment-method data available yet.</div>
           </div>
         </div>
       </div>
@@ -803,10 +776,10 @@ tr:hover td{background:#f8fdf9}
       <!-- REVENUE -->
       <div class="admin-panel" id="admin-panel-revenue">
         <div class="stat-grid">
-          <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-val">₹18,400</div><div class="stat-lbl">This Week</div><div class="stat-trend trend-up">↑ +22% vs last week</div></div>
-          <div class="stat-card"><div class="stat-icon">🗓️</div><div class="stat-val">₹54,200</div><div class="stat-lbl">This Month</div><div class="stat-trend trend-up">↑ +18% vs last month</div></div>
-          <div class="stat-card"><div class="stat-icon">💳</div><div class="stat-val">₹99</div><div class="stat-lbl">Avg Order Value</div><div class="stat-trend" style="color:#6b8a74">Flat (single price)</div></div>
-          <div class="stat-card"><div class="stat-icon">🔁</div><div class="stat-val">186</div><div class="stat-lbl">Paid Tests This Month</div><div class="stat-trend trend-up">↑ +41 vs last month</div></div>
+          <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-val">₹0</div><div class="stat-lbl">This Week</div><div class="stat-trend" style="color:#6b8a74">No live data yet</div></div>
+          <div class="stat-card"><div class="stat-icon">🗓️</div><div class="stat-val">₹0</div><div class="stat-lbl">This Month</div><div class="stat-trend" style="color:#6b8a74">No live data yet</div></div>
+          <div class="stat-card"><div class="stat-icon">💳</div><div class="stat-val">₹0</div><div class="stat-lbl">Avg Order Value</div><div class="stat-trend" style="color:#6b8a74">No live data yet</div></div>
+          <div class="stat-card"><div class="stat-icon">🔁</div><div class="stat-val">0</div><div class="stat-lbl">Paid Tests This Month</div><div class="stat-trend" style="color:#6b8a74">No live data yet</div></div>
         </div>
         <div class="admin-card">
           <div class="admin-card-title">Revenue — last 7 days <span style="font-size:12px;color:#6b8a74;font-weight:500">₹ per day</span></div>
@@ -825,10 +798,10 @@ tr:hover td{background:#f8fdf9}
       <!-- TEST ANALYTICS -->
       <div class="admin-panel" id="admin-panel-tests">
         <div class="stat-grid">
-          <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-val">103.4</div><div class="stat-lbl">Avg IQ Score</div><div class="stat-trend" style="color:#6b8a74">All age groups combined</div></div>
-          <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val">68%</div><div class="stat-lbl">Test Completion Rate</div><div class="stat-trend trend-up">↑ +5% this month</div></div>
-          <div class="stat-card"><div class="stat-icon">⏱️</div><div class="stat-val">18 min</div><div class="stat-lbl">Avg Time Taken</div><div class="stat-trend trend-dn">↓ 2 min faster than last month</div></div>
-          <div class="stat-card"><div class="stat-icon">🔄</div><div class="stat-val">1.54x</div><div class="stat-lbl">Avg Retakes / User</div><div class="stat-trend trend-up">↑ Good engagement</div></div>
+          <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-val">--</div><div class="stat-lbl">Avg IQ Score</div><div class="stat-trend" style="color:#6b8a74">No live data yet</div></div>
+          <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val">--</div><div class="stat-lbl">Test Completion Rate</div><div class="stat-trend" style="color:#6b8a74">No live data yet</div></div>
+          <div class="stat-card"><div class="stat-icon">⏱️</div><div class="stat-val">--</div><div class="stat-lbl">Avg Time Taken</div><div class="stat-trend" style="color:#6b8a74">No live data yet</div></div>
+          <div class="stat-card"><div class="stat-icon">🔄</div><div class="stat-val">--</div><div class="stat-lbl">Avg Retakes / User</div><div class="stat-trend" style="color:#6b8a74">No live data yet</div></div>
         </div>
         <div class="admin-card">
           <div class="admin-card-title">Average IQ by age group</div>
@@ -1183,7 +1156,121 @@ const SCALE = [
   {min:0,max:79,label:"Borderline",color:"#A32D2D",bg:"#FCEBEB"}
 ];
 
-let state = {ageGroup:'adults',isPaid:false,questions:[],current:0,answers:[],selected:null,timeLeft:0,totalTime:0,timerInterval:null,result:null};
+let state = {
+  ageGroup:'adults',
+  isPaid:false,
+  questions:[],
+  current:0,
+  answers:[],
+  selected:null,
+  timeLeft:0,
+  totalTime:0,
+  timerInterval:null,
+  result:null,
+  paymentId:null,
+  resultId:null,
+  certId:null,
+  savedName:'',
+  resultSavePromise:null
+};
+
+function escapeHtml(value){
+  return String(value||'').replace(/[&<>"']/g,(char)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[char]));
+}
+
+function formatDateShort(value){
+  if(!value) return '—';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime())
+    ? '—'
+    : date.toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+}
+
+function formatRelativeTime(value){
+  if(!value) return '—';
+  const date = new Date(value);
+  if(Number.isNaN(date.getTime())) return '—';
+  const diffMs = Date.now() - date.getTime();
+  const mins = Math.max(1, Math.round(diffMs/60000));
+  if(mins < 60) return mins+'m ago';
+  const hours = Math.round(mins/60);
+  if(hours < 24) return hours+'h ago';
+  const days = Math.round(hours/24);
+  return days+'d ago';
+}
+
+function formatCurrency(amount){
+  const numeric = Number(amount||0);
+  return '₹'+numeric.toLocaleString('en-IN');
+}
+
+function getAgeBadge(ageGroup){
+  return ageGroup==='kids'?'badge-kids':ageGroup==='teens'?'badge-teens':ageGroup==='adults'?'badge-adults':'badge-seniors';
+}
+
+function getAgeColor(ageGroup){
+  return ageGroup==='kids'?'#EF9F27':ageGroup==='teens'?'#378ADD':ageGroup==='adults'?'#1a7a4a':'#7F77DD';
+}
+
+function getInitials(name){
+  const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return '?';
+  return parts.slice(0,2).map(part=>part[0].toUpperCase()).join('');
+}
+
+async function saveCurrentResult(nameOverride){
+  if(!state.result) return null;
+
+  const resolvedName = (nameOverride || state.savedName || (state.isPaid ? 'Paid User' : 'Anonymous User')).trim();
+
+  if(state.resultId){
+    if(nameOverride && resolvedName !== state.savedName){
+      const updateRes = await fetch('/api/result/'+state.resultId, {
+        method:'PATCH',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ name: resolvedName })
+      });
+      if(!updateRes.ok) throw new Error('Could not update saved result');
+      state.savedName = resolvedName;
+    }
+    return { resultId: state.resultId, certId: state.certId };
+  }
+
+  if(state.resultSavePromise) return state.resultSavePromise;
+
+  const payload = {
+    name: resolvedName,
+    iqScore: state.result.iq,
+    ageGroup: state.ageGroup,
+    percentile: state.result.pct,
+    isPaid: state.isPaid,
+    paymentId: state.paymentId || null
+  };
+
+  state.resultSavePromise = fetch('/api/result', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  })
+    .then(async (response)=>{
+      if(!response.ok){
+        const errorData = await response.json().catch(()=>({}));
+        throw new Error(errorData.error || 'Could not save result');
+      }
+      return response.json();
+    })
+    .then((data)=>{
+      state.resultId = data.resultId || state.resultId;
+      state.certId = data.certId || state.certId;
+      state.savedName = resolvedName;
+      return data;
+    })
+    .finally(()=>{
+      state.resultSavePromise = null;
+    });
+
+  return state.resultSavePromise;
+}
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -1289,6 +1376,7 @@ function finishTest(){
   const cat=getCat(iq);
   const pct=getPercentile(iq);
   state.result={iq,cat,pct,score,total:qs.length,sub};
+  saveCurrentResult().catch((err)=>console.error('Result save error:', err));
   renderResult();
   showScreen('screen-result');
 }
@@ -1342,13 +1430,17 @@ function renderResult(){
   } else {
     certSec.innerHTML=`<div class="upgrade-box"><h3>${L('upgTitle')}</h3><p>${L('upgDesc')}</p><button class="btn-upgrade" onclick="openPayment()">${L('upgBtn')}</button></div><div style="margin-top:10px;text-align:center"><button onclick="openShareModal()" style="padding:10px 24px;background:#e8f5ee;border:1.5px solid #c8e6d4;border-radius:12px;font-size:13px;font-weight:700;color:#145f39;cursor:pointer">${L('shareBtn')}</button></div>`;
   }
-  // Save to leaderboard
-  addToLeaderboard(iq, state.ageGroup, state.isPaid);
+  if(document.getElementById('screen-leaderboard').classList.contains('active')) renderLeaderboard();
 }
 
-function generateCert(){
+async function generateCert(){
   const name=document.getElementById('cert-name-input').value.trim();
   if(!name){ alert('Please enter your name'); return; }
+  try {
+    await saveCurrentResult(name);
+  } catch (err) {
+    console.error('Certificate save error:', err);
+  }
 
   // Kids get the special nature certificate
   if(state.ageGroup==='kids'){
@@ -1360,7 +1452,7 @@ function generateCert(){
   const {iq,cat,pct}=state.result;
   const agLabel=AGE_LABELS[state.ageGroup];
   const today=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
-  const id='IQ-'+Math.random().toString(36).substring(2,8).toUpperCase();
+  const id=state.certId||('IQ-'+Math.random().toString(36).substring(2,8).toUpperCase());
   document.getElementById('cert-name-display').textContent=name;
   document.getElementById('cert-desc').innerHTML='has successfully completed the <strong>Intellecta Cognitive Assessment</strong><br>for the <strong>'+agLabel+'</strong> age group and achieved an';
   const box=document.getElementById('cert-score-box');
@@ -1377,7 +1469,7 @@ function generateCert(){
 }
 
 function goHome(){
-  state={...state,questions:[],current:0,answers:[],selected:null,result:null};
+  state={...state,questions:[],current:0,answers:[],selected:null,result:null,paymentId:null,resultId:null,certId:null,savedName:'',resultSavePromise:null};
   clearInterval(state.timerInterval);
   document.querySelectorAll('.age-card').forEach(c=>c.classList.remove('selected'));
   document.getElementById('plans').classList.remove('show');
@@ -1388,17 +1480,48 @@ function goHome(){
 let selectedUpiApp='', selectedBank='', selectedWallet='';
 
 function openPayment(){
-  // Reset modal to normal view
-  document.getElementById('pay-view-normal').style.display='';
-  document.getElementById('pay-view-processing').style.display='none';
-  document.getElementById('pay-view-success').style.display='none';
-  selectedUpiApp=''; selectedBank=''; selectedWallet='';
-  // Reset tab to UPI
-  document.querySelectorAll('.pay-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.pay-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.pay-tab')[0].classList.add('active');
-  document.getElementById('panel-upi').classList.add('active');
-  document.getElementById('payment-modal').classList.add('open');
+  // #region debug-point A:open-payment
+  fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'A',location:'frontend/index.html:openPayment',msg:'[DEBUG] openPayment invoked',data:{activeAgeGroup:state.ageGroup,isPaid:state.isPaid},ts:Date.now()})}).catch(()=>{});
+  // #endregion
+  try {
+    const normalView = document.getElementById('pay-view-normal');
+    const processingView = document.getElementById('pay-view-processing');
+    const successView = document.getElementById('pay-view-success');
+    const tabs = document.querySelectorAll('.pay-tab');
+    const panels = document.querySelectorAll('.pay-panel');
+    const upiPanel = document.getElementById('panel-upi');
+    const paymentModal = document.getElementById('payment-modal');
+    // #region debug-point A:open-payment-dom
+    fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'A',location:'frontend/index.html:openPayment:dom',msg:'[DEBUG] payment modal DOM snapshot',data:{hasNormalView:!!normalView,hasProcessingView:!!processingView,hasSuccessView:!!successView,tabsCount:tabs.length,panelsCount:panels.length,hasUpiPanel:!!upiPanel,hasPaymentModal:!!paymentModal},ts:Date.now()})}).catch(()=>{});
+    // #endregion
+    // Reset modal to normal view
+    normalView.style.display='';
+    processingView.style.display='none';
+    successView.style.display='none';
+    selectedUpiApp=''; selectedBank=''; selectedWallet='';
+    // Reset tab to UPI
+    tabs.forEach(t=>t.classList.remove('active'));
+    panels.forEach(p=>p.classList.remove('active'));
+    tabs[0].classList.add('active');
+    upiPanel.classList.add('active');
+    paymentModal.classList.add('open');
+    // #region debug-point A:open-payment-finished
+    fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'A',location:'frontend/index.html:openPayment:done',msg:'[DEBUG] payment modal open class applied',data:{modalClasses:paymentModal.className,isOpen:paymentModal.classList.contains('open')},ts:Date.now()})}).catch(()=>{});
+    // #endregion
+    const modalBox = paymentModal.querySelector('.modal-box');
+    const overlayStyle = getComputedStyle(paymentModal);
+    const boxStyle = modalBox ? getComputedStyle(modalBox) : null;
+    const overlayRect = paymentModal.getBoundingClientRect();
+    const boxRect = modalBox ? modalBox.getBoundingClientRect() : null;
+    // #region debug-point A:open-payment-visual
+    fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'A',location:'frontend/index.html:openPayment:visual',msg:'[DEBUG] payment modal computed styles',data:{overlayDisplay:overlayStyle.display,overlayOpacity:overlayStyle.opacity,overlayPointerEvents:overlayStyle.pointerEvents,overlayRect:{top:overlayRect.top,bottom:overlayRect.bottom,height:overlayRect.height},boxTransform:boxStyle?boxStyle.transform:null,boxRect:boxRect?{top:boxRect.top,bottom:boxRect.bottom,height:boxRect.height}:null},ts:Date.now()})}).catch(()=>{});
+    // #endregion
+  } catch (err) {
+    // #region debug-point A:open-payment-error
+    fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'A',location:'frontend/index.html:openPayment:catch',msg:'[DEBUG] openPayment threw',data:{error:err&&err.message?err.message:String(err)},ts:Date.now()})}).catch(()=>{});
+    // #endregion
+    throw err;
+  }
 }
 
 function closePayment(){
@@ -1454,6 +1577,9 @@ function formatExpiry(inp){
 
 async function processPayment(method){
   const sub = document.getElementById('processing-sub');
+  // #region debug-point B:process-payment-enter
+  fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'B',location:'frontend/index.html:processPayment',msg:'[DEBUG] processPayment entered',data:{method,sdkReady:typeof Razorpay!=='undefined'},ts:Date.now()})}).catch(()=>{});
+  // #endregion
   document.getElementById('pay-view-normal').style.display = 'none';
   document.getElementById('pay-view-processing').style.display = '';
   
@@ -1465,19 +1591,34 @@ async function processPayment(method){
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
+    // #region debug-point B:order-response
+    fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'B',location:'frontend/index.html:processPayment:order',msg:'[DEBUG] /api/order completed',data:{ok:orderRes.ok,status:orderRes.status},ts:Date.now()})}).catch(()=>{});
+    // #endregion
+    if (!orderRes.ok) throw new Error('Could not create payment order');
     const orderData = await orderRes.json();
     
+    // #region debug-point C:order-payload
+    fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'C',location:'frontend/index.html:processPayment:orderData',msg:'[DEBUG] order payload received',data:{paymentMode:orderData.paymentMode,keyId:orderData.keyId,orderId:orderData.orderId,currency:orderData.currency,amount:orderData.amount},ts:Date.now()})}).catch(()=>{});
+    // #endregion
+
     if (orderData.error) throw new Error(orderData.error);
+
+    if (!orderData.keyId) throw new Error('Payment gateway is not configured on the server');
+
+    if (typeof Razorpay === 'undefined') throw new Error('Razorpay checkout failed to load');
 
     // 2. Open Razorpay Checkout
     const options = {
-      key: 'rzp_live_SxGWikiANNcBoQ', // Using provided Key ID
+      key: orderData.keyId,
       amount: orderData.amount,
       currency: orderData.currency,
       name: 'Intellecta',
       description: 'Full IQ Assessment',
       order_id: orderData.orderId,
       handler: async function (response) {
+        // #region debug-point D:checkout-success-callback
+        fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'D',location:'frontend/index.html:processPayment:handler',msg:'[DEBUG] Razorpay success callback fired',data:{paymentId:response.razorpay_payment_id,orderId:response.razorpay_order_id,hasSignature:!!response.razorpay_signature},ts:Date.now()})}).catch(()=>{});
+        // #endregion
         sub.textContent = 'Verifying payment...';
         
         // 3. Verify payment on backend
@@ -1487,13 +1628,21 @@ async function processPayment(method){
           body: JSON.stringify({
             razorpay_order_id: response.razorpay_order_id,
             razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature: response.razorpay_signature
+            razorpay_signature: response.razorpay_signature,
+            method
           })
         });
+        // #region debug-point E:verify-response
+        fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'E',location:'frontend/index.html:processPayment:verify',msg:'[DEBUG] /api/verify completed',data:{ok:verifyRes.ok,status:verifyRes.status},ts:Date.now()})}).catch(()=>{});
+        // #endregion
         
         const verifyData = await verifyRes.json();
+        // #region debug-point E:verify-payload
+        fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'E',location:'frontend/index.html:processPayment:verifyData',msg:'[DEBUG] verify payload received',data:{success:!!verifyData.success,error:verifyData.error||null},ts:Date.now()})}).catch(()=>{});
+        // #endregion
         
         if (verifyData.success) {
+          state.paymentId = response.razorpay_payment_id;
           document.getElementById('pay-view-processing').style.display = 'none';
           document.getElementById('pay-view-success').style.display = '';
           document.getElementById('success-ref').textContent = 'Transaction ID: ' + response.razorpay_payment_id + ' · ' + method + ' · ₹99';
@@ -1507,16 +1656,25 @@ async function processPayment(method){
       theme: { color: '#1a7a4a' },
       modal: {
         ondismiss: function() {
+          // #region debug-point D:checkout-dismissed
+          fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'D',location:'frontend/index.html:processPayment:ondismiss',msg:'[DEBUG] Razorpay modal dismissed',data:{method},ts:Date.now()})}).catch(()=>{});
+          // #endregion
           document.getElementById('pay-view-processing').style.display = 'none';
           document.getElementById('pay-view-normal').style.display = '';
         }
       }
     };
     
+    // #region debug-point C:checkout-open
+    fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'C',location:'frontend/index.html:processPayment:rzpOpen',msg:'[DEBUG] opening Razorpay checkout',data:{key:orderData.keyId,orderId:orderData.orderId,method},ts:Date.now()})}).catch(()=>{});
+    // #endregion
     const rzp = new Razorpay(options);
     rzp.open();
     
   } catch (err) {
+    // #region debug-point D:payment-error
+    fetch('http://127.0.0.1:7777/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'razorpay-checkout-bug',runId:'pre-fix',hypothesisId:'D',location:'frontend/index.html:processPayment:catch',msg:'[DEBUG] payment flow threw',data:{method,error:err&&err.message?err.message:String(err)},ts:Date.now()})}).catch(()=>{});
+    // #endregion
     console.error('Payment Error:', err);
     alert('Payment failed: ' + err.message);
     document.getElementById('pay-view-processing').style.display = 'none';
@@ -1530,35 +1688,7 @@ function onPaymentSuccess(){
 }
 /* ===== LEADERBOARD ===== */
 const AVATAR_COLORS=['#1a7a4a','#7F77DD','#378ADD','#EF9F27','#1D9E75','#e24b4a','#0e4428','#BA7517'];
-const LB_DATA = [
-  {name:'Arjun Mehta',iq:138,ag:'adults',week:true,init:'A'},
-  {name:'Priya Sharma',iq:135,ag:'teens',week:true,init:'P'},
-  {name:'Vikram Nair',iq:133,ag:'adults',week:false,init:'V'},
-  {name:'Ananya Iyer',iq:131,ag:'teens',week:true,init:'A'},
-  {name:'Siddharth Roy',iq:129,ag:'adults',week:true,init:'S'},
-  {name:'Meera Patel',iq:127,ag:'kids',week:false,init:'M'},
-  {name:'Rahul Gupta',iq:125,ag:'seniors',week:true,init:'R'},
-  {name:'Kavya Das',iq:124,ag:'adults',week:false,init:'K'},
-  {name:'Suresh Pillai',iq:122,ag:'seniors',week:true,init:'S'},
-  {name:'Neha Verma',iq:121,ag:'teens',week:false,init:'N'},
-  {name:'Deepak Kumar',iq:119,ag:'adults',week:true,init:'D'},
-  {name:'Sneha Joshi',iq:118,ag:'kids',week:true,init:'S'},
-  {name:'Ravi Reddy',iq:117,ag:'adults',week:false,init:'R'},
-  {name:'Pooja Chauhan',iq:115,ag:'teens',week:true,init:'P'},
-  {name:'Amit Singh',iq:114,ag:'seniors',week:false,init:'A'},
-  {name:'Lakshmi Rao',iq:113,ag:'adults',week:true,init:'L'},
-  {name:'Manish Tiwari',iq:112,ag:'teens',week:false,init:'M'},
-  {name:'Divya Aggarwal',iq:111,ag:'kids',week:true,init:'D'},
-  {name:'Kiran Nair',iq:110,ag:'adults',week:true,init:'K'},
-  {name:'Sunita Bose',iq:109,ag:'seniors',week:false,init:'S'},
-];
 let lbFilter='all';
-let myLBEntry=null;
-
-function addToLeaderboard(iq, ag, isPaid){
-  if(!isPaid) return;
-  myLBEntry={name:'You',iq,ag,week:true,init:'Y',isMe:true};
-}
 
 function filterLB(filter, btn){
   lbFilter=filter;
@@ -1567,62 +1697,101 @@ function filterLB(filter, btn){
   renderLeaderboard();
 }
 
-function renderLeaderboard(){
-  let data=[...LB_DATA];
-  if(myLBEntry) data.push(myLBEntry);
-  data.sort((a,b)=>b.iq-a.iq);
-
-  if(lbFilter==='week') data=data.filter(d=>d.week);
-  else if(lbFilter!=='all') data=data.filter(d=>d.ag===lbFilter);
-
-  // Podium (top 3)
+async function renderLeaderboard(){
   const podium=document.getElementById('lb-podium');
-  const top3=data.slice(0,3);
+  const list=document.getElementById('lb-list');
+  const yr=document.getElementById('lb-your-rank');
+  const rankButton=yr.querySelector('button');
+  podium.innerHTML='<div class="empty-state" style="width:100%">Loading leaderboard...</div>';
+  list.innerHTML='';
+
+  try {
+    const params = new URLSearchParams({ limit:'50' });
+    if(lbFilter==='week') params.set('period','week');
+    else if(lbFilter!=='all') params.set('ageGroup',lbFilter);
+
+    const response = await fetch('/api/leaderboard?'+params.toString());
+    const rawData = response.ok ? await response.json() : [];
+    const data = (Array.isArray(rawData) ? rawData : []).map((entry)=>({
+      id: entry.id,
+      name: entry.name || 'Anonymous User',
+      iq: Number(entry.iq_score || entry.iq || 0),
+      ag: entry.age_group || entry.ag,
+      createdAt: entry.created_at || null,
+      init: getInitials(entry.name || 'Anonymous User')
+    }));
+
+    if(!data.length){
+      podium.innerHTML='<div class="empty-state" style="width:100%"><strong>No leaderboard entries yet.</strong><br/>Paid test results will appear here after real users complete the full test.</div>';
+      yr.style.display='block';
+      document.getElementById('lb-your-iq').textContent='—';
+      document.getElementById('lb-your-rank-txt').textContent='Take a paid test to appear on the leaderboard';
+      rankButton.style.display='inline-block';
+      return;
+    }
+
+    podium.innerHTML='';
+    list.innerHTML='';
+    const top3=data.slice(0,3);
   const order=[1,0,2]; // 2nd, 1st, 3rd visual order
   const heights=['podium-2','podium-1','podium-3'];
   const medals=['🥈','🥇','🥉'];
   const crowns=['','👑',''];
-  podium.innerHTML='';
-  order.forEach((idx,pos)=>{
-    const p=top3[idx];
-    if(!p) return;
-    const col=AVATAR_COLORS[idx%AVATAR_COLORS.length];
-    podium.innerHTML+=`<div class="podium-col">
-      <div class="podium-avatar" style="background:${col}">${crowns[pos]?`<span class="podium-crown">${crowns[pos]}</span>`:''}${p.init}</div>
-      <div class="podium-name">${p.isMe?'⭐ You':p.name}</div>
-      <div class="podium-iq">IQ ${p.iq}</div>
-      <div class="podium-block ${heights[pos]}">${medals[pos]}</div>
-    </div>`;
-  });
 
-  // List (rank 4+)
-  const list=document.getElementById('lb-list');
-  list.innerHTML='';
-  data.slice(3).forEach((p,i)=>{
-    const rank=i+4;
-    const col=AVATAR_COLORS[(i+3)%AVATAR_COLORS.length];
-    const agLabel=AGE_LABELS[p.ag]||p.ag;
-    list.innerHTML+=`<div class="lb-row${p.isMe?' me':''}">
-      <div class="lb-rank">${rank}</div>
-      <div class="lb-avatar" style="background:${col}">${p.init}</div>
-      <div class="lb-info">
-        <div class="lb-name">${p.isMe?'You ⭐':p.name}${p.isMe?'<span class="lb-you-tag">YOU</span>':''}</div>
-        <div class="lb-meta">${agLabel} · ${p.week?'This week':'All time'}</div>
-      </div>
-      <div class="lb-iq">${p.iq}</div>
-    </div>`;
-  });
+    order.forEach((idx,pos)=>{
+      const p=top3[idx];
+      if(!p) return;
+      const col=AVATAR_COLORS[idx%AVATAR_COLORS.length];
+      podium.innerHTML+=`<div class="podium-col">
+        <div class="podium-avatar" style="background:${col}">${crowns[pos]?`<span class="podium-crown">${crowns[pos]}</span>`:''}${escapeHtml(p.init)}</div>
+        <div class="podium-name">${escapeHtml(p.name)}</div>
+        <div class="podium-iq">IQ ${p.iq}</div>
+        <div class="podium-block ${heights[pos]}">${medals[pos]}</div>
+      </div>`;
+    });
 
-  // Your rank card
-  const yr=document.getElementById('lb-your-rank');
-  if(myLBEntry){
-    const myRank=data.findIndex(d=>d.isMe)+1;
+    data.slice(3).forEach((p,i)=>{
+      const rank=i+4;
+      const col=AVATAR_COLORS[(i+3)%AVATAR_COLORS.length];
+      const agLabel=AGE_LABELS[p.ag]||p.ag||'Unknown';
+      list.innerHTML+=`<div class="lb-row">
+        <div class="lb-rank">${rank}</div>
+        <div class="lb-avatar" style="background:${col}">${escapeHtml(p.init)}</div>
+        <div class="lb-info">
+          <div class="lb-name">${escapeHtml(p.name)}</div>
+          <div class="lb-meta">${escapeHtml(agLabel)} · ${lbFilter==='week'?'This week':'All time'}</div>
+        </div>
+        <div class="lb-iq">${p.iq}</div>
+      </div>`;
+    });
+
     yr.style.display='block';
-    document.getElementById('lb-your-iq').textContent='IQ '+myLBEntry.iq;
-    document.getElementById('lb-your-rank-txt').textContent=`You are ranked #${myRank} out of ${data.length} on the leaderboard 🎉`;
-    yr.querySelector('button').style.display='none';
-  } else {
+    if(state.resultId){
+      const myRank=data.findIndex((entry)=>String(entry.id)===String(state.resultId))+1;
+      if(myRank>0){
+        document.getElementById('lb-your-iq').textContent='IQ '+state.result.iq;
+        document.getElementById('lb-your-rank-txt').textContent=`You are ranked #${myRank} out of ${data.length} on the leaderboard`;
+        rankButton.style.display='none';
+        return;
+      }
+    }
+
+    if(state.result && state.isPaid){
+      document.getElementById('lb-your-iq').textContent='IQ '+state.result.iq;
+      document.getElementById('lb-your-rank-txt').textContent='Your paid result has been completed. It will appear here once the saved record matches the current filter.';
+      rankButton.style.display='none';
+    } else {
+      document.getElementById('lb-your-iq').textContent='—';
+      document.getElementById('lb-your-rank-txt').textContent='Take a paid test to appear on the leaderboard';
+      rankButton.style.display='inline-block';
+    }
+  } catch (err) {
+    console.error('Leaderboard load error:', err);
+    podium.innerHTML='<div class="empty-state" style="width:100%"><strong>Could not load leaderboard.</strong><br/>Please try again in a moment.</div>';
     yr.style.display='block';
+    document.getElementById('lb-your-iq').textContent='—';
+    document.getElementById('lb-your-rank-txt').textContent='Leaderboard data is temporarily unavailable.';
+    rankButton.style.display='inline-block';
   }
 }
 
@@ -1718,99 +1887,137 @@ function adminAction(msg){
   alert('✅ Action triggered: '+msg+'\n\nIn the live app this would connect to your backend API.');
 }
 
-function initAdminCharts(){
-  // Weekly tests chart
-  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const testVals=[142,168,203,187,241,318,280];
-  const maxT=Math.max(...testVals);
+async function initAdminCharts(){
   const tc=document.getElementById('tests-chart');
-  tc.innerHTML='';
-  days.forEach((d,i)=>{
-    const pct=Math.round((testVals[i]/maxT)*100);
-    tc.innerHTML+=`<div class="chart-bar-col"><div class="chart-bar-val">${testVals[i]}</div><div style="flex:1;display:flex;align-items:flex-end;width:100%"><div class="chart-bar" style="height:${pct}%;width:100%"></div></div><div class="chart-bar-label">${d}</div></div>`;
-  });
-
-  // Revenue chart
-  const revVals=[2100,2400,1800,3200,2900,4100,3600];
-  const maxR=Math.max(...revVals);
   const rc=document.getElementById('revenue-chart');
-  rc.innerHTML='';
-  days.forEach((d,i)=>{
-    const pct=Math.round((revVals[i]/maxR)*100);
-    rc.innerHTML+=`<div class="chart-bar-col"><div class="chart-bar-val">₹${(revVals[i]/1000).toFixed(1)}K</div><div style="flex:1;display:flex;align-items:flex-end;width:100%"><div class="chart-bar revenue-bar" style="height:${pct}%;width:100%"></div></div><div class="chart-bar-label">${d}</div></div>`;
-  });
-
-  // Score distribution
-  const scoreDist=[3,8,22,38,19,7,3];
-  const scoreLabels=['<80','80–89','90–99','100–109','110–119','120–129','130+'];
-  const scoreColors=['#e24b4a','#BA7517','#378ADD','#1a7a4a','#1D9E75','#7F77DD','#d4a017'];
-  const maxS=Math.max(...scoreDist);
   const sc=document.getElementById('score-dist-chart');
-  sc.innerHTML='';
-  scoreDist.forEach((v,i)=>{
-    const pct=Math.round((v/maxS)*100);
-    sc.innerHTML+=`<div class="chart-bar-col"><div class="chart-bar-val">${v}%</div><div style="flex:1;display:flex;align-items:flex-end;width:100%"><div class="chart-bar" style="height:${pct}%;width:100%;background:${scoreColors[i]}"></div></div></div>`;
-  });
-
-  // IQ by age group
-  const iqByAge=[{group:'Kids 🧒',iq:97,color:'#EF9F27'},{group:'Teens 🧑',iq:103,color:'#378ADD'},{group:'Adults 👤',iq:106,color:'#1a7a4a'},{group:'Seniors 🧓',iq:101,color:'#7F77DD'}];
+  const ageBreakdown=document.getElementById('age-group-breakdown');
+  const paymentBreakdown=document.getElementById('payment-method-breakdown');
   const iqEl=document.getElementById('iq-by-age');
-  iqEl.innerHTML='';
-  iqByAge.forEach(r=>{
-    const pct=Math.round(((r.iq-60)/85)*100);
-    iqEl.innerHTML+=`<div><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:13px;font-weight:500;color:#1a2e22">${r.group}</span><span style="font-size:13px;font-weight:700;color:${r.color}">${r.iq}</span></div><div style="height:8px;background:#e8f5ee;border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${r.color};border-radius:4px;transition:width 1s ease"></div></div></div>`;
-  });
-
-  // Users table
-  const names=['Priya Sharma','Arjun Singh','Meera Patel','Rahul Gupta','Ananya Iyer','Siddharth Roy','Kavya Nair','Vikram Joshi','Pooja Mehta','Ravi Kumar','Sneha Das','Amit Tiwari','Neha Verma','Kiran Reddy','Suresh Pillai','Divya Chauhan','Manish Aggarwal','Lakshmi Rao','Deepak Nair','Sunita Singh'];
-  const ageGrps=['kids','teens','adults','seniors'];
-  const testTypes=['Free','Paid'];
   const tbody=document.getElementById('users-table');
-  names.forEach((n,i)=>{
-    const ag=ageGrps[Math.floor(Math.random()*4)];
-    const paid=Math.random()>0.4;
-    const iq=paid?Math.round(85+Math.random()*45):'-';
-    const daysAgo=i;
-    const date=new Date(Date.now()-daysAgo*86400000).toLocaleDateString('en-IN',{day:'numeric',month:'short'});
-    tbody.innerHTML+=`<tr><td style="color:#9aaf9e">${i+1}</td><td style="font-weight:600">${n}</td><td><span class="td-badge badge-${ag}">${ag}</span></td><td>${paid?`${iq} <span class="iq-mini-bar"><span class="iq-mini-fill" style="width:${paid?Math.round(((iq-60)/85)*100):0}%"></span></span>`:'-'}</td><td><span class="td-badge ${paid?'badge-paid':'badge-free'}">${paid?'Paid':'Free'}</span></td><td style="color:#9aaf9e">${date}</td></tr>`;
-  });
-
-  // Transactions table
   const txnEl=document.getElementById('txn-table');
-  const methods=['UPI','Card','Net Banking','Wallet'];
-  names.slice(0,12).forEach((n,i)=>{
-    const id='TXN'+Math.floor(Math.random()*90000000+10000000);
-    const method=methods[Math.floor(Math.random()*4)];
-    const minsAgo=i*37+Math.floor(Math.random()*30);
-    txnEl.innerHTML+=`<tr><td style="font-size:11px;color:#9aaf9e;font-family:monospace">${id}</td><td style="font-weight:600">${n}</td><td style="font-weight:700;color:#1a7a4a">₹99</td><td>${method}</td><td><span class="td-badge badge-paid">Success</span></td><td style="color:#9aaf9e">${minsAgo}m ago</td></tr>`;
-  });
-
-  // Alerts
-  const alerts=[
-    {color:'#1a7a4a',text:'<strong>186 paid tests</strong> completed this month — new monthly record 🎉',time:'2 min ago'},
-    {color:'#378ADD',text:'New user spike detected: <strong>318 tests</strong> on Saturday (highest single day)',time:'1 hour ago'},
-    {color:'#EF9F27',text:'Certificate generation rate: <strong>44%</strong> of paid users downloading certificates',time:'3 hours ago'},
-    {color:'#7F77DD',text:'Teens age group growing fastest: <strong>+34% month-on-month</strong>',time:'6 hours ago'},
-    {color:'#1D9E75',text:'UPI payments now <strong>50% of all transactions</strong> — consider GPay promotions',time:'Yesterday'},
-    {color:'#EF9F27',text:'<strong>12 users</strong> abandoned payment at card entry step — consider simplifying flow',time:'Yesterday'},
-    {color:'#e24b4a',text:'<strong>3 test sessions</strong> timed out without completion — review question difficulty',time:'2 days ago'},
-    {color:'#1a7a4a',text:'App received <strong>47 new 5-star reviews</strong> this week on Play Store',time:'2 days ago'},
-  ];
   const al=document.getElementById('alerts-list');
-  al.innerHTML='';
-  alerts.forEach(a=>{
-    al.innerHTML+=`<div class="alert-row"><div class="alert-dot" style="background:${a.color}"></div><div class="alert-text">${a.text}</div><div class="alert-time">${a.time}</div></div>`;
-  });
+  const overviewCards=document.querySelectorAll('#admin-panel-overview .stat-card');
+  const revenueCards=document.querySelectorAll('#admin-panel-revenue .stat-grid .stat-card');
+  const testCards=document.querySelectorAll('#admin-panel-tests .stat-grid .stat-card');
 
-  // Live counter simulation
-  setInterval(()=>{
-    const u=document.getElementById('stat-users');
-    const t=document.getElementById('stat-tests');
-    if(u&&t){
-      if(Math.random()>0.7) u.textContent=(parseInt(u.textContent.replace(',',''))+1).toLocaleString('en-IN');
-      if(Math.random()>0.5) t.textContent=(parseInt(t.textContent.replace(',',''))+1).toLocaleString('en-IN');
+  const setLoadingState = () => {
+    tc.innerHTML='<div class="empty-state" style="width:100%">Loading real dashboard data...</div>';
+    rc.innerHTML='<div class="empty-state" style="width:100%">Loading real dashboard data...</div>';
+    sc.innerHTML='<div class="empty-state" style="width:100%">Loading real dashboard data...</div>';
+    if(ageBreakdown) ageBreakdown.innerHTML='Loading real dashboard data...';
+    if(paymentBreakdown) paymentBreakdown.innerHTML='Loading real dashboard data...';
+    iqEl.innerHTML='<div class="empty-state">Loading real dashboard data...</div>';
+    tbody.innerHTML=`<tr><th>#</th><th>Name</th><th>Age Group</th><th>IQ Score</th><th>Test Type</th><th>Date</th></tr><tr><td colspan="6"><div class="empty-state" style="margin:8px 0">Loading users...</div></td></tr>`;
+    txnEl.innerHTML=`<tr><th>Txn ID</th><th>User</th><th>Amount</th><th>Method</th><th>Status</th><th>Time</th></tr><tr><td colspan="6"><div class="empty-state" style="margin:8px 0">Loading transactions...</div></td></tr>`;
+    al.innerHTML='<div class="empty-state">Loading activity...</div>';
+  };
+
+  const emptyDashboardData = {
+    overview:{totalUsers:0,totalTests:0,totalRevenue:0,certificatesIssued:0,conversionRate:null,averageRating:null},
+    revenue:{thisWeek:0,thisMonth:0,averageOrderValue:0,paidTestsThisMonth:0},
+    analytics:{averageIqScore:null,completionRate:null,averageTimeMinutes:null,retakesPerUser:null},
+    charts:{testsLast7Days:[],revenueLast7Days:[],scoreDistribution:[],iqByAge:[]},
+    breakdowns:{ageGroups:[],paymentMethods:[]},
+    recentUsers:[],
+    recentTransactions:[],
+    alerts:[]
+  };
+
+  const setCard = (card, value, trend) => {
+    if(!card) return;
+    const valueEl = card.querySelector('.stat-val');
+    const trendEl = card.querySelector('.stat-trend');
+    if(valueEl) valueEl.textContent = value;
+    if(trendEl) {
+      trendEl.textContent = trend;
+      trendEl.className = 'stat-trend';
+      trendEl.style.color = '#6b8a74';
     }
-  },4000);
+  };
+
+  const renderBarChart = (container, items, valueFormatter, barClassName='') => {
+    if(!items.length || items.every(item => Number(item.value||0) === 0)){
+      container.innerHTML='<div class="empty-state" style="width:100%"><strong>No live data yet.</strong><br/>This chart will populate from PostgreSQL records.</div>';
+      return;
+    }
+    const maxValue = Math.max(...items.map(item => Number(item.value||0)), 1);
+    container.innerHTML = items.map((item)=>`<div class="chart-bar-col"><div class="chart-bar-val">${valueFormatter(Number(item.value||0))}</div><div style="flex:1;display:flex;align-items:flex-end;width:100%"><div class="chart-bar ${barClassName}" style="height:${Math.max(6, Math.round((Number(item.value||0)/maxValue)*100))}%;width:100%"></div></div><div class="chart-bar-label">${escapeHtml(item.label)}</div></div>`).join('');
+  };
+
+  setLoadingState();
+
+  let dashboardData = emptyDashboardData;
+  try {
+    const response = await fetch('/api/admin/dashboard');
+    if(response.ok) dashboardData = await response.json();
+  } catch (err) {
+    console.error('Admin dashboard load error:', err);
+  }
+
+  setCard(overviewCards[0], (dashboardData.overview.totalUsers||0).toLocaleString('en-IN'), 'Real database count');
+  setCard(overviewCards[1], (dashboardData.overview.totalTests||0).toLocaleString('en-IN'), 'Real database count');
+  setCard(overviewCards[2], formatCurrency(dashboardData.overview.totalRevenue||0), 'Real Razorpay revenue');
+  setCard(overviewCards[3], (dashboardData.overview.certificatesIssued||0).toLocaleString('en-IN'), 'Issued from saved paid results');
+  setCard(overviewCards[4], dashboardData.overview.conversionRate===null?'--':dashboardData.overview.conversionRate+'%', 'Computed from real saved results');
+  setCard(overviewCards[5], dashboardData.overview.averageRating===null?'--':String(dashboardData.overview.averageRating), 'No rating source configured');
+
+  setCard(revenueCards[0], formatCurrency(dashboardData.revenue.thisWeek||0), 'Successful payments this week');
+  setCard(revenueCards[1], formatCurrency(dashboardData.revenue.thisMonth||0), 'Successful payments this month');
+  setCard(revenueCards[2], formatCurrency(dashboardData.revenue.averageOrderValue||0), 'Average successful payment');
+  setCard(revenueCards[3], String(dashboardData.revenue.paidTestsThisMonth||0), 'Paid transactions this month');
+
+  setCard(testCards[0], dashboardData.analytics.averageIqScore===null?'--':String(dashboardData.analytics.averageIqScore), 'Average of saved real results');
+  setCard(testCards[1], dashboardData.analytics.completionRate===null?'--':dashboardData.analytics.completionRate+'%', 'Completion tracking not stored yet');
+  setCard(testCards[2], dashboardData.analytics.averageTimeMinutes===null?'--':dashboardData.analytics.averageTimeMinutes+' min', 'Timing is not stored yet');
+  setCard(testCards[3], dashboardData.analytics.retakesPerUser===null?'--':String(dashboardData.analytics.retakesPerUser), 'Derived from saved result volume');
+
+  renderBarChart(tc, dashboardData.charts.testsLast7Days||[], (value)=>String(value));
+  renderBarChart(rc, dashboardData.charts.revenueLast7Days||[], (value)=>formatCurrency(value), 'revenue-bar');
+  renderBarChart(sc, dashboardData.charts.scoreDistribution||[], (value)=>String(value));
+
+  if(ageBreakdown){
+    const ageRows = dashboardData.breakdowns.ageGroups || [];
+    ageBreakdown.innerHTML = ageRows.length
+      ? ageRows.map((row)=>`<div class="donut-leg-row"><div class="donut-dot" style="background:${getAgeColor(row.key)}"></div><span>${escapeHtml(AGE_LABELS[row.key]||row.key)} <strong>${row.total}</strong></span></div>`).join('')
+      : 'No age-group data available yet.';
+  }
+
+  if(paymentBreakdown){
+    const paymentRows = dashboardData.breakdowns.paymentMethods || [];
+    paymentBreakdown.innerHTML = paymentRows.length
+      ? paymentRows.map((row,idx)=>`<div class="donut-leg-row"><div class="donut-dot" style="background:${AVATAR_COLORS[idx%AVATAR_COLORS.length]}"></div><span>${escapeHtml(row.label)} <strong>${row.total}</strong></span></div>`).join('')
+      : 'No payment-method data available yet.';
+  }
+
+  if((dashboardData.charts.iqByAge||[]).length){
+    iqEl.innerHTML = dashboardData.charts.iqByAge.map((row,idx)=>{
+      const pct = Math.max(0, Math.min(100, Math.round(((Number(row.averageIq||0)-60)/85)*100)));
+      const color = AVATAR_COLORS[idx%AVATAR_COLORS.length];
+      const label = AGE_LABELS[row.key] || row.key;
+      return `<div class="sub-item"><div class="sub-row"><span class="sub-name">${escapeHtml(label)}</span><span class="sub-score">${row.averageIq}</span></div><div class="sub-bar-bg"><div class="sub-bar-fill" style="width:${pct}%;background:${color}"></div></div></div>`;
+    }).join('');
+  } else {
+    iqEl.innerHTML='<div class="empty-state"><strong>No age-group averages yet.</strong><br/>Average IQ values will appear after results are collected.</div>';
+  }
+
+  tbody.innerHTML=`<tr><th>#</th><th>Name</th><th>Age Group</th><th>IQ Score</th><th>Test Type</th><th>Date</th></tr>`;
+  if((dashboardData.recentUsers||[]).length){
+    tbody.innerHTML += dashboardData.recentUsers.map((user,idx)=>`<tr><td>${idx+1}</td><td style="font-weight:600">${escapeHtml(user.name)}</td><td><span class="td-badge ${getAgeBadge(user.ageGroup)}">${escapeHtml(AGE_LABELS[user.ageGroup]||user.ageGroup||'Unknown')}</span></td><td>${user.iqScore||'—'}</td><td><span class="td-badge ${user.testType==='Paid'?'badge-paid':'badge-free'}">${escapeHtml(user.testType)}</span></td><td>${escapeHtml(formatDateShort(user.createdAt))}</td></tr>`).join('');
+  } else {
+    tbody.innerHTML += `<tr><td colspan="6"><div class="empty-state" style="margin:8px 0">No users available yet.</div></td></tr>`;
+  }
+
+  txnEl.innerHTML=`<tr><th>Txn ID</th><th>User</th><th>Amount</th><th>Method</th><th>Status</th><th>Time</th></tr>`;
+  if((dashboardData.recentTransactions||[]).length){
+    txnEl.innerHTML += dashboardData.recentTransactions.map((txn)=>`<tr><td style="font-size:11px;color:#9aaf9e;font-family:monospace">${escapeHtml(txn.transactionId||'—')}</td><td style="font-weight:600">${escapeHtml(txn.user||'Anonymous User')}</td><td style="font-weight:700;color:#1a7a4a">${formatCurrency(txn.amount||0)}</td><td>${escapeHtml(txn.method||'Unknown')}</td><td><span class="td-badge badge-paid">${escapeHtml(txn.status||'success')}</span></td><td style="color:#9aaf9e">${escapeHtml(formatRelativeTime(txn.createdAt))}</td></tr>`).join('');
+  } else {
+    txnEl.innerHTML += `<tr><td colspan="6"><div class="empty-state" style="margin:8px 0">No transactions available yet.</div></td></tr>`;
+  }
+
+  al.innerHTML = (dashboardData.alerts||[]).length
+    ? dashboardData.alerts.map((alert)=>`<div class="alert-row"><div class="alert-dot" style="background:${alert.color||'#1a7a4a'}"></div><div class="alert-text">${escapeHtml(alert.text||'')}</div><div class="alert-time">${escapeHtml(alert.time||'')}</div></div>`).join('')
+    : '<div class="empty-state">No alerts or activity items are available yet.</div>';
 }
 
 /* ===== HINDI / ENGLISH TOGGLE ===== */

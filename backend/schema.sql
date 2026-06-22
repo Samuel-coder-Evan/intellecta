@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS payments (
   order_id VARCHAR(100) NOT NULL,
   payment_id VARCHAR(100) NOT NULL,
   amount INTEGER NOT NULL,
+  payment_method VARCHAR(50),
   status VARCHAR(20) DEFAULT 'pending',
   created_at TIMESTAMP DEFAULT NOW()
 );
