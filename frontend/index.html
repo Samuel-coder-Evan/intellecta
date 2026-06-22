@@ -713,9 +713,9 @@ tr:hover td{background:rgba(255,255,255,0.03)}
       <p>Enter your admin credentials to access the dashboard</p>
       <input class="admin-input" id="admin-user" placeholder="Username" type="text"/>
       <input class="admin-input" id="admin-pass" placeholder="Password" type="password"/>
-      <div id="admin-err" style="color:#e24b4a;font-size:13px;margin-bottom:10px;display:none">Incorrect credentials. Try admin / admin123</div>
+      <div id="admin-err" style="color:#e24b4a;font-size:13px;margin-bottom:10px;display:none">Incorrect credentials. Try admin / Intellecta!7Qm9Xp2L</div>
       <button class="btn-admin-login" onclick="adminLogin()">Login to Dashboard</button>
-      <p style="font-size:11px;color:#9aaf9e;margin-top:14px">Current credentials: username <strong>admin</strong> · password <strong>admin123</strong></p>
+      <p style="font-size:11px;color:#9aaf9e;margin-top:14px">Current credentials: username <strong>admin</strong> · password <strong>Intellecta!7Qm9Xp2L</strong></p>
     </div>
   </div>
 
@@ -1907,7 +1907,7 @@ function closeAdmin(){
 function adminLogin(){
   const u=document.getElementById('admin-user').value.trim();
   const p=document.getElementById('admin-pass').value.trim();
-  if(u==='admin'&&p==='admin123'){
+  if(u==='admin'&&p==='Intellecta!7Qm9Xp2L'){
     document.getElementById('admin-login-view').style.display='none';
     document.getElementById('admin-dashboard-view').style.display='';
     initAdminCharts();
