@@ -471,14 +471,7 @@ app.get('/api/certificate/:certId', async (req, res) => {
       if (!rows.length) return res.status(404).json({ error: 'Certificate not found' });
       res.json(rows[0]);
     } else {
-      res.json({ 
-        name: 'Test User', 
-        iq_score: 120, 
-        age_group: 'adults', 
-        percentile: 90, 
-        cert_id: req.params.certId, 
-        created_at: new Date().toISOString() 
-      });
+      res.status(503).json({ error: 'Database is not configured' });
     }
   } catch (err) {
     console.error('Certificate error:', err);

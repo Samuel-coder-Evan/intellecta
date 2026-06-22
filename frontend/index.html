@@ -1221,7 +1221,7 @@ function getInitials(name){
 async function saveCurrentResult(nameOverride){
   if(!state.result) return null;
 
-  const resolvedName = (nameOverride || state.savedName || (state.isPaid ? 'Paid User' : 'Anonymous User')).trim();
+  const resolvedName = (nameOverride || state.savedName || 'Anonymous User').trim();
 
   if(state.resultId){
     if(nameOverride && resolvedName !== state.savedName){
