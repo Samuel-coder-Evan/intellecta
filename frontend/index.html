@@ -1906,7 +1906,7 @@ function closeAdmin(){
 function adminLogin(){
   const u=document.getElementById('admin-user').value.trim();
   const p=document.getElementById('admin-pass').value.trim();
-  if(u==='admin'&&p==='Intellecta!7Qm9Xp2L'){
+  if(u==='admin'&&p==='IqPanel7426'){
     document.getElementById('admin-login-view').style.display='none';
     document.getElementById('admin-dashboard-view').style.display='';
     initAdminCharts();
@@ -2483,12 +2483,22 @@ window.addEventListener('load', () => {
   if(splash) splash.style.display='none';
 });
 
-// Service worker
+// Service worker cleanup to prevent stale cached UI
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js?v=2')
-      .then(r=>console.log('Intellecta SW ready'))
-      .catch(e=>console.log('SW skipped (open file directly):',e.message));
+  window.addEventListener('load', async ()=>{
+    try {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map((reg)=>reg.unregister()));
+      if(window.caches){
+        const keys = await caches.keys();
+        await Promise.all(keys
+          .filter((key)=>key.startsWith('intellecta-'))
+          .map((key)=>caches.delete(key)));
+      }
+      console.log('Intellecta cache cleared');
+    } catch (e) {
+      console.log('SW cleanup skipped:', e.message);
+    }
   });
 }
 

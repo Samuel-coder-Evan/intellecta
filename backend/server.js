@@ -17,6 +17,22 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({ origin: process.env.ALLOWED_ORIGIN || '*' }));
 app.use(express.json());
 
+// Avoid stale app shell/service worker caching during active development.
+app.use((req, res, next) => {
+  if (
+    req.path === '/' ||
+    req.path.endsWith('.html') ||
+    req.path === '/sw.js' ||
+    req.path === '/manifest.json'
+  ) {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Surrogate-Control', 'no-store');
+  }
+  next();
+});
+
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, '../frontend')));
 // Serve PWA static files
