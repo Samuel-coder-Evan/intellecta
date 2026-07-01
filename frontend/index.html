@@ -42,8 +42,13 @@ input{font-family:'DM Sans',sans-serif}
     width: inherit;
 }
 /* PWA SAFE AREA (iPhone notch/home bar) */
-body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+body{padding-top:env(safe-area-inset-top);padding-bottom:calc(88px + env(safe-area-inset-bottom))}
 .header{padding-top:env(safe-area-inset-top);height:calc(60px + env(safe-area-inset-top))}
+
+.audio-dock{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(420px,calc(100% - 24px));background:rgba(11,19,32,0.88);border:1px solid var(--border);border-radius:14px;padding:6px 8px;backdrop-filter:blur(16px);box-shadow:0 12px 28px rgba(0,0,0,0.34);z-index:650}
+.audio-dock-label{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;text-align:center;letter-spacing:0.04em}
+.audio-dock audio{width:100%;height:34px;display:block;filter:hue-rotate(-10deg) saturate(1.1)}
+@media(max-width:500px){.audio-dock{width:calc(100% - 20px);bottom:calc(8px + env(safe-area-inset-bottom));padding:6px 8px}.audio-dock-label{font-size:10px;margin-bottom:3px}.audio-dock audio{height:32px}}
 
 /* PWA INSTALL BANNER */
 .pwa-banner{position:fixed;bottom:0;left:0;right:0;background:#0e4428;color:#fff;padding:14px 20px calc(14px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;z-index:500;transform:translateY(100%);transition:transform 0.4s cubic-bezier(.32,.72,0,1);box-shadow:0 -4px 24px rgba(0,0,0,0.2)}
@@ -116,8 +121,12 @@ body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bot
 .plans.show{display:grid}
 .plan-card{background:linear-gradient(180deg,var(--surface),var(--surface2));border:2px solid var(--border);border-radius:20px;padding:20px;box-shadow:0 16px 32px rgba(0,0,0,0.30)}
 .plan-free-label{font-size:12px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px}
-.plan-price{font-size:28px;font-weight:700;color:var(--text);margin-bottom:4px}
-.plan-price span{font-size:13px;font-weight:400;opacity:0.6}
+.plan-price{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
+.plan-price-old{font-size:14px;font-weight:700;color:rgba(255,255,255,0.72);text-decoration:line-through;text-decoration-thickness:2px}
+.plan-price-main{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.plan-price-current{font-size:28px;font-weight:800;color:var(--text);line-height:1}
+.plan-price-unit{font-size:13px;font-weight:500;opacity:0.8}
+.plan-price-offer{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,0.18);font-size:11px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;color:#fff}
 .plan-list{font-size:13px;color:var(--muted);margin:0 0 16px;padding-left:18px;line-height:2.1}
 .btn-free{width:100%;padding:12px 0;background:linear-gradient(135deg,#fff6c5,#ffe2a7);border:1.5px solid #f1da89;border-radius:12px;color:#805300;font-weight:700;font-size:14px}
 .btn-free:hover{background:linear-gradient(135deg,#fff2ae,#ffd98c)}
@@ -125,7 +134,7 @@ body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bot
 .plan-paid::before{content:'';position:absolute;top:-24px;right:-18px;width:96px;height:96px;background:rgba(255,255,255,0.14);border-radius:50%}
 .plan-paid::after{content:'';position:absolute;bottom:-32px;left:-10px;width:110px;height:110px;background:rgba(255,216,94,0.14);border-radius:50%}
 .plan-paid .plan-free-label{color:rgba(255,255,255,0.7)}
-.plan-paid .plan-price{color:#fff}
+.plan-paid .plan-price-current,.plan-paid .plan-price-unit,.plan-paid .plan-price-old{color:#fff}
 .plan-paid .plan-list{color:rgba(255,255,255,0.85)}
 .btn-paid{width:100%;padding:12px 0;background:rgba(255,255,255,0.95);border:none;border-radius:12px;color:#083725;font-weight:800;font-size:14px;box-shadow:0 10px 22px rgba(0,0,0,0.26)}
 .btn-paid:hover{background:#fff}
@@ -514,7 +523,13 @@ tr:hover td{background:rgba(255,255,255,0.03)}
     </div>
     <div class="plan-card plan-paid">
       <div class="plan-free-label" id="plan-paid-label">Full test</div>
-      <div class="plan-price" id="plan-paid-price">₹99 <span id="plan-paid-unit">one-time</span></div>
+      <div class="plan-price" id="plan-paid-price">
+        <div class="plan-price-old" id="plan-paid-old">199/-</div>
+        <div class="plan-price-main">
+          <span class="plan-price-current" id="plan-paid-current">99/-</span>
+          <span class="plan-price-unit" id="plan-paid-unit">Launch Offer</span>
+        </div>
+      </div>
       <ul class="plan-list"><li id="plan-paid-q">40 questions</li><li id="plan-paid-t">~40 minutes</li><li id="plan-paid-sc">Full IQ + sub-scores</li><li id="plan-paid-cert">PDF Certificate ✨</li></ul>
       <button class="btn-paid" id="plan-paid-btn" onclick="openPayment()">Start full test</button>
     </div>
@@ -1001,6 +1016,13 @@ tr:hover td{background:rgba(255,255,255,0.03)}
   </div>
 </div>
 
+<div class="audio-dock">
+  <div class="audio-dock-label">Music</div>
+  <audio id="bg-audio" controls autoplay loop preload="auto" playsinline webkit-playsinline="true">
+    <source src="Scott Buckley - Undertow.mp3" type="audio/mpeg"/>
+  </audio>
+</div>
+
 <script>
 const QUESTIONS = {
   kids:[
@@ -1317,6 +1339,7 @@ function showScreen(id){
 }
 
 function selectAge(ag, el){
+  playButtonSound();
   state.ageGroup = ag;
   document.querySelectorAll('.age-card').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
@@ -1378,6 +1401,7 @@ function handleAnswer(idx){
   if(state.selected !== null) return;
   state.selected = idx;
   const q = state.questions[state.current];
+  playOptionSound(idx === q.a);
   const btns = document.querySelectorAll('.opt-btn');
   btns.forEach(b=>b.disabled=true);
   btns[q.a].classList.add('correct');
@@ -2077,7 +2101,7 @@ const LANG={
     freeLabel:'Free test',freePrice:'₹0',
     freeQ:'10 questions',freeT:'~10 minutes',freeSc:'Basic IQ score',freeCert:'No certificate',
     freeBtn:'Start free test',
-    paidLabel:'Full test',paidPrice:'₹99',paidUnit:'one-time',
+    paidLabel:'Full test',paidOldPrice:'199/-',paidPrice:'99/-',paidUnit:'Launch Offer',
     paidQ:'40 questions',paidT:'~40 minutes',paidSc:'Full IQ + sub-scores',paidCert:'PDF Certificate ✨',
     paidBtn:'Start full test',
     timerLbl:'TIME LEFT',
@@ -2130,7 +2154,7 @@ const LANG={
     freeLabel:'निःशुल्क परीक्षण',freePrice:'₹0',
     freeQ:'10 प्रश्न',freeT:'~10 मिनट',freeSc:'बुनियादी IQ स्कोर',freeCert:'प्रमाणपत्र नहीं',
     freeBtn:'निःशुल्क परीक्षण शुरू करें',
-    paidLabel:'पूर्ण परीक्षण',paidPrice:'₹99',paidUnit:'एक बार',
+    paidLabel:'पूर्ण परीक्षण',paidOldPrice:'199/-',paidPrice:'99/-',paidUnit:'लॉन्च ऑफर',
     paidQ:'40 प्रश्न',paidT:'~40 मिनट',paidSc:'पूर्ण IQ + उप-स्कोर',paidCert:'PDF प्रमाणपत्र ✨',
     paidBtn:'पूर्ण परीक्षण शुरू करें',
     timerLbl:'शेष समय',
@@ -2183,7 +2207,7 @@ const LANG={
     freeLabel:'இலவச தேர்வு',freePrice:'₹0',
     freeQ:'10 கேள்விகள்',freeT:'~10 நிமிடங்கள்',freeSc:'அடிப்படை IQ மதிப்பெண்',freeCert:'சான்றிதழ் இல்லை',
     freeBtn:'இலவச தேர்வை தொடங்கு',
-    paidLabel:'முழு தேர்வு',paidPrice:'₹99',paidUnit:'ஒரு முறை',
+    paidLabel:'முழு தேர்வு',paidOldPrice:'199/-',paidPrice:'99/-',paidUnit:'லாஞ்ச் ஆஃபர்',
     paidQ:'40 கேள்விகள்',paidT:'~40 நிமிடங்கள்',paidSc:'முழு IQ + உப-மதிப்பெண்கள்',paidCert:'PDF சான்றிதழ் ✨',
     paidBtn:'முழு தேர்வை தொடங்கு',
     timerLbl:'மீதமுள்ள நேரம்',
@@ -2260,7 +2284,7 @@ function applyLang(){
   setTxt('plan-free-q',L('freeQ')); setTxt('plan-free-t',L('freeT'));
   setTxt('plan-free-sc',L('freeSc')); setTxt('plan-free-cert',L('freeCert'));
   setTxt('plan-free-btn',L('freeBtn'));
-  setTxt('plan-paid-label',L('paidLabel')); setTxt('plan-paid-price',L('paidPrice'));
+  setTxt('plan-paid-label',L('paidLabel')); setTxt('plan-paid-old',L('paidOldPrice')); setTxt('plan-paid-current',L('paidPrice'));
   setTxt('plan-paid-unit',L('paidUnit'));
   setTxt('plan-paid-q',L('paidQ')); setTxt('plan-paid-t',L('paidT'));
   setTxt('plan-paid-sc',L('paidSc')); setTxt('plan-paid-cert',L('paidCert'));
@@ -2477,10 +2501,115 @@ function downloadKidsCertApp(){
   a.click();
 }
 
+function initBackgroundAudio(){
+  const audio = document.getElementById('bg-audio');
+  if(!audio) return;
+  audio.volume = 0.35;
+  audio.autoplay = true;
+  audio.playsInline = true;
+  audio.setAttribute('playsinline','');
+  audio.setAttribute('webkit-playsinline','true');
+
+  const tryPlay = () => {
+    audio.load();
+    const playAttempt = audio.play();
+    if(playAttempt && typeof playAttempt.catch === 'function'){
+      playAttempt.catch(()=>{});
+    }
+  };
+
+  tryPlay();
+  setTimeout(()=>{
+    if(audio.paused){
+      tryPlay();
+    }
+  },2000);
+
+  const unlockAudio = () => {
+    tryPlay();
+    document.removeEventListener('click', unlockAudio);
+    document.removeEventListener('touchstart', unlockAudio);
+    document.removeEventListener('keydown', unlockAudio);
+  };
+
+  document.addEventListener('click', unlockAudio, { passive:true });
+  document.addEventListener('touchstart', unlockAudio, { passive:true });
+  document.addEventListener('keydown', unlockAudio);
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState === 'visible' && audio.paused){
+      tryPlay();
+    }
+  });
+  audio.addEventListener('canplay', tryPlay, { once:true });
+}
+
+let buttonSoundCtx = null;
+function playButtonSound(){
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if(!AudioCtx) return;
+  if(!buttonSoundCtx) buttonSoundCtx = new AudioCtx();
+  if(buttonSoundCtx.state === 'suspended'){
+    buttonSoundCtx.resume().catch(()=>{});
+  }
+
+  const osc = buttonSoundCtx.createOscillator();
+  const gain = buttonSoundCtx.createGain();
+  const now = buttonSoundCtx.currentTime;
+
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(680, now);
+  osc.frequency.exponentialRampToValueAtTime(920, now + 0.06);
+
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.045, now + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+
+  osc.connect(gain);
+  gain.connect(buttonSoundCtx.destination);
+  osc.start(now);
+  osc.stop(now + 0.1);
+}
+
+function playOptionSound(isCorrect){
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if(!AudioCtx) return;
+  if(!buttonSoundCtx) buttonSoundCtx = new AudioCtx();
+  if(buttonSoundCtx.state === 'suspended'){
+    buttonSoundCtx.resume().catch(()=>{});
+  }
+
+  const osc = buttonSoundCtx.createOscillator();
+  const gain = buttonSoundCtx.createGain();
+  const now = buttonSoundCtx.currentTime;
+
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(isCorrect ? 720 : 420, now);
+  osc.frequency.exponentialRampToValueAtTime(isCorrect ? 980 : 320, now + 0.12);
+
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.05, now + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+
+  osc.connect(gain);
+  gain.connect(buttonSoundCtx.destination);
+  osc.start(now);
+  osc.stop(now + 0.17);
+}
+
+function initButtonSounds(){
+  document.addEventListener('click', (event)=>{
+    const btn = event.target.closest('button');
+    if(!btn || btn.disabled) return;
+    playButtonSound();
+  });
+}
+
 // Splash screen hide - fixed
 window.addEventListener('load', () => {
   const splash = document.getElementById('pwa-splash');
   if(splash) splash.style.display='none';
+  initBackgroundAudio();
+  initButtonSounds();
 });
 
 // Service worker cleanup to prevent stale cached UI
